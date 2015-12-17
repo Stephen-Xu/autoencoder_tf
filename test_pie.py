@@ -10,23 +10,25 @@ data = data/np.max(data)
 
 int_dim = 100
 
-bat = batch.seq_batch(data,2500)
+bat = batch.seq_batch(data,200)
 
 #units = [data.shape[1],int(math.ceil(data.shape[1]*1.2))+5,int(max(math.ceil(data.shape[1]/4),int_dim+2)+3),
 #         int(max(math.ceil(data.shape[1]/10),int_dim+1)),int_dim]
 
-units = [5600,100]
+units = [5600,2000,200,100]
 
-act = ['sigmoid']
+act = ['sigmoid','sigmoid','sigmoid']
 #act = ['relu','relu','relu','relu']
 auto = autoencoder.autoencoder(units,act)
 
 auto.generate_encoder()
 auto.generate_decoder()
 
+auto.pre_train(data,n_iters=2000)
+
 session = auto.init_network()
 
-auto.train(data,batch=bat,le=False,tau=1.0,session=session,n_iters=2000,display=False,noise=True,noise_level=0.015,noise_iter=20)
+auto.train(data,batch=bat,le=False,tau=1.0,session=session,n_iters=2000,display=False,noise=False,noise_level=0.015)
 
 
 mid = auto.get_hidden(data,session=session)

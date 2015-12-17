@@ -1,0 +1,116 @@
+I tensorflow/core/common_runtime/local_device.cc:25] Local device intra op parallelism threads: 24
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:888] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:88] Found device 0 with properties: 
+name: GeForce GTX 980
+major: 5 minor: 2 memoryClockRate (GHz) 1.2155
+pciBusID 0000:81:00.0
+Total memory: 4.00GiB
+Free memory: 3.91GiB
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:112] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:122] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:643] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_region_allocator.cc:47] Setting region size to 3884068864
+I tensorflow/core/common_runtime/local_session.cc:45] Local session inter op parallelism threads: 24
+Pretraining layer 1: 
+cost  0.299617  at iter  0
+Best model found so far at iter: 1 with cost 0.299617
+cost  0.286929  at iter  1
+Best model found so far at iter: 2 with cost 0.286929
+cost  0.267745  at iter  2
+Best model found so far at iter: 3 with cost 0.267745
+cost  0.257604  at iter  3
+Best model found so far at iter: 4 with cost 0.257604
+cost  0.253399  at iter  4
+Best model found so far at iter: 5 with cost 0.253399
+cost  0.251154  at iter  5
+Best model found so far at iter: 6 with cost 0.251154
+cost  0.249772  at iter  6
+Best model found so far at iter: 7 with cost 0.249772
+cost  0.249092  at iter  7
+Best model found so far at iter: 8 with cost 0.249092
+cost  0.248563  at iter  8
+Best model found so far at iter: 9 with cost 0.248563
+cost  0.248311  at iter  9
+Best model found so far at iter: 10 with cost 0.248311
+cost  0.247934  at iter  10
+Best model found so far at iter: 11 with cost 0.247934
+cost  0.247633  at iter  11
+Best model found so far at iter: 12 with cost 0.247633
+cost  0.247471  at iter  12
+Best model found so far at iter: 13 with cost 0.247471
+cost  0.24724  at iter  13
+Best model found so far at iter: 14 with cost 0.247240
+cost  0.247124  at iter  14
+Best model found so far at iter: 15 with cost 0.247124
+cost  0.247013  at iter  15
+Best model found so far at iter: 16 with cost 0.247013
+cost  0.246799  at iter  16
+Best model found so far at iter: 17 with cost 0.246799
+cost  0.246738  at iter  17
+Best model found so far at iter: 18 with cost 0.246738
+cost  0.246592  at iter  18
+Best model found so far at iter: 19 with cost 0.246592
+cost  0.246419  at iter  19
+Best model found so far at iter: 20 with cost 0.246419
+cost  0.246314  at iter  20
+Best model found so far at iter: 21 with cost 0.246314
+cost  0.246183  at iter  21
+Best model found so far at iter: 22 with cost 0.246183
+cost  0.246069  at iter  22
+Best model found so far at iter: 23 with cost 0.246069
+cost  0.245919  at iter  23
+Best model found so far at iter: 24 with cost 0.245919
+cost  0.245791  at iter  24
+Best model found so far at iter: 25 with cost 0.245791
+cost  0.245688  at iter  25
+Best model found so far at iter: 26 with cost 0.245688
+cost  0.245672  at iter  26
+Best model found so far at iter: 27 with cost 0.245672
+cost  0.245603  at iter  27
+Best model found so far at iter: 28 with cost 0.245603
+cost  0.245543  at iter  28
+Best model found so far at iter: 29 with cost 0.245543
+cost  0.245446  at iter  29
+Best model found so far at iter: 30 with cost 0.245446
+cost  0.245385  at iter  30
+Best model found so far at iter: 31 with cost 0.245385
+cost  0.245332  at iter  31
+Best model found so far at iter: 32 with cost 0.245332
+cost  0.245266  at iter  32
+Best model found so far at iter: 33 with cost 0.245266
+cost  0.245257  at iter  33
+Best model found so far at iter: 34 with cost 0.245257
+cost  0.245168  at iter  34
+Best model found so far at iter: 35 with cost 0.245168
+cost  0.245146  at iter  35
+Best model found so far at iter: 36 with cost 0.245146
+cost  0.245113  at iter  36
+Best model found so far at iter: 37 with cost 0.245113
+cost  0.245099  at iter  37
+Best model found so far at iter: 38 with cost 0.245099
+cost  0.245097  at iter  38
+Best model found so far at iter: 39 with cost 0.245097
+cost  0.245039  at iter  39
+Best model found so far at iter: 40 with cost 0.245039
+cost  0.245075  at iter  40
+cost  0.244981  at iter  41
+Best model found so far at iter: 42 with cost 0.244981
+cost  0.244931  at iter  42
+Best model found so far at iter: 43 with cost 0.244931
+cost  0.24497  at iter  43
+cost  0.244871  at iter  44
+Best model found so far at iter: 45 with cost 0.244871
+cost  0.24486  at iter  45
+Best model found so far at iter: 46 with cost 0.244860
+cost  0.244904  at iter  46
+cost  0.244808  at iter  47
+Best model found so far at iter: 48 with cost 0.244808
+cost  0.244791  at iter  48
+Best model found so far at iter: 49 with cost 0.244791
+cost  0.244841  at iter  49
+cost  0.244865  at iter  50
+cost  0.244922  at iter  51
+cost  0.244916  at iter  52
+cost  0.244825  at iter  53
+cost  0.244834  at iter  54
+cost  0.244867  at iter  5
