@@ -18,7 +18,6 @@ class autoencoder(object):
         self.session = None
         self.full_connected = False
         
-        
     def __enter__(self):
         return self
     
@@ -70,6 +69,8 @@ class autoencoder(object):
     
      
     def enc_output(self,x,lev=None):
+        assert len(self.layers)!=0, 'Before training you must generate encoder and decoder'
+
         if lev is None:
             lev = 0
         if(lev==self.enc_length-1):
@@ -79,6 +80,7 @@ class autoencoder(object):
             
         
     def output(self,x,lev=None):
+        assert len(self.layers)!=0, 'Before training you must generate encoder and decoder'
         if lev is None:
             lev = 0
         if(lev==self.dec_enc_length-1):
@@ -87,16 +89,7 @@ class autoencoder(object):
             return self.output(self.layers[lev].output(x),lev+1)   
         
 
-    def save_model(self,name="model.dat",session=None,saver=None):
-        
-            if(saver is None):
-                saver = tf.train.Saver()
-            if(session is None):
-                init = tf.initialize_all_variables()
-                session = tf.Session()
-                session.run(init)
-                
-            saver.save(session,name)
+   
            
           
             
@@ -143,16 +136,16 @@ class autoencoder(object):
 
                 temp_session = temp.init_network()
                 
-                print 'Pretraining layer %d: '%(i+1)
+                print 'Pretraining layer %d: '%(i+1),'...'
                 if(i==0):
-                    temp.train(data,batch=None,display=False,saving=False,noise=False,n_iters=n_iters) 
+                    ic,bc = temp.train(data,batch=None,display=False,verbose=False,noise=False,n_iters=n_iters) 
                     old = temp_session.run(temp.enc_output(data))
                     params.extend([temp_session.run(temp.layers[0].W),temp_session.run(temp.layers[0].b),temp_session.run(temp.layers[1].W),temp_session.run(temp.layers[1].b)])
                 else:
-                    temp.train(old,batch=None,display=False,saving=False,noise=False,n_iters=n_iters)
+                    ic,bc = temp.train(old,batch=None,display=False,verbose=False,noise=False,n_iters=n_iters)
                     params.extend([temp_session.run(temp.layers[0].W),temp_session.run(temp.layers[0].b),temp_session.run(temp.layers[1].W),temp_session.run(temp.layers[1].b)])
                     old = temp_session.run(temp.enc_output(old))
-        
+                print '...finshed initial cost: ',ic,' final: ',bc
         
         units = self.units
         rev_units = units[::-1]
@@ -175,7 +168,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,le=False,tau=1.0,session=None,n_iters=1000,display=False,saving=True,noise=False,noise_level=1.0):
+    def train(self,data,batch,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -191,8 +184,7 @@ class autoencoder(object):
             plt.axis([0, 1, 0, 1])
             plt.ion()
             plt.show()
-        if(saving):
-            self.save_model(session=self.session)
+        
     
         best = 20000000
         reg_lambda = 0.015
@@ -233,7 +225,14 @@ class autoencoder(object):
         
         self.session.run(tf.initialize_all_variables())
         
+        writer = tf.python.training.summary_io.SummaryWriter("/home/ceru/Scrivania/graph_logs", self.session.graph_def)
+
+
         #print session.run(self.layers[0].W)
+        
+        saver = tf.train.Saver()
+        
+        saver.save(self.session,"./model.ckpt")
         
         for i in range(n_iters):
         
@@ -247,12 +246,14 @@ class autoencoder(object):
                        
             #print self.session.run(test[0],feed_dict={x:data})
             c=self.session.run(cost,feed_dict={x:data})
-           
+            if(i==0):
+                init_cost = c
             import numpy as np
             if(np.isnan(c)):
-                self.load_model("model.dat",session=self.session)
+                saver.restore(self.session, "./model.ckpt")
                 break
-            print "cost ",c," at iter ",i
+            if(verbose):
+                print "cost ",c," at iter ",i+1
             if(c<best):
                 if(display):
                     ridotti = self.session.run(y,feed_dict={x:data})
@@ -260,13 +261,16 @@ class autoencoder(object):
                     plt.clf()
                     plt.scatter(ridotti[:,0],ridotti[:,1])
                     plt.draw()
-                if(saving):
-                    self.save_model(session=self.session)
-                print "Best model found so far at iter: %d"%(i+1),"with cost %f"%c
+                saver.save(self.session,"./model.ckpt")
+                    #self.save_model(session=self.session)
+                if(verbose):
+                    print "Best model found so far at iter: %d"%(i+1),"with cost %f"%c
                 best = c
        
-        if(saving):
-            self.load_model("model.dat",session=self.session)
+        #if(saving):
+            #self.load_model("model.dat",session=self.session)
+        saver.restore(self.session, "./model.ckpt")
+        return init_cost,best
         
     def get_hidden(self,data,session=None):
         if((session is None) and (self.session is None)):
@@ -348,7 +352,7 @@ if __name__ == '__main__':
     #print ts.run(test.layers[0].W)
     
     
-    test.pre_train(data,n_iters=1000)
+    test.pre_train(data,n_iters=2000)
     
     test.train(data,batch=ba,display=True,n_iters=1000,noise=False,noise_level=0.25)
     
