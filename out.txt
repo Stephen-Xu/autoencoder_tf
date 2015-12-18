@@ -1,260 +1,2854 @@
-I tensorflow/core/common_runtime/local_device.cc:25] Local device intra op parallelism threads: 24
-I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:888] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-I tensorflow/core/common_runtime/gpu/gpu_init.cc:88] Found device 0 with properties: 
+I tensorflow/stream_executor/dso_loader.cc:101] successfully opened CUDA library libcublas.so.7.0 locally
+I tensorflow/stream_executor/dso_loader.cc:101] successfully opened CUDA library libcudnn.so.6.5 locally
+I tensorflow/stream_executor/dso_loader.cc:101] successfully opened CUDA library libcufft.so.7.0 locally
+I tensorflow/stream_executor/dso_loader.cc:101] successfully opened CUDA library libcuda.so locally
+I tensorflow/stream_executor/dso_loader.cc:101] successfully opened CUDA library libcurand.so.7.0 locally
+I tensorflow/core/common_runtime/local_device.cc:40] Local device intra op parallelism threads: 24
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:909] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:103] Found device 0 with properties: 
 name: GeForce GTX 980
 major: 5 minor: 2 memoryClockRate (GHz) 1.2155
 pciBusID 0000:81:00.0
 Total memory: 4.00GiB
 Free memory: 3.91GiB
-I tensorflow/core/common_runtime/gpu/gpu_init.cc:112] DMA: 0 
-I tensorflow/core/common_runtime/gpu/gpu_init.cc:122] 0:   Y 
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:643] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
-I tensorflow/core/common_runtime/gpu/gpu_region_allocator.cc:47] Setting region size to 3884068864
-I tensorflow/core/common_runtime/local_session.cc:45] Local session inter op parallelism threads: 24
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:127] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:137] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:42] Allocating 3.62GiB bytes.
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:52] GPU 0 memory begins at 0x1304980000 extends to 0x13ec1a3000
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 1.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 2.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 4.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 8.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 16.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 32.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 64.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 128.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 256.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 512.0KiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 1.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 2.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 4.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 8.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 16.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 32.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 64.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 128.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 256.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 512.00MiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 1.00GiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 2.00GiB
+I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 4.00GiB
+I tensorflow/core/common_runtime/direct_session.cc:58] Direct session inter op parallelism threads: 24
 Pretraining layer 1: 
-cost  0.299617  at iter  0
-Best model found so far at iter: 1 with cost 0.299617
-cost  0.286929  at iter  1
-Best model found so far at iter: 2 with cost 0.286929
-cost  0.267745  at iter  2
-Best model found so far at iter: 3 with cost 0.267745
-cost  0.257604  at iter  3
-Best model found so far at iter: 4 with cost 0.257604
-cost  0.253399  at iter  4
-Best model found so far at iter: 5 with cost 0.253399
-cost  0.251154  at iter  5
-Best model found so far at iter: 6 with cost 0.251154
-cost  0.249772  at iter  6
-Best model found so far at iter: 7 with cost 0.249772
-cost  0.249092  at iter  7
-Best model found so far at iter: 8 with cost 0.249092
-cost  0.248563  at iter  8
-Best model found so far at iter: 9 with cost 0.248563
-cost  0.248311  at iter  9
-Best model found so far at iter: 10 with cost 0.248311
-cost  0.247934  at iter  10
-Best model found so far at iter: 11 with cost 0.247934
-cost  0.247633  at iter  11
-Best model found so far at iter: 12 with cost 0.247633
-cost  0.247471  at iter  12
-Best model found so far at iter: 13 with cost 0.247471
-cost  0.24724  at iter  13
-Best model found so far at iter: 14 with cost 0.247240
-cost  0.247124  at iter  14
-Best model found so far at iter: 15 with cost 0.247124
-cost  0.247013  at iter  15
-Best model found so far at iter: 16 with cost 0.247013
-cost  0.246799  at iter  16
-Best model found so far at iter: 17 with cost 0.246799
-cost  0.246738  at iter  17
-Best model found so far at iter: 18 with cost 0.246738
-cost  0.246592  at iter  18
-Best model found so far at iter: 19 with cost 0.246592
-cost  0.246419  at iter  19
-Best model found so far at iter: 20 with cost 0.246419
-cost  0.246314  at iter  20
-Best model found so far at iter: 21 with cost 0.246314
-cost  0.246183  at iter  21
-Best model found so far at iter: 22 with cost 0.246183
-cost  0.246069  at iter  22
-Best model found so far at iter: 23 with cost 0.246069
-cost  0.245919  at iter  23
-Best model found so far at iter: 24 with cost 0.245919
-cost  0.245791  at iter  24
-Best model found so far at iter: 25 with cost 0.245791
-cost  0.245688  at iter  25
-Best model found so far at iter: 26 with cost 0.245688
-cost  0.245672  at iter  26
-Best model found so far at iter: 27 with cost 0.245672
-cost  0.245603  at iter  27
-Best model found so far at iter: 28 with cost 0.245603
-cost  0.245543  at iter  28
-Best model found so far at iter: 29 with cost 0.245543
-cost  0.245446  at iter  29
-Best model found so far at iter: 30 with cost 0.245446
-cost  0.245385  at iter  30
-Best model found so far at iter: 31 with cost 0.245385
-cost  0.245332  at iter  31
-Best model found so far at iter: 32 with cost 0.245332
-cost  0.245266  at iter  32
-Best model found so far at iter: 33 with cost 0.245266
-cost  0.245257  at iter  33
-Best model found so far at iter: 34 with cost 0.245257
-cost  0.245168  at iter  34
-Best model found so far at iter: 35 with cost 0.245168
-cost  0.245146  at iter  35
-Best model found so far at iter: 36 with cost 0.245146
-cost  0.245113  at iter  36
-Best model found so far at iter: 37 with cost 0.245113
-cost  0.245099  at iter  37
-Best model found so far at iter: 38 with cost 0.245099
-cost  0.245097  at iter  38
-Best model found so far at iter: 39 with cost 0.245097
-cost  0.245039  at iter  39
-Best model found so far at iter: 40 with cost 0.245039
-cost  0.245075  at iter  40
-cost  0.244981  at iter  41
-Best model found so far at iter: 42 with cost 0.244981
-cost  0.244931  at iter  42
-Best model found so far at iter: 43 with cost 0.244931
-cost  0.24497  at iter  43
-cost  0.244871  at iter  44
-Best model found so far at iter: 45 with cost 0.244871
-cost  0.24486  at iter  45
-Best model found so far at iter: 46 with cost 0.244860
-cost  0.244904  at iter  46
-cost  0.244808  at iter  47
-Best model found so far at iter: 48 with cost 0.244808
-cost  0.244791  at iter  48
-Best model found so far at iter: 49 with cost 0.244791
-cost  0.244841  at iter  49
-cost  0.244865  at iter  50
-cost  0.244922  at iter  51
-cost  0.244916  at iter  52
-cost  0.244825  at iter  53
-cost  0.244834  at iter  54
-cost  0.244867  at iter  55
-cost  0.244892  at iter  56
-cost  0.244827  at iter  57
-cost  0.244944  at iter  58
-cost  0.245032  at iter  59
-cost  0.244928  at iter  60
-cost  0.245039  at iter  61
-cost  0.24513  at iter  62
-cost  0.245063  at iter  63
-cost  0.245087  at iter  64
-cost  0.245092  at iter  65
-cost  0.24506  at iter  66
-cost  0.245026  at iter  67
-cost  0.244989  at iter  68
-cost  0.244982  at iter  69
-cost  0.245005  at iter  70
-cost  0.244971  at iter  71
-cost  0.24499  at iter  72
-cost  0.244978  at iter  73
-cost  0.245086  at iter  74
-cost  0.245012  at iter  75
-cost  0.24507  at iter  76
-cost  0.245058  at iter  77
-cost  0.245098  at iter  78
-cost  0.245054  at iter  79
-cost  0.244991  at iter  80
-cost  0.245034  at iter  81
-cost  0.245074  at iter  82
-cost  0.245031  at iter  83
-cost  0.245146  at iter  84
-cost  0.245291  at iter  85
-cost  0.245284  at iter  86
-cost  0.245245  at iter  87
-cost  0.245198  at iter  88
-cost  0.245233  at iter  89
-cost  0.245302  at iter  90
-cost  0.245282  at iter  91
-cost  0.245333  at iter  92
-cost  0.245331  at iter  93
-cost  0.2453  at iter  94
-cost  0.245256  at iter  95
-cost  0.245257  at iter  96
-cost  0.245235  at iter  97
-cost  0.245208  at iter  98
-cost  0.245211  at iter  99
-cost  0.24528  at iter  100
-cost  0.245237  at iter  101
-cost  0.245263  at iter  102
-cost  0.245297  at iter  103
-cost  0.245378  at iter  104
-cost  0.245326  at iter  105
-cost  0.245363  at iter  106
-cost  0.245394  at iter  107
-cost  0.245382  at iter  108
-cost  0.245328  at iter  109
-cost  0.245306  at iter  110
-cost  0.245354  at iter  111
-cost  0.245376  at iter  112
-cost  0.24533  at iter  113
-cost  0.245462  at iter  114
-cost  0.245386  at iter  115
-cost  0.245345  at iter  116
-cost  0.245421  at iter  117
-cost  0.245422  at iter  118
-cost  0.245395  at iter  119
-cost  0.245522  at iter  120
-cost  0.245483  at iter  121
-cost  0.245559  at iter  122
-cost  0.245589  at iter  123
-cost  0.245579  at iter  124
-cost  0.245602  at iter  125
-cost  0.245605  at iter  126
-cost  0.245568  at iter  127
-cost  0.245704  at iter  128
-cost  0.24574  at iter  129
-cost  0.245701  at iter  130
-cost  0.245726  at iter  131
-cost  0.245726  at iter  132
-cost  0.245722  at iter  133
-cost  0.245705  at iter  134
-cost  0.245731  at iter  135
-cost  0.245663  at iter  136
-cost  0.245712  at iter  137
-cost  0.245644  at iter  138
-cost  0.245616  at iter  139
-cost  0.245642  at iter  140
-cost  0.245528  at iter  141
-cost  0.245617  at iter  142
-cost  0.24566  at iter  143
-cost  0.245637  at iter  144
-cost  0.245722  at iter  145
-cost  0.245795  at iter  146
-cost  0.245819  at iter  147
-cost  0.245684  at iter  148
-cost  0.245683  at iter  149
-cost  0.245793  at iter  150
-cost  0.245896  at iter  151
-cost  0.245945  at iter  152
-cost  0.245941  at iter  153
-cost  0.245849  at iter  154
-cost  0.245901  at iter  155
-cost  0.245815  at iter  156
-cost  0.245792  at iter  157
-cost  0.245896  at iter  158
-cost  0.245939  at iter  159
-cost  0.245896  at iter  160
-cost  0.245944  at iter  161
-cost  0.24583  at iter  162
-cost  0.245893  at iter  163
-cost  0.245942  at iter  164
-cost  0.245889  at iter  165
-cost  0.245916  at iter  166
-cost  0.245955  at iter  167
-cost  0.245994  at iter  168
-cost  0.245923  at iter  169
-cost  0.245902  at iter  170
-cost  0.246004  at iter  171
-cost  0.24593  at iter  172
-cost  0.245856  at iter  173
-cost  0.245907  at iter  174
-cost  0.24594  at iter  175
-cost  0.245885  at iter  176
-cost  0.245867  at iter  177
-cost  0.245981  at iter  178
-cost  0.245943  at iter  179
-cost  0.245991  at iter  180
-cost  0.246047  at iter  181
-cost  0.246138  at iter  182
-cost  0.246065  at iter  183
-cost  0.246129  at iter  184
-cost  0.246046  at iter  185
-cost  0.246051  at iter  186
-cost  0.246045  at iter  187
-cost  0.246016  at iter  188
-cost  0.2461  at iter  189
-cost  0.246051  at iter  190
-cost  0.246095  at iter  191
-cost  0.246175  at iter  192
-cost  0.24629  at iter  193
-cost  0.246233  at iter  194
-cost  0.246302  at iter  195
-cost  0.246276  at iter  196
-cost  0.246355  at iter  197
-cost  0.246362  at iter  198
-cost  0
+cost  0.312342  at iter  0
+Best model found so far at iter: 1 with cost 0.312342
+cost  0.309557  at iter  1
+Best model found so far at iter: 2 with cost 0.309557
+cost  0.306761  at iter  2
+Best model found so far at iter: 3 with cost 0.306761
+cost  0.303976  at iter  3
+Best model found so far at iter: 4 with cost 0.303976
+cost  0.301282  at iter  4
+Best model found so far at iter: 5 with cost 0.301282
+cost  0.298611  at iter  5
+Best model found so far at iter: 6 with cost 0.298611
+cost  0.296041  at iter  6
+Best model found so far at iter: 7 with cost 0.296041
+cost  0.293538  at iter  7
+Best model found so far at iter: 8 with cost 0.293538
+cost  0.291134  at iter  8
+Best model found so far at iter: 9 with cost 0.291134
+cost  0.288797  at iter  9
+Best model found so far at iter: 10 with cost 0.288797
+cost  0.286544  at iter  10
+Best model found so far at iter: 11 with cost 0.286544
+cost  0.284364  at iter  11
+Best model found so far at iter: 12 with cost 0.284364
+cost  0.282254  at iter  12
+Best model found so far at iter: 13 with cost 0.282254
+cost  0.280192  at iter  13
+Best model found so far at iter: 14 with cost 0.280192
+cost  0.278187  at iter  14
+Best model found so far at iter: 15 with cost 0.278187
+cost  0.276266  at iter  15
+Best model found so far at iter: 16 with cost 0.276266
+cost  0.274392  at iter  16
+Best model found so far at iter: 17 with cost 0.274392
+cost  0.272577  at iter  17
+Best model found so far at iter: 18 with cost 0.272577
+cost  0.270824  at iter  18
+Best model found so far at iter: 19 with cost 0.270824
+cost  0.269122  at iter  19
+Best model found so far at iter: 20 with cost 0.269122
+cost  0.267478  at iter  20
+Best model found so far at iter: 21 with cost 0.267478
+cost  0.26586  at iter  21
+Best model found so far at iter: 22 with cost 0.265860
+cost  0.26428  at iter  22
+Best model found so far at iter: 23 with cost 0.264280
+cost  0.262755  at iter  23
+Best model found so far at iter: 24 with cost 0.262755
+cost  0.261254  at iter  24
+Best model found so far at iter: 25 with cost 0.261254
+cost  0.25979  at iter  25
+Best model found so far at iter: 26 with cost 0.259790
+cost  0.258354  at iter  26
+Best model found so far at iter: 27 with cost 0.258354
+cost  0.256967  at iter  27
+Best model found so far at iter: 28 with cost 0.256967
+cost  0.255628  at iter  28
+Best model found so far at iter: 29 with cost 0.255628
+cost  0.25431  at iter  29
+Best model found so far at iter: 30 with cost 0.254310
+cost  0.253015  at iter  30
+Best model found so far at iter: 31 with cost 0.253015
+cost  0.251749  at iter  31
+Best model found so far at iter: 32 with cost 0.251749
+cost  0.250517  at iter  32
+Best model found so far at iter: 33 with cost 0.250517
+cost  0.249323  at iter  33
+Best model found so far at iter: 34 with cost 0.249323
+cost  0.248152  at iter  34
+Best model found so far at iter: 35 with cost 0.248152
+cost  0.247019  at iter  35
+Best model found so far at iter: 36 with cost 0.247019
+cost  0.245903  at iter  36
+Best model found so far at iter: 37 with cost 0.245903
+cost  0.244819  at iter  37
+Best model found so far at iter: 38 with cost 0.244819
+cost  0.243756  at iter  38
+Best model found so far at iter: 39 with cost 0.243756
+cost  0.242732  at iter  39
+Best model found so far at iter: 40 with cost 0.242732
+cost  0.241728  at iter  40
+Best model found so far at iter: 41 with cost 0.241728
+cost  0.240753  at iter  41
+Best model found so far at iter: 42 with cost 0.240753
+cost  0.239792  at iter  42
+Best model found so far at iter: 43 with cost 0.239792
+cost  0.238857  at iter  43
+Best model found so far at iter: 44 with cost 0.238857
+cost  0.23794  at iter  44
+Best model found so far at iter: 45 with cost 0.237940
+cost  0.237046  at iter  45
+Best model found so far at iter: 46 with cost 0.237046
+cost  0.236166  at iter  46
+Best model found so far at iter: 47 with cost 0.236166
+cost  0.235312  at iter  47
+Best model found so far at iter: 48 with cost 0.235312
+cost  0.234478  at iter  48
+Best model found so far at iter: 49 with cost 0.234478
+cost  0.233664  at iter  49
+Best model found so far at iter: 50 with cost 0.233664
+cost  0.232858  at iter  50
+Best model found so far at iter: 51 with cost 0.232858
+cost  0.23208  at iter  51
+Best model found so far at iter: 52 with cost 0.232080
+cost  0.231318  at iter  52
+Best model found so far at iter: 53 with cost 0.231318
+cost  0.230568  at iter  53
+Best model found so far at iter: 54 with cost 0.230568
+cost  0.229823  at iter  54
+Best model found so far at iter: 55 with cost 0.229823
+cost  0.229102  at iter  55
+Best model found so far at iter: 56 with cost 0.229102
+cost  0.228405  at iter  56
+Best model found so far at iter: 57 with cost 0.228405
+cost  0.227722  at iter  57
+Best model found so far at iter: 58 with cost 0.227722
+cost  0.22705  at iter  58
+Best model found so far at iter: 59 with cost 0.227050
+cost  0.226384  at iter  59
+Best model found so far at iter: 60 with cost 0.226384
+cost  0.225738  at iter  60
+Best model found so far at iter: 61 with cost 0.225738
+cost  0.225098  at iter  61
+Best model found so far at iter: 62 with cost 0.225098
+cost  0.224481  at iter  62
+Best model found so far at iter: 63 with cost 0.224481
+cost  0.22387  at iter  63
+Best model found so far at iter: 64 with cost 0.223870
+cost  0.223265  at iter  64
+Best model found so far at iter: 65 with cost 0.223265
+cost  0.22267  at iter  65
+Best model found so far at iter: 66 with cost 0.222670
+cost  0.222091  at iter  66
+Best model found so far at iter: 67 with cost 0.222091
+cost  0.221518  at iter  67
+Best model found so far at iter: 68 with cost 0.221518
+cost  0.220957  at iter  68
+Best model found so far at iter: 69 with cost 0.220957
+cost  0.22041  at iter  69
+Best model found so far at iter: 70 with cost 0.220410
+cost  0.219875  at iter  70
+Best model found so far at iter: 71 with cost 0.219875
+cost  0.219351  at iter  71
+Best model found so far at iter: 72 with cost 0.219351
+cost  0.218832  at iter  72
+Best model found so far at iter: 73 with cost 0.218832
+cost  0.218319  at iter  73
+Best model found so far at iter: 74 with cost 0.218319
+cost  0.217809  at iter  74
+Best model found so far at iter: 75 with cost 0.217809
+cost  0.217308  at iter  75
+Best model found so far at iter: 76 with cost 0.217308
+cost  0.216816  at iter  76
+Best model found so far at iter: 77 with cost 0.216816
+cost  0.216339  at iter  77
+Best model found so far at iter: 78 with cost 0.216339
+cost  0.215871  at iter  78
+Best model found so far at iter: 79 with cost 0.215871
+cost  0.215413  at iter  79
+Best model found so far at iter: 80 with cost 0.215413
+cost  0.214958  at iter  80
+Best model found so far at iter: 81 with cost 0.214958
+cost  0.214512  at iter  81
+Best model found so far at iter: 82 with cost 0.214512
+cost  0.214078  at iter  82
+Best model found so far at iter: 83 with cost 0.214078
+cost  0.213654  at iter  83
+Best model found so far at iter: 84 with cost 0.213654
+cost  0.213238  at iter  84
+Best model found so far at iter: 85 with cost 0.213238
+cost  0.212826  at iter  85
+Best model found so far at iter: 86 with cost 0.212826
+cost  0.212419  at iter  86
+Best model found so far at iter: 87 with cost 0.212419
+cost  0.212021  at iter  87
+Best model found so far at iter: 88 with cost 0.212021
+cost  0.21163  at iter  88
+Best model found so far at iter: 89 with cost 0.211630
+cost  0.211247  at iter  89
+Best model found so far at iter: 90 with cost 0.211247
+cost  0.210874  at iter  90
+Best model found so far at iter: 91 with cost 0.210874
+cost  0.210511  at iter  91
+Best model found so far at iter: 92 with cost 0.210511
+cost  0.210153  at iter  92
+Best model found so far at iter: 93 with cost 0.210153
+cost  0.209799  at iter  93
+Best model found so far at iter: 94 with cost 0.209799
+cost  0.209451  at iter  94
+Best model found so far at iter: 95 with cost 0.209451
+cost  0.209111  at iter  95
+Best model found so far at iter: 96 with cost 0.209111
+cost  0.208777  at iter  96
+Best model found so far at iter: 97 with cost 0.208777
+cost  0.208442  at iter  97
+Best model found so far at iter: 98 with cost 0.208442
+cost  0.208111  at iter  98
+Best model found so far at iter: 99 wiI tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+th cost 0.208111
+cost  0.207785  at iter  99
+Best model found so far at iter: 100 with cost 0.207785
+Pretraining layer 2: 
+cost  0.426142  at iter  0
+Best model found so far at iter: 1 with cost 0.426142
+cost  0.423945  at iter  1
+Best model found so far at iter: 2 with cost 0.423945
+cost  0.421748  at iter  2
+Best model found so far at iter: 3 with cost 0.421748
+cost  0.419549  at iter  3
+Best model found so far at iter: 4 with cost 0.419549
+cost  0.417339  at iter  4
+Best model found so far at iter: 5 with cost 0.417339
+cost  0.41514  at iter  5
+Best model found so far at iter: 6 with cost 0.415140
+cost  0.412941  at iter  6
+Best model found so far at iter: 7 with cost 0.412941
+cost  0.41075  at iter  7
+Best model found so far at iter: 8 with cost 0.410750
+cost  0.408569  at iter  8
+Best model found so far at iter: 9 with cost 0.408569
+cost  0.406408  at iter  9
+Best model found so far at iter: 10 with cost 0.406408
+cost  0.404267  at iter  10
+Best model found so far at iter: 11 with cost 0.404267
+cost  0.402148  at iter  11
+Best model found so far at iter: 12 with cost 0.402148
+cost  0.400051  at iter  12
+Best model found so far at iter: 13 with cost 0.400051
+cost  0.397963  at iter  13
+Best model found so far at iter: 14 with cost 0.397963
+cost  0.395871  at iter  14
+Best model found so far at iter: 15 with cost 0.395871
+cost  0.393785  at iter  15
+Best model found so far at iter: 16 with cost 0.393785
+cost  0.391711  at iter  16
+Best model found so far at iter: 17 with cost 0.391711
+cost  0.389648  at iter  17
+Best model found so far at iter: 18 with cost 0.389648
+cost  0.387607  at iter  18
+Best model found so far at iter: 19 with cost 0.387607
+cost  0.385576  at iter  19
+Best model found so far at iter: 20 with cost 0.385576
+cost  0.383552  at iter  20
+Best model found so far at iter: 21 with cost 0.383552
+cost  0.381534  at iter  21
+Best model found so far at iter: 22 with cost 0.381534
+cost  0.379528  at iter  22
+Best model found so far at iter: 23 with cost 0.379528
+cost  0.377531  at iter  23
+Best model found so far at iter: 24 with cost 0.377531
+cost  0.375553  at iter  24
+Best model found so far at iter: 25 with cost 0.375553
+cost  0.373578  at iter  25
+Best model found so far at iter: 26 with cost 0.373578
+cost  0.371603  at iter  26
+Best model found so far at iter: 27 with cost 0.371603
+cost  0.369635  at iter  27
+Best model found so far at iter: 28 with cost 0.369635
+cost  0.367676  at iter  28
+Best model found so far at iter: 29 with cost 0.367676
+cost  0.365726  at iter  29
+Best model found so far at iter: 30 with cost 0.365726
+cost  0.363786  at iter  30
+Best model found so far at iter: 31 with cost 0.363786
+cost  0.361846  at iter  31
+Best model found so far at iter: 32 with cost 0.361846
+cost  0.359917  at iter  32
+Best model found so far at iter: 33 with cost 0.359917
+cost  0.357999  at iter  33
+Best model found so far at iter: 34 with cost 0.357999
+cost  0.356091  at iter  34
+Best model found so far at iter: 35 with cost 0.356091
+cost  0.354196  at iter  35
+Best model found so far at iter: 36 with cost 0.354196
+cost  0.352312  at iter  36
+Best model found so far at iter: 37 with cost 0.352312
+cost  0.350434  at iter  37
+Best model found so far at iter: 38 with cost 0.350434
+cost  0.348562  at iter  38
+Best model found so far at iter: 39 with cost 0.348562
+cost  0.346686  at iter  39
+Best model found so far at iter: 40 with cost 0.346686
+cost  0.344817  at iter  40
+Best model found so far at iter: 41 with cost 0.344817
+cost  0.342958  at iter  41
+Best model found so far at iter: 42 with cost 0.342958
+cost  0.341107  at iter  42
+Best model found so far at iter: 43 with cost 0.341107
+cost  0.339262  at iter  43
+Best model found so far at iter: 44 with cost 0.339262
+cost  0.337421  at iter  44
+Best model found so far at iter: 45 with cost 0.337421
+cost  0.335586  at iter  45
+Best model found so far at iter: 46 with cost 0.335586
+cost  0.333758  at iter  46
+Best model found so far at iter: 47 with cost 0.333758
+cost  0.331937  at iter  47
+Best model found so far at iter: 48 with cost 0.331937
+cost  0.330127  at iter  48
+Best model found so far at iter: 49 with cost 0.330127
+cost  0.328315  at iter  49
+Best model found so far at iter: 50 with cost 0.328315
+cost  0.32651  at iter  50
+Best model found so far at iter: 51 with cost 0.326510
+cost  0.324717  at iter  51
+Best model found so far at iter: 52 with cost 0.324717
+cost  0.322935  at iter  52
+Best model found so far at iter: 53 with cost 0.322935
+cost  0.321154  at iter  53
+Best model found so far at iter: 54 with cost 0.321154
+cost  0.319375  at iter  54
+Best model found so far at iter: 55 with cost 0.319375
+cost  0.317598  at iter  55
+Best model found so far at iter: 56 with cost 0.317598
+cost  0.315827  at iter  56
+Best model found so far at iter: 57 with cost 0.315827
+cost  0.314056  at iter  57
+Best model found so far at iter: 58 with cost 0.314056
+cost  0.312295  at iter  58
+Best model found so far at iter: 59 with cost 0.312295
+cost  0.310532  at iter  59
+Best model found so far at iter: 60 with cost 0.310532
+cost  0.308769  at iter  60
+Best model found so far at iter: 61 with cost 0.308769
+cost  0.307004  at iter  61
+Best model found so far at iter: 62 with cost 0.307004
+cost  0.305232  at iter  62
+Best model found so far at iter: 63 with cost 0.305232
+cost  0.303456  at iter  63
+Best model found so far at iter: 64 with cost 0.303456
+cost  0.301676  at iter  64
+Best model found so far at iter: 65 with cost 0.301676
+cost  0.299898  at iter  65
+Best model found so far at iter: 66 with cost 0.299898
+cost  0.29813  at iter  66
+Best model found so far at iter: 67 with cost 0.298130
+cost  0.296364  at iter  67
+Best model found so far at iter: 68 with cost 0.296364
+cost  0.294604  at iter  68
+Best model found so far at iter: 69 with cost 0.294604
+cost  0.292858  at iter  69
+Best model found so far at iter: 70 with cost 0.292858
+cost  0.29112  at iter  70
+Best model found so far at iter: 71 with cost 0.291120
+cost  0.289393  at iter  71
+Best model found so far at iter: 72 with cost 0.289393
+cost  0.287672  at iter  72
+Best model found so far at iter: 73 with cost 0.287672
+cost  0.285956  at iter  73
+Best model found so far at iter: 74 with cost 0.285956
+cost  0.284237  at iter  74
+Best model found so far at iter: 75 with cost 0.284237
+cost  0.282527  at iter  75
+Best model found so far at iter: 76 with cost 0.282527
+cost  0.280823  at iter  76
+Best model found so far at iter: 77 with cost 0.280823
+cost  0.279131  at iter  77
+Best model found so far at iter: 78 with cost 0.279131
+cost  0.27745  at iter  78
+Best model found so far at iter: 79 with cost 0.277450
+cost  0.275775  at iter  79
+Best model found so far at iter: 80 with cost 0.275775
+cost  0.274116  at iter  80
+Best model found so far at iter: 81 with cost 0.274116
+cost  0.272469  at iter  81
+Best model found so far at iter: 82 with cost 0.272469
+cost  0.270835  at iter  82
+Best model found so far at iter: 83 with cost 0.270835
+cost  0.269207  at iter  83
+Best model found so far at iter: 84 with cost 0.269207
+cost  0.267589  at iter  84
+Best model found so far at iter: 85 with cost 0.267589
+cost  0.265982  at iter  85
+Best model found so far at iter: 86 with cost 0.265982
+cost  0.264388  at iter  86
+Best model found so far at iter: 87 with cost 0.264388
+cost  0.262805  at iter  87
+Best model found so far at iter: 88 with cost 0.262805
+cost  0.261229  at iter  88
+Best model found so far at iter: 89 with cost 0.261229
+cost  0.25966  at iter  89
+Best model found so far at iter: 90 with cost 0.259660
+cost  0.258096  at iter  90
+Best model found so far at iter: 91 with cost 0.258096
+cost  0.256543  at iter  91
+Best model found so far at iter: 92 with cost 0.256543
+cost  0.255001  at iter  92
+Best model found so far at iter: 93 with cost 0.255001
+cost  0.253471  at iter  93
+Best model found so far at iter: 94 with cost 0.253471
+cost  0.251954  at iter  94
+Best model found so far at iter: 95 with cost 0.251954
+cost  0.250447  at iter  95
+Best model found so far at iter: 96 with cost 0.250447
+cost  0.248954  at iter  96
+Best model found so far at iter: 97 with cost 0.248954
+cost  0.247469  at iter  97
+Best model foundI tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+ so far at iter: 98 with cost 0.247469
+cost  0.245991  at iter  98
+Best model found so far at iter: 99 with cost 0.245991
+cost  0.244523  at iter  99
+Best model found so far at iter: 100 with cost 0.244523
+Pretraining layer 3: 
+cost  0.338775  at iter  0
+Best model found so far at iter: 1 with cost 0.338775
+cost  0.337134  at iter  1
+Best model found so far at iter: 2 with cost 0.337134
+cost  0.335501  at iter  2
+Best model found so far at iter: 3 with cost 0.335501
+cost  0.333882  at iter  3
+Best model found so far at iter: 4 with cost 0.333882
+cost  0.332272  at iter  4
+Best model found so far at iter: 5 with cost 0.332272
+cost  0.330676  at iter  5
+Best model found so far at iter: 6 with cost 0.330676
+cost  0.329092  at iter  6
+Best model found so far at iter: 7 with cost 0.329092
+cost  0.327516  at iter  7
+Best model found so far at iter: 8 with cost 0.327516
+cost  0.325953  at iter  8
+Best model found so far at iter: 9 with cost 0.325953
+cost  0.324402  at iter  9
+Best model found so far at iter: 10 with cost 0.324402
+cost  0.322861  at iter  10
+Best model found so far at iter: 11 with cost 0.322861
+cost  0.321333  at iter  11
+Best model found so far at iter: 12 with cost 0.321333
+cost  0.319814  at iter  12
+Best model found so far at iter: 13 with cost 0.319814
+cost  0.318307  at iter  13
+Best model found so far at iter: 14 with cost 0.318307
+cost  0.316808  at iter  14
+Best model found so far at iter: 15 with cost 0.316808
+cost  0.315318  at iter  15
+Best model found so far at iter: 16 with cost 0.315318
+cost  0.313836  at iter  16
+Best model found so far at iter: 17 with cost 0.313836
+cost  0.312361  at iter  17
+Best model found so far at iter: 18 with cost 0.312361
+cost  0.310893  at iter  18
+Best model found so far at iter: 19 with cost 0.310893
+cost  0.309433  at iter  19
+Best model found so far at iter: 20 with cost 0.309433
+cost  0.30798  at iter  20
+Best model found so far at iter: 21 with cost 0.307980
+cost  0.306532  at iter  21
+Best model found so far at iter: 22 with cost 0.306532
+cost  0.305091  at iter  22
+Best model found so far at iter: 23 with cost 0.305091
+cost  0.303655  at iter  23
+Best model found so far at iter: 24 with cost 0.303655
+cost  0.302224  at iter  24
+Best model found so far at iter: 25 with cost 0.302224
+cost  0.300797  at iter  25
+Best model found so far at iter: 26 with cost 0.300797
+cost  0.299373  at iter  26
+Best model found so far at iter: 27 with cost 0.299373
+cost  0.297953  at iter  27
+Best model found so far at iter: 28 with cost 0.297953
+cost  0.296535  at iter  28
+Best model found so far at iter: 29 with cost 0.296535
+cost  0.295118  at iter  29
+Best model found so far at iter: 30 with cost 0.295118
+cost  0.293703  at iter  30
+Best model found so far at iter: 31 with cost 0.293703
+cost  0.292289  at iter  31
+Best model found so far at iter: 32 with cost 0.292289
+cost  0.290875  at iter  32
+Best model found so far at iter: 33 with cost 0.290875
+cost  0.289461  at iter  33
+Best model found so far at iter: 34 with cost 0.289461
+cost  0.288051  at iter  34
+Best model found so far at iter: 35 with cost 0.288051
+cost  0.286638  at iter  35
+Best model found so far at iter: 36 with cost 0.286638
+cost  0.285224  at iter  36
+Best model found so far at iter: 37 with cost 0.285224
+cost  0.283807  at iter  37
+Best model found so far at iter: 38 with cost 0.283807
+cost  0.282389  at iter  38
+Best model found so far at iter: 39 with cost 0.282389
+cost  0.28097  at iter  39
+Best model found so far at iter: 40 with cost 0.280970
+cost  0.279546  at iter  40
+Best model found so far at iter: 41 with cost 0.279546
+cost  0.278121  at iter  41
+Best model found so far at iter: 42 with cost 0.278121
+cost  0.276695  at iter  42
+Best model found so far at iter: 43 with cost 0.276695
+cost  0.275265  at iter  43
+Best model found so far at iter: 44 with cost 0.275265
+cost  0.273833  at iter  44
+Best model found so far at iter: 45 with cost 0.273833
+cost  0.272401  at iter  45
+Best model found so far at iter: 46 with cost 0.272401
+cost  0.270968  at iter  46
+Best model found so far at iter: 47 with cost 0.270968
+cost  0.269536  at iter  47
+Best model found so far at iter: 48 with cost 0.269536
+cost  0.268106  at iter  48
+Best model found so far at iter: 49 with cost 0.268106
+cost  0.266678  at iter  49
+Best model found so far at iter: 50 with cost 0.266678
+cost  0.265251  at iter  50
+Best model found so far at iter: 51 with cost 0.265251
+cost  0.263829  at iter  51
+Best model found so far at iter: 52 with cost 0.263829
+cost  0.262411  at iter  52
+Best model found so far at iter: 53 with cost 0.262411
+cost  0.260997  at iter  53
+Best model found so far at iter: 54 with cost 0.260997
+cost  0.259586  at iter  54
+Best model found so far at iter: 55 with cost 0.259586
+cost  0.258181  at iter  55
+Best model found so far at iter: 56 with cost 0.258181
+cost  0.256781  at iter  56
+Best model found so far at iter: 57 with cost 0.256781
+cost  0.255387  at iter  57
+Best model found so far at iter: 58 with cost 0.255387
+cost  0.253999  at iter  58
+Best model found so far at iter: 59 with cost 0.253999
+cost  0.252618  at iter  59
+Best model found so far at iter: 60 with cost 0.252618
+cost  0.251246  at iter  60
+Best model found so far at iter: 61 with cost 0.251246
+cost  0.249882  at iter  61
+Best model found so far at iter: 62 with cost 0.249882
+cost  0.248527  at iter  62
+Best model found so far at iter: 63 with cost 0.248527
+cost  0.247181  at iter  63
+Best model found so far at iter: 64 with cost 0.247181
+cost  0.245843  at iter  64
+Best model found so far at iter: 65 with cost 0.245843
+cost  0.244514  at iter  65
+Best model found so far at iter: 66 with cost 0.244514
+cost  0.243194  at iter  66
+Best model found so far at iter: 67 with cost 0.243194
+cost  0.241882  at iter  67
+Best model found so far at iter: 68 with cost 0.241882
+cost  0.240578  at iter  68
+Best model found so far at iter: 69 with cost 0.240578
+cost  0.239279  at iter  69
+Best model found so far at iter: 70 with cost 0.239279
+cost  0.23799  at iter  70
+Best model found so far at iter: 71 with cost 0.237990
+cost  0.236704  at iter  71
+Best model found so far at iter: 72 with cost 0.236704
+cost  0.235426  at iter  72
+Best model found so far at iter: 73 with cost 0.235426
+cost  0.234152  at iter  73
+Best model found so far at iter: 74 with cost 0.234152
+cost  0.232883  at iter  74
+Best model found so far at iter: 75 with cost 0.232883
+cost  0.231616  at iter  75
+Best model found so far at iter: 76 with cost 0.231616
+cost  0.230353  at iter  76
+Best model found so far at iter: 77 with cost 0.230353
+cost  0.229094  at iter  77
+Best model found so far at iter: 78 with cost 0.229094
+cost  0.227836  at iter  78
+Best model found so far at iter: 79 with cost 0.227836
+cost  0.226582  at iter  79
+Best model found so far at iter: 80 with cost 0.226582
+cost  0.225328  at iter  80
+Best model found so far at iter: 81 with cost 0.225328
+cost  0.224077  at iter  81
+Best model found so far at iter: 82 with cost 0.224077
+cost  0.222825  at iter  82
+Best model found so far at iter: 83 with cost 0.222825
+cost  0.221576  at iter  83
+Best model found so far at iter: 84 with cost 0.221576
+cost  0.220327  at iter  84
+Best model found so far at iter: 85 with cost 0.220327
+cost  0.219079  at iter  85
+Best model found so far at iter: 86 with cost 0.219079
+cost  0.217829  at iter  86
+Best model found so far at iter: 87 with cost 0.217829
+cost  0.21658  at iter  87
+Best model found so far at iter: 88 with cost 0.216580
+cost  0.215329  at iter  88
+Best model found so far at iter: 89 with cost 0.215329
+cost  0.214075  at iter  89
+Best model found so far at iter: 90 with cost 0.214075
+cost  0.212818  at iter  90
+Best model found so far at iter: 91 with cost 0.212818
+cost  0.211558  at iter  91
+Best model found so far at iter: 92 with cost 0.211558
+cost  0.210295  at iter  92
+Best model found so far at iter: 93 with cost 0.210295
+cost  0.209027  at iter  93
+Best model found so far at iter: 94 with cost 0.209027
+cost  0.207758  at iter  94
+Best model found so far at iter: 95 with cost 0.207758
+cost  0.206487  at iter  95
+Best model found so far at iter: 96 with cost 0.206487
+cost  0.205214  at I tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+iter  96
+Best model found so far at iter: 97 with cost 0.205214
+cost  0.203941  at iter  97
+Best model found so far at iter: 98 with cost 0.203941
+cost  0.202668  at iter  98
+Best model found so far at iter: 99 with cost 0.202668
+cost  0.201394  at iter  99
+Best model found so far at iter: 100 with cost 0.201394
+cost  0.19291  at iter  0
+Best model found so far at iter: 1 with cost 0.192910
+cost  0.179494  at iter  1
+Best model found so far at iter: 2 with cost 0.179494
+cost  0.16803  at iter  2
+Best model found so far at iter: 3 with cost 0.168030
+cost  0.166682  at iter  3
+Best model found so far at iter: 4 with cost 0.166682
+cost  0.166  at iter  4
+Best model found so far at iter: 5 with cost 0.166000
+cost  0.165642  at iter  5
+Best model found so far at iter: 6 with cost 0.165642
+cost  0.165293  at iter  6
+Best model found so far at iter: 7 with cost 0.165293
+cost  0.165062  at iter  7
+Best model found so far at iter: 8 with cost 0.165062
+cost  0.164833  at iter  8
+Best model found so far at iter: 9 with cost 0.164833
+cost  0.164649  at iter  9
+Best model found so far at iter: 10 with cost 0.164649
+cost  0.164724  at iter  10
+cost  0.16463  at iter  11
+Best model found so far at iter: 12 with cost 0.164630
+cost  0.164431  at iter  12
+Best model found so far at iter: 13 with cost 0.164431
+cost  0.164386  at iter  13
+Best model found so far at iter: 14 with cost 0.164386
+cost  0.164121  at iter  14
+Best model found so far at iter: 15 with cost 0.164121
+cost  0.163094  at iter  15
+Best model found so far at iter: 16 with cost 0.163094
+cost  0.162981  at iter  16
+Best model found so far at iter: 17 with cost 0.162981
+cost  0.162461  at iter  17
+Best model found so far at iter: 18 with cost 0.162461
+cost  0.162109  at iter  18
+Best model found so far at iter: 19 with cost 0.162109
+cost  0.161979  at iter  19
+Best model found so far at iter: 20 with cost 0.161979
+cost  0.161788  at iter  20
+Best model found so far at iter: 21 with cost 0.161788
+cost  0.16184  at iter  21
+cost  0.161819  at iter  22
+cost  0.161784  at iter  23
+Best model found so far at iter: 24 with cost 0.161784
+cost  0.161914  at iter  24
+cost  0.161443  at iter  25
+Best model found so far at iter: 26 with cost 0.161443
+cost  0.161641  at iter  26
+cost  0.161532  at iter  27
+cost  0.161417  at iter  28
+Best model found so far at iter: 29 with cost 0.161417
+cost  0.161562  at iter  29
+cost  0.161142  at iter  30
+Best model found so far at iter: 31 with cost 0.161142
+cost  0.161035  at iter  31
+Best model found so far at iter: 32 with cost 0.161035
+cost  0.161074  at iter  32
+cost  0.160889  at iter  33
+Best model found so far at iter: 34 with cost 0.160889
+cost  0.160776  at iter  34
+Best model found so far at iter: 35 with cost 0.160776
+cost  0.160738  at iter  35
+Best model found so far at iter: 36 with cost 0.160738
+cost  0.160875  at iter  36
+cost  0.16066  at iter  37
+Best model found so far at iter: 38 with cost 0.160660
+cost  0.160702  at iter  38
+cost  0.160569  at iter  39
+Best model found so far at iter: 40 with cost 0.160569
+cost  0.160465  at iter  40
+Best model found so far at iter: 41 with cost 0.160465
+cost  0.160392  at iter  41
+Best model found so far at iter: 42 with cost 0.160392
+cost  0.160467  at iter  42
+cost  0.16041  at iter  43
+cost  0.160337  at iter  44
+Best model found so far at iter: 45 with cost 0.160337
+cost  0.160307  at iter  45
+Best model found so far at iter: 46 with cost 0.160307
+cost  0.160322  at iter  46
+cost  0.160206  at iter  47
+Best model found so far at iter: 48 with cost 0.160206
+cost  0.16012  at iter  48
+Best model found so far at iter: 49 with cost 0.160120
+cost  0.160093  at iter  49
+Best model found so far at iter: 50 with cost 0.160093
+cost  0.159976  at iter  50
+Best model found so far at iter: 51 with cost 0.159976
+cost  0.159931  at iter  51
+Best model found so far at iter: 52 with cost 0.159931
+cost  0.159903  at iter  52
+Best model found so far at iter: 53 with cost 0.159903
+cost  0.159839  at iter  53
+Best model found so far at iter: 54 with cost 0.159839
+cost  0.159776  at iter  54
+Best model found so far at iter: 55 with cost 0.159776
+cost  0.159671  at iter  55
+Best model found so far at iter: 56 with cost 0.159671
+cost  0.159589  at iter  56
+Best model found so far at iter: 57 with cost 0.159589
+cost  0.159631  at iter  57
+cost  0.159474  at iter  58
+Best model found so far at iter: 59 with cost 0.159474
+cost  0.159436  at iter  59
+Best model found so far at iter: 60 with cost 0.159436
+cost  0.159538  at iter  60
+cost  0.159453  at iter  61
+cost  0.1594  at iter  62
+Best model found so far at iter: 63 with cost 0.159400
+cost  0.159277  at iter  63
+Best model found so far at iter: 64 with cost 0.159277
+cost  0.159681  at iter  64
+cost  0.159332  at iter  65
+cost  0.15929  at iter  66
+cost  0.15927  at iter  67
+Best model found so far at iter: 68 with cost 0.159270
+cost  0.159328  at iter  68
+cost  0.15942  at iter  69
+cost  0.159299  at iter  70
+cost  0.159302  at iter  71
+cost  0.159189  at iter  72
+Best model found so far at iter: 73 with cost 0.159189
+cost  0.159235  at iter  73
+cost  0.159145  at iter  74
+Best model found so far at iter: 75 with cost 0.159145
+cost  0.159069  at iter  75
+Best model found so far at iter: 76 with cost 0.159069
+cost  0.159185  at iter  76
+cost  0.159085  at iter  77
+cost  0.159151  at iter  78
+cost  0.159275  at iter  79
+cost  0.159143  at iter  80
+cost  0.159081  at iter  81
+cost  0.159023  at iter  82
+Best model found so far at iter: 83 with cost 0.159023
+cost  0.159006  at iter  83
+Best model found so far at iter: 84 with cost 0.159006
+cost  0.158904  at iter  84
+Best model found so far at iter: 85 with cost 0.158904
+cost  0.158953  at iter  85
+cost  0.159018  at iter  86
+cost  0.159089  at iter  87
+cost  0.158902  at iter  88
+Best model found so far at iter: 89 with cost 0.158902
+cost  0.158818  at iter  89
+Best model found so far at iter: 90 with cost 0.158818
+cost  0.158884  at iter  90
+cost  0.15892  at iter  91
+cost  0.158919  at iter  92
+cost  0.159059  at iter  93
+cost  0.158744  at iter  94
+Best model found so far at iter: 95 with cost 0.158744
+cost  0.158904  at iter  95
+cost  0.158849  at iter  96
+cost  0.15886  at iter  97
+cost  0.158853  at iter  98
+cost  0.158795  at iter  99
+cost  0.158668  at iter  100
+Best model found so far at iter: 101 with cost 0.158668
+cost  0.158709  at iter  101
+cost  0.158675  at iter  102
+cost  0.158706  at iter  103
+cost  0.158667  at iter  104
+Best model found so far at iter: 105 with cost 0.158667
+cost  0.158551  at iter  105
+Best model found so far at iter: 106 with cost 0.158551
+cost  0.158608  at iter  106
+cost  0.158589  at iter  107
+cost  0.158655  at iter  108
+cost  0.158711  at iter  109
+cost  0.158675  at iter  110
+cost  0.158708  at iter  111
+cost  0.158631  at iter  112
+cost  0.158744  at iter  113
+cost  0.158597  at iter  114
+cost  0.158608  at iter  115
+cost  0.158569  at iter  116
+cost  0.158518  at iter  117
+Best model found so far at iter: 118 with cost 0.158518
+cost  0.158529  at iter  118
+cost  0.158636  at iter  119
+cost  0.158501  at iter  120
+Best model found so far at iter: 121 with cost 0.158501
+cost  0.158534  at iter  121
+cost  0.158582  at iter  122
+cost  0.15849  at iter  123
+Best model found so far at iter: 124 with cost 0.158490
+cost  0.158566  at iter  124
+cost  0.158525  at iter  125
+cost  0.158534  at iter  126
+cost  0.158588  at iter  127
+cost  0.158356  at iter  128
+Best model found so far at iter: 129 with cost 0.158356
+cost  0.158337  at iter  129
+Best model found so far at iter: 130 with cost 0.158337
+cost  0.15851  at iter  130
+cost  0.158401  at iter  131
+cost  0.158315  at iter  132
+Best model found so far at iter: 133 with cost 0.158315
+cost  0.15832  at iter  133
+cost  0.158274  at iter  134
+Best model found so far at iter: 135 with cost 0.158274
+cost  0.158238  at iter  135
+Best model found so far at iter: 136 with cost 0.158238
+cost  0.158373  at iter  136
+cost  0.158277  at iter  137
+cost  0.158345  at iter  138
+cost  0.158373  at iter  139
+cost  0.158245  at iter  140
+cost  0.158384  at iter  141
+cost  0.15823  at iter  142
+Best model found so far at iter: 143 with cost 0.158230
+cost  0.158184  at iter  143
+Best model found so far at iter: 144 with cost 0.158184
+cost  0.158253  at iter  144
+cost  0.158209  at iter  145
+cost  0.158238  at iter  146
+cost  0.158196  at iter  147
+cost  0.158144  at iter  148
+Best model found so far at iter: 149 with cost 0.158144
+cost  0.158084  at iter  149
+Best model found so far at iter: 150 with cost 0.158084
+cost  0.15826  at iter  150
+cost  0.158252  at iter  151
+cost  0.158066  at iter  152
+Best model found so far at iter: 153 with cost 0.158066
+cost  0.158034  at iter  153
+Best model found so far at iter: 154 with cost 0.158034
+cost  0.158116  at iter  154
+cost  0.158056  at iter  155
+cost  0.158173  at iter  156
+cost  0.158092  at iter  157
+cost  0.158108  at iter  158
+cost  0.158069  at iter  159
+cost  0.158167  at iter  160
+cost  0.158072  at iter  161
+cost  0.158018  at iter  162
+Best model found so far at iter: 163 with cost 0.158018
+cost  0.158053  at iter  163
+cost  0.158032  at iter  164
+cost  0.157946  at iter  165
+Best model found so far at iter: 166 with cost 0.157946
+cost  0.157922  at iter  166
+Best model found so far at iter: 167 with cost 0.157922
+cost  0.158046  at iter  167
+cost  0.157997  at iter  168
+cost  0.15795  at iter  169
+cost  0.158089  at iter  170
+cost  0.157895  at iter  171
+Best model found so far at iter: 172 with cost 0.157895
+cost  0.157925  at iter  172
+cost  0.157958  at iter  173
+cost  0.157836  at iter  174
+Best model found so far at iter: 175 with cost 0.157836
+cost  0.157892  at iter  175
+cost  0.157828  at iter  176
+Best model found so far at iter: 177 with cost 0.157828
+cost  0.157901  at iter  177
+cost  0.157943  at iter  178
+cost  0.157793  at iter  179
+Best model found so far at iter: 180 with cost 0.157793
+cost  0.157763  at iter  180
+Best model found so far at iter: 181 with cost 0.157763
+cost  0.15794  at iter  181
+cost  0.1578  at iter  182
+cost  0.157837  at iter  183
+cost  0.157755  at iter  184
+Best model found so far at iter: 185 with cost 0.157755
+cost  0.157833  at iter  185
+cost  0.157778  at iter  186
+cost  0.157808  at iter  187
+cost  0.157728  at iter  188
+Best model found so far at iter: 189 with cost 0.157728
+cost  0.157844  at iter  189
+cost  0.157727  at iter  190
+Best model found so far at iter: 191 with cost 0.157727
+cost  0.15776  at iter  191
+cost  0.157786  at iter  192
+cost  0.15775  at iter  193
+cost  0.157722  at iter  194
+Best model found so far at iter: 195 with cost 0.157722
+cost  0.157743  at iter  195
+cost  0.157645  at iter  196
+Best model found so far at iter: 197 with cost 0.157645
+cost  0.157622  at iter  197
+Best model found so far at iter: 198 with cost 0.157622
+cost  0.157717  at iter  198
+cost  0.157573  at iter  199
+Best model found so far at iter: 200 with cost 0.157573
+cost  0.157573  at iter  200
+Best model found so far at iter: 201 with cost 0.157573
+cost  0.157571  at iter  201
+Best model found so far at iter: 202 with cost 0.157571
+cost  0.157709  at iter  202
+cost  0.157835  at iter  203
+cost  0.157683  at iter  204
+cost  0.157784  at iter  205
+cost  0.157895  at iter  206
+cost  0.157774  at iter  207
+cost  0.157737  at iter  208
+cost  0.157617  at iter  209
+cost  0.157641  at iter  210
+cost  0.157583  at iter  211
+cost  0.15755  at iter  212
+Best model found so far at iter: 213 with cost 0.157550
+cost  0.157661  at iter  213
+cost  0.157815  at iter  214
+cost  0.15765  at iter  215
+cost  0.157703  at iter  216
+cost  0.157587  at iter  217
+cost  0.157697  at iter  218
+cost  0.15752  at iter  219
+Best model found so far at iter: 220 with cost 0.157520
+cost  0.157591  at iter  220
+cost  0.15754  at iter  221
+cost  0.157534  at iter  222
+cost  0.157723  at iter  223
+cost  0.157505  at iter  224
+Best model found so far at iter: 225 with cost 0.157505
+cost  0.157589  at iter  225
+cost  0.157554  at iter  226
+cost  0.157515  at iter  227
+cost  0.157555  at iter  228
+cost  0.15766  at iter  229
+cost  0.157482  at iter  230
+Best model found so far at iter: 231 with cost 0.157482
+cost  0.157569  at iter  231
+cost  0.157754  at iter  232
+cost  0.157563  at iter  233
+cost  0.157535  at iter  234
+cost  0.157658  at iter  235
+cost  0.157843  at iter  236
+cost  0.157748  at iter  237
+cost  0.157471  at iter  238
+Best model found so far at iter: 239 with cost 0.157471
+cost  0.157677  at iter  239
+cost  0.157553  at iter  240
+cost  0.157667  at iter  241
+cost  0.157903  at iter  242
+cost  0.15784  at iter  243
+cost  0.15763  at iter  244
+cost  0.157943  at iter  245
+cost  0.157612  at iter  246
+cost  0.158017  at iter  247
+cost  0.157924  at iter  248
+cost  0.157614  at iter  249
+cost  0.157918  at iter  250
+cost  0.157781  at iter  251
+cost  0.157704  at iter  252
+cost  0.157805  at iter  253
+cost  0.157873  at iter  254
+cost  0.157695  at iter  255
+cost  0.157673  at iter  256
+cost  0.157701  at iter  257
+cost  0.157524  at iter  258
+cost  0.157484  at iter  259
+cost  0.157626  at iter  260
+cost  0.157582  at iter  261
+cost  0.157485  at iter  262
+cost  0.157486  at iter  263
+cost  0.157524  at iter  264
+cost  0.157422  at iter  265
+Best model found so far at iter: 266 with cost 0.157422
+cost  0.157597  at iter  266
+cost  0.157506  at iter  267
+cost  0.157474  at iter  268
+cost  0.157636  at iter  269
+cost  0.157585  at iter  270
+cost  0.157413  at iter  271
+Best model found so far at iter: 272 with cost 0.157413
+cost  0.157622  at iter  272
+cost  0.157358  at iter  273
+Best model found so far at iter: 274 with cost 0.157358
+cost  0.157475  at iter  274
+cost  0.157578  at iter  275
+cost  0.157868  at iter  276
+cost  0.157813  at iter  277
+cost  0.157705  at iter  278
+cost  0.157501  at iter  279
+cost  0.157573  at iter  280
+cost  0.157505  at iter  281
+cost  0.157542  at iter  282
+cost  0.157406  at iter  283
+cost  0.157514  at iter  284
+cost  0.157492  at iter  285
+cost  0.15754  at iter  286
+cost  0.157552  at iter  287
+cost  0.157487  at iter  288
+cost  0.157615  at iter  289
+cost  0.15739  at iter  290
+cost  0.157833  at iter  291
+cost  0.157685  at iter  292
+cost  0.157731  at iter  293
+cost  0.157527  at iter  294
+cost  0.157554  at iter  295
+cost  0.157621  at iter  296
+cost  0.157382  at iter  297
+cost  0.157528  at iter  298
+cost  0.157415  at iter  299
+cost  0.15731  at iter  300
+Best model found so far at iter: 301 with cost 0.157310
+cost  0.157475  at iter  301
+cost  0.15745  at iter  302
+cost  0.157387  at iter  303
+cost  0.157452  at iter  304
+cost  0.157464  at iter  305
+cost  0.157532  at iter  306
+cost  0.157417  at iter  307
+cost  0.157519  at iter  308
+cost  0.157455  at iter  309
+cost  0.157416  at iter  310
+cost  0.157364  at iter  311
+cost  0.157661  at iter  312
+cost  0.15742  at iter  313
+cost  0.157392  at iter  314
+cost  0.157506  at iter  315
+cost  0.157386  at iter  316
+cost  0.157573  at iter  317
+cost  0.157395  at iter  318
+cost  0.157352  at iter  319
+cost  0.157503  at iter  320
+cost  0.157357  at iter  321
+cost  0.157532  at iter  322
+cost  0.157377  at iter  323
+cost  0.157405  at iter  324
+cost  0.157441  at iter  325
+cost  0.157523  at iter  326
+cost  0.157613  at iter  327
+cost  0.157503  at iter  328
+cost  0.157467  at iter  329
+cost  0.157324  at iter  330
+cost  0.157421  at iter  331
+cost  0.157407  at iter  332
+cost  0.157404  at iter  333
+cost  0.15731  at iter  334
+Best model found so far at iter: 335 with cost 0.157310
+cost  0.15746  at iter  335
+cost  0.157427  at iter  336
+cost  0.157499  at iter  337
+cost  0.157374  at iter  338
+cost  0.157452  at iter  339
+cost  0.157537  at iter  340
+cost  0.157567  at iter  341
+cost  0.157445  at iter  342
+cost  0.15737  at iter  343
+cost  0.157347  at iter  344
+cost  0.157577  at iter  345
+cost  0.157489  at iter  346
+cost  0.157432  at iter  347
+cost  0.157574  at iter  348
+cost  0.157642  at iter  349
+cost  0.157557  at iter  350
+cost  0.157899  at iter  351
+cost  0.157784  at iter  352
+cost  0.1578  at iter  353
+cost  0.157501  at iter  354
+cost  0.15785  at iter  355
+cost  0.157774  at iter  356
+cost  0.157575  at iter  357
+cost  0.157754  at iter  358
+cost  0.15752  at iter  359
+cost  0.158194  at iter  360
+cost  0.15782  at iter  361
+cost  0.157467  at iter  362
+cost  0.157282  at iter  363
+Best model found so far at iter: 364 with cost 0.157282
+cost  0.157351  at iter  364
+cost  0.157444  at iter  365
+cost  0.15741  at iter  366
+cost  0.157908  at iter  367
+cost  0.157535  at iter  368
+cost  0.157735  at iter  369
+cost  0.157416  at iter  370
+cost  0.157339  at iter  371
+cost  0.157508  at iter  372
+cost  0.157418  at iter  373
+cost  0.157398  at iter  374
+cost  0.157422  at iter  375
+cost  0.157511  at iter  376
+cost  0.157455  at iter  377
+cost  0.157369  at iter  378
+cost  0.157213  at iter  379
+Best model found so far at iter: 380 with cost 0.157213
+cost  0.157336  at iter  380
+cost  0.157214  at iter  381
+cost  0.157192  at iter  382
+Best model found so far at iter: 383 with cost 0.157192
+cost  0.157151  at iter  383
+Best model found so far at iter: 384 with cost 0.157151
+cost  0.157232  at iter  384
+cost  0.157089  at iter  385
+Best model found so far at iter: 386 with cost 0.157089
+cost  0.157194  at iter  386
+cost  0.156966  at iter  387
+Best model found so far at iter: 388 with cost 0.156966
+cost  0.157115  at iter  388
+cost  0.156957  at iter  389
+Best model found so far at iter: 390 with cost 0.156957
+cost  0.157189  at iter  390
+cost  0.157134  at iter  391
+cost  0.15707  at iter  392
+cost  0.157148  at iter  393
+cost  0.157116  at iter  394
+cost  0.157013  at iter  395
+cost  0.157053  at iter  396
+cost  0.157009  at iter  397
+cost  0.156988  at iter  398
+cost  0.157007  at iter  399
+cost  0.156975  at iter  400
+cost  0.156969  at iter  401
+cost  0.157007  at iter  402
+cost  0.157054  at iter  403
+cost  0.156999  at iter  404
+cost  0.156976  at iter  405
+cost  0.157014  at iter  406
+cost  0.156925  at iter  407
+Best model found so far at iter: 408 with cost 0.156925
+cost  0.156987  at iter  408
+cost  0.157029  at iter  409
+cost  0.156962  at iter  410
+cost  0.156948  at iter  411
+cost  0.156941  at iter  412
+cost  0.1571  at iter  413
+cost  0.157016  at iter  414
+cost  0.157194  at iter  415
+cost  0.157091  at iter  416
+cost  0.157003  at iter  417
+cost  0.157011  at iter  418
+cost  0.15697  at iter  419
+cost  0.157037  at iter  420
+cost  0.156936  at iter  421
+cost  0.157089  at iter  422
+cost  0.156916  at iter  423
+Best model found so far at iter: 424 with cost 0.156916
+cost  0.157046  at iter  424
+cost  0.156835  at iter  425
+Best model found so far at iter: 426 with cost 0.156835
+cost  0.156917  at iter  426
+cost  0.156911  at iter  427
+cost  0.156962  at iter  428
+cost  0.15689  at iter  429
+cost  0.156853  at iter  430
+cost  0.156878  at iter  431
+cost  0.156909  at iter  432
+cost  0.156822  at iter  433
+Best model found so far at iter: 434 with cost 0.156822
+cost  0.157  at iter  434
+cost  0.156814  at iter  435
+Best model found so far at iter: 436 with cost 0.156814
+cost  0.156813  at iter  436
+Best model found so far at iter: 437 with cost 0.156813
+cost  0.1568  at iter  437
+Best model found so far at iter: 438 with cost 0.156800
+cost  0.156912  at iter  438
+cost  0.15682  at iter  439
+cost  0.156887  at iter  440
+cost  0.156835  at iter  441
+cost  0.156881  at iter  442
+cost  0.156838  at iter  443
+cost  0.156811  at iter  444
+cost  0.156768  at iter  445
+Best model found so far at iter: 446 with cost 0.156768
+cost  0.156834  at iter  446
+cost  0.156958  at iter  447
+cost  0.156776  at iter  448
+cost  0.157022  at iter  449
+cost  0.156782  at iter  450
+cost  0.156921  at iter  451
+cost  0.15687  at iter  452
+cost  0.157055  at iter  453
+cost  0.156767  at iter  454
+Best model found so far at iter: 455 with cost 0.156767
+cost  0.156927  at iter  455
+cost  0.156939  at iter  456
+cost  0.156927  at iter  457
+cost  0.156798  at iter  458
+cost  0.156863  at iter  459
+cost  0.15691  at iter  460
+cost  0.156924  at iter  461
+cost  0.156863  at iter  462
+cost  0.156904  at iter  463
+cost  0.156805  at iter  464
+cost  0.156797  at iter  465
+cost  0.156839  at iter  466
+cost  0.15702  at iter  467
+cost  0.156751  at iter  468
+Best model found so far at iter: 469 with cost 0.156751
+cost  0.156968  at iter  469
+cost  0.15674  at iter  470
+Best model found so far at iter: 471 with cost 0.156740
+cost  0.156942  at iter  471
+cost  0.156926  at iter  472
+cost  0.156834  at iter  473
+cost  0.156747  at iter  474
+cost  0.156966  at iter  475
+cost  0.156874  at iter  476
+cost  0.156872  at iter  477
+cost  0.156924  at iter  478
+cost  0.157119  at iter  479
+cost  0.157167  at iter  480
+cost  0.156988  at iter  481
+cost  0.157278  at iter  482
+cost  0.15695  at iter  483
+cost  0.157063  at iter  484
+cost  0.156855  at iter  485
+cost  0.156866  at iter  486
+cost  0.156977  at iter  487
+cost  0.156908  at iter  488
+cost  0.156832  at iter  489
+cost  0.156814  at iter  490
+cost  0.156877  at iter  491
+cost  0.156774  at iter  492
+cost  0.156821  at iter  493
+cost  0.156803  at iter  494
+cost  0.156736  at iter  495
+Best model found so far at iter: 496 with cost 0.156736
+cost  0.156783  at iter  496
+cost  0.156772  at iter  497
+cost  0.156769  at iter  498
+cost  0.156736  at iter  499
+Best model found so far at iter: 500 with cost 0.156736
+cost  0.15676  at iter  500
+cost  0.156815  at iter  501
+cost  0.156762  at iter  502
+cost  0.156775  at iter  503
+cost  0.156809  at iter  504
+cost  0.156833  at iter  505
+cost  0.156809  at iter  506
+cost  0.156844  at iter  507
+cost  0.156937  at iter  508
+cost  0.156805  at iter  509
+cost  0.156761  at iter  510
+cost  0.156775  at iter  511
+cost  0.156805  at iter  512
+cost  0.156911  at iter  513
+cost  0.156989  at iter  514
+cost  0.156868  at iter  515
+cost  0.156788  at iter  516
+cost  0.156939  at iter  517
+cost  0.156711  at iter  518
+Best model found so far at iter: 519 with cost 0.156711
+cost  0.156836  at iter  519
+cost  0.156782  at iter  520
+cost  0.156846  at iter  521
+cost  0.156709  at iter  522
+Best model found so far at iter: 523 with cost 0.156709
+cost  0.156743  at iter  523
+cost  0.156747  at iter  524
+cost  0.156708  at iter  525
+Best model found so far at iter: 526 with cost 0.156708
+cost  0.156766  at iter  526
+cost  0.156726  at iter  527
+cost  0.156766  at iter  528
+cost  0.156705  at iter  529
+Best model found so far at iter: 530 with cost 0.156705
+cost  0.1567  at iter  530
+Best model found so far at iter: 531 with cost 0.156700
+cost  0.156666  at iter  531
+Best model found so far at iter: 532 with cost 0.156666
+cost  0.156663  at iter  532
+Best model found so far at iter: 533 with cost 0.156663
+cost  0.156668  at iter  533
+cost  0.156709  at iter  534
+cost  0.15667  at iter  535
+cost  0.156669  at iter  536
+cost  0.156702  at iter  537
+cost  0.156714  at iter  538
+cost  0.156679  at iter  539
+cost  0.15671  at iter  540
+cost  0.156728  at iter  541
+cost  0.156736  at iter  542
+cost  0.156725  at iter  543
+cost  0.156711  at iter  544
+cost  0.15667  at iter  545
+cost  0.156648  at iter  546
+Best model found so far at iter: 547 with cost 0.156648
+cost  0.156669  at iter  547
+cost  0.1567  at iter  548
+cost  0.156709  at iter  549
+cost  0.156683  at iter  550
+cost  0.156675  at iter  551
+cost  0.156666  at iter  552
+cost  0.156661  at iter  553
+cost  0.156672  at iter  554
+cost  0.156744  at iter  555
+cost  0.156693  at iter  556
+cost  0.15669  at iter  557
+cost  0.15668  at iter  558
+cost  0.156671  at iter  559
+cost  0.156661  at iter  560
+cost  0.156675  at iter  561
+cost  0.156666  at iter  562
+cost  0.156719  at iter  563
+cost  0.156631  at iter  564
+Best model found so far at iter: 565 with cost 0.156631
+cost  0.15668  at iter  565
+cost  0.156719  at iter  566
+cost  0.156669  at iter  567
+cost  0.156705  at iter  568
+cost  0.156805  at iter  569
+cost  0.156754  at iter  570
+cost  0.156731  at iter  571
+cost  0.156721  at iter  572
+cost  0.156695  at iter  573
+cost  0.156807  at iter  574
+cost  0.156704  at iter  575
+cost  0.156677  at iter  576
+cost  0.156681  at iter  577
+cost  0.156723  at iter  578
+cost  0.156694  at iter  579
+cost  0.156673  at iter  580
+cost  0.156722  at iter  581
+cost  0.156738  at iter  582
+cost  0.156652  at iter  583
+cost  0.156645  at iter  584
+cost  0.156666  at iter  585
+cost  0.156683  at iter  586
+cost  0.156656  at iter  587
+cost  0.156692  at iter  588
+cost  0.156722  at iter  589
+cost  0.156744  at iter  590
+cost  0.156692  at iter  591
+cost  0.156752  at iter  592
+cost  0.156694  at iter  593
+cost  0.156697  at iter  594
+cost  0.156709  at iter  595
+cost  0.156828  at iter  596
+cost  0.156713  at iter  597
+cost  0.156709  at iter  598
+cost  0.156771  at iter  599
+cost  0.156676  at iter  600
+cost  0.156692  at iter  601
+cost  0.156724  at iter  602
+cost  0.15662  at iter  603
+Best model found so far at iter: 604 with cost 0.156620
+cost  0.156696  at iter  604
+cost  0.156664  at iter  605
+cost  0.156651  at iter  606
+cost  0.156705  at iter  607
+cost  0.156652  at iter  608
+cost  0.156684  at iter  609
+cost  0.156724  at iter  610
+cost  0.156719  at iter  611
+cost  0.156671  at iter  612
+cost  0.156646  at iter  613
+cost  0.156675  at iter  614
+cost  0.156675  at iter  615
+cost  0.156687  at iter  616
+cost  0.156626  at iter  617
+cost  0.156631  at iter  618
+cost  0.156644  at iter  619
+cost  0.156616  at iter  620
+Best model found so far at iter: 621 with cost 0.156616
+cost  0.156621  at iter  621
+cost  0.156668  at iter  622
+cost  0.156662  at iter  623
+cost  0.15665  at iter  624
+cost  0.156654  at iter  625
+cost  0.156626  at iter  626
+cost  0.156618  at iter  627
+cost  0.156629  at iter  628
+cost  0.156675  at iter  629
+cost  0.156589  at iter  630
+Best model found so far at iter: 631 with cost 0.156589
+cost  0.156655  at iter  631
+cost  0.156605  at iter  632
+cost  0.156711  at iter  633
+cost  0.156657  at iter  634
+cost  0.156667  at iter  635
+cost  0.156609  at iter  636
+cost  0.156655  at iter  637
+cost  0.156611  at iter  638
+cost  0.156622  at iter  639
+cost  0.156597  at iter  640
+cost  0.156635  at iter  641
+cost  0.156604  at iter  642
+cost  0.156662  at iter  643
+cost  0.156642  at iter  644
+cost  0.156657  at iter  645
+cost  0.156701  at iter  646
+cost  0.156726  at iter  647
+cost  0.156645  at iter  648
+cost  0.156661  at iter  649
+cost  0.156643  at iter  650
+cost  0.156692  at iter  651
+cost  0.156582  at iter  652
+Best model found so far at iter: 653 with cost 0.156582
+cost  0.15673  at iter  653
+cost  0.156733  at iter  654
+cost  0.156649  at iter  655
+cost  0.156596  at iter  656
+cost  0.15665  at iter  657
+cost  0.156641  at iter  658
+cost  0.1567  at iter  659
+cost  0.156613  at iter  660
+cost  0.156648  at iter  661
+cost  0.156559  at iter  662
+Best model found so far at iter: 663 with cost 0.156559
+cost  0.156588  at iter  663
+cost  0.156644  at iter  664
+cost  0.156663  at iter  665
+cost  0.156594  at iter  666
+cost  0.156654  at iter  667
+cost  0.156577  at iter  668
+cost  0.156566  at iter  669
+cost  0.156597  at iter  670
+cost  0.15658  at iter  671
+cost  0.156644  at iter  672
+cost  0.156662  at iter  673
+cost  0.156627  at iter  674
+cost  0.156585  at iter  675
+cost  0.156697  at iter  676
+cost  0.15666  at iter  677
+cost  0.156816  at iter  678
+cost  0.156621  at iter  679
+cost  0.156634  at iter  680
+cost  0.156592  at iter  681
+cost  0.156624  at iter  682
+cost  0.156579  at iter  683
+cost  0.156549  at iter  684
+Best model found so far at iter: 685 with cost 0.156549
+cost  0.156559  at iter  685
+cost  0.156638  at iter  686
+cost  0.15654  at iter  687
+Best model found so far at iter: 688 with cost 0.156540
+cost  0.156579  at iter  688
+cost  0.156565  at iter  689
+cost  0.156544  at iter  690
+cost  0.156583  at iter  691
+cost  0.156549  at iter  692
+cost  0.156574  at iter  693
+cost  0.156573  at iter  694
+cost  0.156614  at iter  695
+cost  0.156605  at iter  696
+cost  0.156525  at iter  697
+Best model found so far at iter: 698 with cost 0.156525
+cost  0.156589  at iter  698
+cost  0.156589  at iter  699
+cost  0.15653  at iter  700
+cost  0.156594  at iter  701
+cost  0.156567  at iter  702
+cost  0.156597  at iter  703
+cost  0.156721  at iter  704
+cost  0.156578  at iter  705
+cost  0.156562  at iter  706
+cost  0.156551  at iter  707
+cost  0.156537  at iter  708
+cost  0.156612  at iter  709
+cost  0.156514  at iter  710
+Best model found so far at iter: 711 with cost 0.156514
+cost  0.156509  at iter  711
+Best model found so far at iter: 712 with cost 0.156509
+cost  0.156563  at iter  712
+cost  0.156562  at iter  713
+cost  0.156515  at iter  714
+cost  0.156572  at iter  715
+cost  0.15657  at iter  716
+cost  0.156501  at iter  717
+Best model found so far at iter: 718 with cost 0.156501
+cost  0.156573  at iter  718
+cost  0.156546  at iter  719
+cost  0.156569  at iter  720
+cost  0.156529  at iter  721
+cost  0.156537  at iter  722
+cost  0.156536  at iter  723
+cost  0.15657  at iter  724
+cost  0.156566  at iter  725
+cost  0.156559  at iter  726
+cost  0.156555  at iter  727
+cost  0.15655  at iter  728
+cost  0.156578  at iter  729
+cost  0.156508  at iter  730
+cost  0.156514  at iter  731
+cost  0.156536  at iter  732
+cost  0.156534  at iter  733
+cost  0.156533  at iter  734
+cost  0.156533  at iter  735
+cost  0.156527  at iter  736
+cost  0.156518  at iter  737
+cost  0.156505  at iter  738
+cost  0.156556  at iter  739
+cost  0.156519  at iter  740
+cost  0.156541  at iter  741
+cost  0.156503  at iter  742
+cost  0.156511  at iter  743
+cost  0.156515  at iter  744
+cost  0.156498  at iter  745
+Best model found so far at iter: 746 with cost 0.156498
+cost  0.156493  at iter  746
+Best model found so far at iter: 747 with cost 0.156493
+cost  0.156502  at iter  747
+cost  0.156503  at iter  748
+cost  0.15646  at iter  749
+Best model found so far at iter: 750 with cost 0.156460
+cost  0.156508  at iter  750
+cost  0.156485  at iter  751
+cost  0.156493  at iter  752
+cost  0.156488  at iter  753
+cost  0.156492  at iter  754
+cost  0.156496  at iter  755
+cost  0.156506  at iter  756
+cost  0.156499  at iter  757
+cost  0.156524  at iter  758
+cost  0.156478  at iter  759
+cost  0.156498  at iter  760
+cost  0.156498  at iter  761
+cost  0.156494  at iter  762
+cost  0.15651  at iter  763
+cost  0.15649  at iter  764
+cost  0.156477  at iter  765
+cost  0.156486  at iter  766
+cost  0.156493  at iter  767
+cost  0.156495  at iter  768
+cost  0.156459  at iter  769
+Best model found so far at iter: 770 with cost 0.156459
+cost  0.156479  at iter  770
+cost  0.156486  at iter  771
+cost  0.156486  at iter  772
+cost  0.156501  at iter  773
+cost  0.156475  at iter  774
+cost  0.156524  at iter  775
+cost  0.156524  at iter  776
+cost  0.156478  at iter  777
+cost  0.156443  at iter  778
+Best model found so far at iter: 779 with cost 0.156443
+cost  0.156459  at iter  779
+cost  0.156497  at iter  780
+cost  0.156471  at iter  781
+cost  0.156479  at iter  782
+cost  0.156511  at iter  783
+cost  0.156425  at iter  784
+Best model found so far at iter: 785 with cost 0.156425
+cost  0.156446  at iter  785
+cost  0.156453  at iter  786
+cost  0.156511  at iter  787
+cost  0.156443  at iter  788
+cost  0.156425  at iter  789
+Best model found so far at iter: 790 with cost 0.156425
+cost  0.156457  at iter  790
+cost  0.156474  at iter  791
+cost  0.156472  at iter  792
+cost  0.156485  at iter  793
+cost  0.156453  at iter  794
+cost  0.15644  at iter  795
+cost  0.156455  at iter  796
+cost  0.156517  at iter  797
+cost  0.156494  at iter  798
+cost  0.156432  at iter  799
+cost  0.156377  at iter  800
+Best model found so far at iter: 801 with cost 0.156377
+cost  0.156411  at iter  801
+cost  0.156401  at iter  802
+cost  0.156376  at iter  803
+Best model found so far at iter: 804 with cost 0.156376
+cost  0.156498  at iter  804
+cost  0.156366  at iter  805
+Best model found so far at iter: 806 with cost 0.156366
+cost  0.156416  at iter  806
+cost  0.156382  at iter  807
+cost  0.156373  at iter  808
+cost  0.156402  at iter  809
+cost  0.156392  at iter  810
+cost  0.156403  at iter  811
+cost  0.156437  at iter  812
+cost  0.156344  at iter  813
+Best model found so far at iter: 814 with cost 0.156344
+cost  0.156373  at iter  814
+cost  0.156416  at iter  815
+cost  0.156382  at iter  816
+cost  0.1564  at iter  817
+cost  0.156431  at iter  818
+cost  0.156395  at iter  819
+cost  0.156378  at iter  820
+cost  0.156381  at iter  821
+cost  0.156414  at iter  822
+cost  0.156423  at iter  823
+cost  0.156357  at iter  824
+cost  0.156384  at iter  825
+cost  0.156437  at iter  826
+cost  0.156404  at iter  827
+cost  0.156407  at iter  828
+cost  0.156367  at iter  829
+cost  0.156355  at iter  830
+cost  0.156384  at iter  831
+cost  0.156398  at iter  832
+cost  0.156352  at iter  833
+cost  0.156348  at iter  834
+cost  0.156391  at iter  835
+cost  0.156354  at iter  836
+cost  0.156409  at iter  837
+cost  0.156358  at iter  838
+cost  0.156446  at iter  839
+cost  0.156394  at iter  840
+cost  0.156386  at iter  841
+cost  0.156445  at iter  842
+cost  0.156395  at iter  843
+cost  0.156353  at iter  844
+cost  0.156359  at iter  845
+cost  0.156371  at iter  846
+cost  0.156357  at iter  847
+cost  0.156331  at iter  848
+Best model found so far at iter: 849 with cost 0.156331
+cost  0.156427  at iter  849
+cost  0.156353  at iter  850
+cost  0.156313  at iter  851
+Best model found so far at iter: 852 with cost 0.156313
+cost  0.156354  at iter  852
+cost  0.15637  at iter  853
+cost  0.15632  at iter  854
+cost  0.156355  at iter  855
+cost  0.156368  at iter  856
+cost  0.156335  at iter  857
+cost  0.156377  at iter  858
+cost  0.156338  at iter  859
+cost  0.156368  at iter  860
+cost  0.15636  at iter  861
+cost  0.156323  at iter  862
+cost  0.156349  at iter  863
+cost  0.156332  at iter  864
+cost  0.156406  at iter  865
+cost  0.156348  at iter  866
+cost  0.156355  at iter  867
+cost  0.156337  at iter  868
+cost  0.156378  at iter  869
+cost  0.156369  at iter  870
+cost  0.156316  at iter  871
+cost  0.156313  at iter  872
+cost  0.1563  at iter  873
+Best model found so far at iter: 874 with cost 0.156300
+cost  0.156339  at iter  874
+cost  0.156357  at iter  875
+cost  0.156327  at iter  876
+cost  0.156329  at iter  877
+cost  0.156321  at iter  878
+cost  0.156334  at iter  879
+cost  0.156312  at iter  880
+cost  0.156323  at iter  881
+cost  0.156328  at iter  882
+cost  0.156306  at iter  883
+cost  0.156324  at iter  884
+cost  0.156317  at iter  885
+cost  0.156321  at iter  886
+cost  0.156315  at iter  887
+cost  0.156344  at iter  888
+cost  0.156354  at iter  889
+cost  0.156422  at iter  890
+cost  0.156322  at iter  891
+cost  0.156317  at iter  892
+cost  0.156309  at iter  893
+cost  0.156409  at iter  894
+cost  0.156325  at iter  895
+cost  0.156334  at iter  896
+cost  0.156316  at iter  897
+cost  0.156313  at iter  898
+cost  0.156312  at iter  899
+cost  0.156327  at iter  900
+cost  0.15635  at iter  901
+cost  0.156362  at iter  902
+cost  0.1563  at iter  903
+cost  0.156306  at iter  904
+cost  0.156319  at iter  905
+cost  0.156318  at iter  906
+cost  0.15635  at iter  907
+cost  0.156302  at iter  908
+cost  0.156326  at iter  909
+cost  0.156301  at iter  910
+cost  0.156385  at iter  911
+cost  0.15633  at iter  912
+cost  0.156308  at iter  913
+cost  0.156326  at iter  914
+cost  0.156312  at iter  915
+cost  0.15634  at iter  916
+cost  0.156297  at iter  917
+Best model found so far at iter: 918 with cost 0.156297
+cost  0.156347  at iter  918
+cost  0.156276  at iter  919
+Best model found so far at iter: 920 with cost 0.156276
+cost  0.156331  at iter  920
+cost  0.156312  at iter  921
+cost  0.15628  at iter  922
+cost  0.156285  at iter  923
+cost  0.156308  at iter  924
+cost  0.156395  at iter  925
+cost  0.156356  at iter  926
+cost  0.156444  at iter  927
+cost  0.156333  at iter  928
+cost  0.156295  at iter  929
+cost  0.156396  at iter  930
+cost  0.156271  at iter  931
+Best model found so far at iter: 932 with cost 0.156271
+cost  0.156309  at iter  932
+cost  0.156397  at iter  933
+cost  0.156294  at iter  934
+cost  0.156268  at iter  935
+Best model found so far at iter: 936 with cost 0.156268
+cost  0.156362  at iter  936
+cost  0.156295  at iter  937
+cost  0.156293  at iter  938
+cost  0.156291  at iter  939
+cost  0.156297  at iter  940
+cost  0.156302  at iter  941
+cost  0.156312  at iter  942
+cost  0.156274  at iter  943
+cost  0.156284  at iter  944
+cost  0.156301  at iter  945
+cost  0.156303  at iter  946
+cost  0.15627  at iter  947
+cost  0.156259  at iter  948
+Best model found so far at iter: 949 with cost 0.156259
+cost  0.156288  at iter  949
+cost  0.156258  at iter  950
+Best model found so far at iter: 951 with cost 0.156258
+cost  0.156248  at iter  951
+Best model found so far at iter: 952 with cost 0.156248
+cost  0.156279  at iter  952
+cost  0.156285  at iter  953
+cost  0.156284  at iter  954
+cost  0.15627  at iter  955
+cost  0.156256  at iter  956
+cost  0.156344  at iter  957
+cost  0.156271  at iter  958
+cost  0.15627  at iter  959
+cost  0.156257  at iter  960
+cost  0.156261  at iter  961
+cost  0.156276  at iter  962
+cost  0.15627  at iter  963
+cost  0.156274  at iter  964
+cost  0.15634  at iter  965
+cost  0.156275  at iter  966
+cost  0.156298  at iter  967
+cost  0.156285  at iter  968
+cost  0.156296  at iter  969
+cost  0.156265  at iter  970
+cost  0.156281  at iter  971
+cost  0.156333  at iter  972
+cost  0.156263  at iter  973
+cost  0.156312  at iter  974
+cost  0.156276  at iter  975
+cost  0.156265  at iter  976
+cost  0.156297  at iter  977
+cost  0.156262  at iter  978
+cost  0.15628  at iter  979
+cost  0.156266  at iter  980
+cost  0.156301  at iter  981
+cost  0.156287  at iter  982
+cost  0.156283  at iter  983
+cost  0.156296  at iter  984
+cost  0.156292  at iter  985
+cost  0.156257  at iter  986
+cost  0.156266  at iter  987
+cost  0.15628  at iter  988
+cost  0.156425  at iter  989
+cost  0.156278  at iter  990
+cost  0.156291  at iter  991
+cost  0.156332  at iter  992
+cost  0.156263  at iter  993
+cost  0.156254  at iter  994
+cost  0.156308  at iter  995
+cost  0.156255  at iter  996
+cost  0.156253  at iter  997
+cost  0.156268  at iter  998
+cost  0.156264  at iter  999
+cost  0.156266  at iter  1000
+cost  0.156273  at iter  1001
+cost  0.156244  at iter  1002
+Best model found so far at iter: 1003 with cost 0.156244
+cost  0.156339  at iter  1003
+cost  0.156267  at iter  1004
+cost  0.156281  at iter  1005
+cost  0.156288  at iter  1006
+cost  0.156271  at iter  1007
+cost  0.156318  at iter  1008
+cost  0.156292  at iter  1009
+cost  0.156291  at iter  1010
+cost  0.15629  at iter  1011
+cost  0.15628  at iter  1012
+cost  0.156285  at iter  1013
+cost  0.156316  at iter  1014
+cost  0.156341  at iter  1015
+cost  0.156283  at iter  1016
+cost  0.15632  at iter  1017
+cost  0.156323  at iter  1018
+cost  0.156361  at iter  1019
+cost  0.156334  at iter  1020
+cost  0.15628  at iter  1021
+cost  0.15635  at iter  1022
+cost  0.156333  at iter  1023
+cost  0.156386  at iter  1024
+cost  0.156299  at iter  1025
+cost  0.156337  at iter  1026
+cost  0.156472  at iter  1027
+cost  0.156332  at iter  1028
+cost  0.156322  at iter  1029
+cost  0.156313  at iter  1030
+cost  0.156297  at iter  1031
+cost  0.156286  at iter  1032
+cost  0.156408  at iter  1033
+cost  0.156376  at iter  1034
+cost  0.156425  at iter  1035
+cost  0.15636  at iter  1036
+cost  0.156409  at iter  1037
+cost  0.156317  at iter  1038
+cost  0.156269  at iter  1039
+cost  0.156297  at iter  1040
+cost  0.156308  at iter  1041
+cost  0.156307  at iter  1042
+cost  0.156369  at iter  1043
+cost  0.156326  at iter  1044
+cost  0.156386  at iter  1045
+cost  0.156316  at iter  1046
+cost  0.156325  at iter  1047
+cost  0.156332  at iter  1048
+cost  0.156274  at iter  1049
+cost  0.156308  at iter  1050
+cost  0.156305  at iter  1051
+cost  0.156362  at iter  1052
+cost  0.156364  at iter  1053
+cost  0.156326  at iter  1054
+cost  0.156322  at iter  1055
+cost  0.156398  at iter  1056
+cost  0.156424  at iter  1057
+cost  0.156392  at iter  1058
+cost  0.156414  at iter  1059
+cost  0.1563  at iter  1060
+cost  0.156334  at iter  1061
+cost  0.156327  at iter  1062
+cost  0.156366  at iter  1063
+cost  0.156323  at iter  1064
+cost  0.156367  at iter  1065
+cost  0.156378  at iter  1066
+cost  0.156394  at iter  1067
+cost  0.156304  at iter  1068
+cost  0.156357  at iter  1069
+cost  0.156398  at iter  1070
+cost  0.156364  at iter  1071
+cost  0.156306  at iter  1072
+cost  0.156354  at iter  1073
+cost  0.156409  at iter  1074
+cost  0.156328  at iter  1075
+cost  0.156291  at iter  1076
+cost  0.156355  at iter  1077
+cost  0.156261  at iter  1078
+cost  0.156341  at iter  1079
+cost  0.15628  at iter  1080
+cost  0.156298  at iter  1081
+cost  0.156328  at iter  1082
+cost  0.156241  at iter  1083
+Best model found so far at iter: 1084 with cost 0.156241
+cost  0.156272  at iter  1084
+cost  0.156353  at iter  1085
+cost  0.156351  at iter  1086
+cost  0.15624  at iter  1087
+Best model found so far at iter: 1088 with cost 0.156240
+cost  0.156326  at iter  1088
+cost  0.15633  at iter  1089
+cost  0.156313  at iter  1090
+cost  0.156262  at iter  1091
+cost  0.156239  at iter  1092
+Best model found so far at iter: 1093 with cost 0.156239
+cost  0.15645  at iter  1093
+cost  0.156263  at iter  1094
+cost  0.156328  at iter  1095
+cost  0.156433  at iter  1096
+cost  0.156368  at iter  1097
+cost  0.156381  at iter  1098
+cost  0.156278  at iter  1099
+cost  0.156287  at iter  1100
+cost  0.156328  at iter  1101
+cost  0.156435  at iter  1102
+cost  0.156315  at iter  1103
+cost  0.156283  at iter  1104
+cost  0.156298  at iter  1105
+cost  0.156344  at iter  1106
+cost  0.156305  at iter  1107
+cost  0.156297  at iter  1108
+cost  0.156388  at iter  1109
+cost  0.156505  at iter  1110
+cost  0.15644  at iter  1111
+cost  0.156328  at iter  1112
+cost  0.156596  at iter  1113
+cost  0.156329  at iter  1114
+cost  0.156585  at iter  1115
+cost  0.156294  at iter  1116
+cost  0.156316  at iter  1117
+cost  0.156384  at iter  1118
+cost  0.15626  at iter  1119
+cost  0.156257  at iter  1120
+cost  0.156242  at iter  1121
+cost  0.156283  at iter  1122
+cost  0.156245  at iter  1123
+cost  0.156211  at iter  1124
+Best model found so far at iter: 1125 with cost 0.156211
+cost  0.15624  at iter  1125
+cost  0.156234  at iter  1126
+cost  0.156282  at iter  1127
+cost  0.156235  at iter  1128
+cost  0.156201  at iter  1129
+Best model found so far at iter: 1130 with cost 0.156201
+cost  0.156236  at iter  1130
+cost  0.156238  at iter  1131
+cost  0.156241  at iter  1132
+cost  0.156235  at iter  1133
+cost  0.156213  at iter  1134
+cost  0.15622  at iter  1135
+cost  0.156279  at iter  1136
+cost  0.156219  at iter  1137
+cost  0.156213  at iter  1138
+cost  0.156227  at iter  1139
+cost  0.156248  at iter  1140
+cost  0.156242  at iter  1141
+cost  0.156239  at iter  1142
+cost  0.156215  at iter  1143
+cost  0.156221  at iter  1144
+cost  0.156223  at iter  1145
+cost  0.156239  at iter  1146
+cost  0.156223  at iter  1147
+cost  0.156202  at iter  1148
+cost  0.156196  at iter  1149
+Best model found so far at iter: 1150 with cost 0.156196
+cost  0.156168  at iter  1150
+Best model found so far at iter: 1151 with cost 0.156168
+cost  0.156216  at iter  1151
+cost  0.156206  at iter  1152
+cost  0.156197  at iter  1153
+cost  0.15623  at iter  1154
+cost  0.1562  at iter  1155
+cost  0.156223  at iter  1156
+cost  0.156195  at iter  1157
+cost  0.156177  at iter  1158
+cost  0.156222  at iter  1159
+cost  0.156221  at iter  1160
+cost  0.156191  at iter  1161
+cost  0.156238  at iter  1162
+cost  0.156248  at iter  1163
+cost  0.15623  at iter  1164
+cost  0.15625  at iter  1165
+cost  0.156216  at iter  1166
+cost  0.156244  at iter  1167
+cost  0.156191  at iter  1168
+cost  0.156222  at iter  1169
+cost  0.156225  at iter  1170
+cost  0.156229  at iter  1171
+cost  0.156231  at iter  1172
+cost  0.156193  at iter  1173
+cost  0.1562  at iter  1174
+cost  0.156214  at iter  1175
+cost  0.156195  at iter  1176
+cost  0.156162  at iter  1177
+Best model found so far at iter: 1178 with cost 0.156162
+cost  0.156205  at iter  1178
+cost  0.156272  at iter  1179
+cost  0.156208  at iter  1180
+cost  0.156189  at iter  1181
+cost  0.156207  at iter  1182
+cost  0.156254  at iter  1183
+cost  0.156216  at iter  1184
+cost  0.15619  at iter  1185
+cost  0.156205  at iter  1186
+cost  0.156281  at iter  1187
+cost  0.156246  at iter  1188
+cost  0.15632  at iter  1189
+cost  0.156424  at iter  1190
+cost  0.156288  at iter  1191
+cost  0.15653  at iter  1192
+cost  0.156375  at iter  1193
+cost  0.156375  at iter  1194
+cost  0.156459  at iter  1195
+cost  0.156475  at iter  1196
+cost  0.156369  at iter  1197
+cost  0.15632  at iter  1198
+cost  0.156386  at iter  1199
+cost  0.156419  at iter  1200
+cost  0.156407  at iter  1201
+cost  0.15636  at iter  1202
+cost  0.156329  at iter  1203
+cost  0.156372  at iter  1204
+cost  0.156395  at iter  1205
+cost  0.156357  at iter  1206
+cost  0.156357  at iter  1207
+cost  0.156322  at iter  1208
+cost  0.156358  at iter  1209
+cost  0.156301  at iter  1210
+cost  0.156262  at iter  1211
+cost  0.156193  at iter  1212
+cost  0.156277  at iter  1213
+cost  0.156276  at iter  1214
+cost  0.156355  at iter  1215
+cost  0.156329  at iter  1216
+cost  0.156261  at iter  1217
+cost  0.156284  at iter  1218
+cost  0.156253  at iter  1219
+cost  0.156354  at iter  1220
+cost  0.156208  at iter  1221
+cost  0.156216  at iter  1222
+cost  0.156173  at iter  1223
+cost  0.156268  at iter  1224
+cost  0.156223  at iter  1225
+cost  0.156173  at iter  1226
+cost  0.156161  at iter  1227
+Best model found so far at iter: 1228 with cost 0.156161
+cost  0.156212  at iter  1228
+cost  0.156143  at iter  1229
+Best model found so far at iter: 1230 with cost 0.156143
+cost  0.156235  at iter  1230
+cost  0.156244  at iter  1231
+cost  0.156231  at iter  1232
+cost  0.156228  at iter  1233
+cost  0.156192  at iter  1234
+cost  0.156205  at iter  1235
+cost  0.156272  at iter  1236
+cost  0.156149  at iter  1237
+cost  0.156169  at iter  1238
+cost  0.15627  at iter  1239
+cost  0.156244  at iter  1240
+cost  0.156191  at iter  1241
+cost  0.156102  at iter  1242
+Best model found so far at iter: 1243 with cost 0.156102
+cost  0.156183  at iter  1243
+cost  0.156225  at iter  1244
+cost  0.156237  at iter  1245
+cost  0.156132  at iter  1246
+cost  0.156255  at iter  1247
+cost  0.156225  at iter  1248
+cost  0.156212  at iter  1249
+cost  0.15618  at iter  1250
+cost  0.156177  at iter  1251
+cost  0.156161  at iter  1252
+cost  0.156156  at iter  1253
+cost  0.156172  at iter  1254
+cost  0.156188  at iter  1255
+cost  0.156183  at iter  1256
+cost  0.156163  at iter  1257
+cost  0.156154  at iter  1258
+cost  0.156155  at iter  1259
+cost  0.156152  at iter  1260
+cost  0.156171  at iter  1261
+cost  0.156263  at iter  1262
+cost  0.156176  at iter  1263
+cost  0.15615  at iter  1264
+cost  0.15622  at iter  1265
+cost  0.156189  at iter  1266
+cost  0.156126  at iter  1267
+cost  0.156158  at iter  1268
+cost  0.156188  at iter  1269
+cost  0.156122  at iter  1270
+cost  0.156113  at iter  1271
+cost  0.156113  at iter  1272
+cost  0.156136  at iter  1273
+cost  0.156146  at iter  1274
+cost  0.156187  at iter  1275
+cost  0.156136  at iter  1276
+cost  0.15612  at iter  1277
+cost  0.156126  at iter  1278
+cost  0.156092  at iter  1279
+Best model found so far at iter: 1280 with cost 0.156092
+cost  0.156099  at iter  1280
+cost  0.156113  at iter  1281
+cost  0.156088  at iter  1282
+Best model found so far at iter: 1283 with cost 0.156088
+cost  0.156163  at iter  1283
+cost  0.156082  at iter  1284
+Best model found so far at iter: 1285 with cost 0.156082
+cost  0.156147  at iter  1285
+cost  0.156156  at iter  1286
+cost  0.156098  at iter  1287
+cost  0.15614  at iter  1288
+cost  0.156107  at iter  1289
+cost  0.156129  at iter  1290
+cost  0.156144  at iter  1291
+cost  0.156164  at iter  1292
+cost  0.156093  at iter  1293
+cost  0.156152  at iter  1294
+cost  0.156142  at iter  1295
+cost  0.156127  at iter  1296
+cost  0.156153  at iter  1297
+cost  0.1561  at iter  1298
+cost  0.156131  at iter  1299
+cost  0.156075  at iter  1300
+Best model found so far at iter: 1301 with cost 0.156075
+cost  0.156141  at iter  1301
+cost  0.156158  at iter  1302
+cost  0.156172  at iter  1303
+cost  0.156128  at iter  1304
+cost  0.156134  at iter  1305
+cost  0.156129  at iter  1306
+cost  0.156153  at iter  1307
+cost  0.156132  at iter  1308
+cost  0.156172  at iter  1309
+cost  0.156186  at iter  1310
+cost  0.156251  at iter  1311
+cost  0.156207  at iter  1312
+cost  0.156168  at iter  1313
+cost  0.156191  at iter  1314
+cost  0.156285  at iter  1315
+cost  0.156349  at iter  1316
+cost  0.156225  at iter  1317
+cost  0.15636  at iter  1318
+cost  0.156269  at iter  1319
+cost  0.156274  at iter  1320
+cost  0.156278  at iter  1321
+cost  0.156391  at iter  1322
+cost  0.156262  at iter  1323
+cost  0.156121  at iter  1324
+cost  0.156187  at iter  1325
+cost  0.15637  at iter  1326
+cost  0.1563  at iter  1327
+cost  0.156249  at iter  1328
+cost  0.156363  at iter  1329
+cost  0.156218  at iter  1330
+cost  0.156334  at iter  1331
+cost  0.156531  at iter  1332
+cost  0.156251  at iter  1333
+cost  0.156385  at iter  1334
+cost  0.15651  at iter  1335
+cost  0.156337  at iter  1336
+cost  0.156232  at iter  1337
+cost  0.156372  at iter  1338
+cost  0.156391  at iter  1339
+cost  0.156542  at iter  1340
+cost  0.156352  at iter  1341
+cost  0.156612  at iter  1342
+cost  0.156693  at iter  1343
+cost  0.156702  at iter  1344
+cost  0.156711  at iter  1345
+cost  0.156457  at iter  1346
+cost  0.156568  at iter  1347
+cost  0.156583  at iter  1348
+cost  0.156824  at iter  1349
+cost  0.156492  at iter  1350
+cost  0.156753  at iter  1351
+cost  0.156655  at iter  1352
+cost  0.156512  at iter  1353
+cost  0.156549  at iter  1354
+cost  0.156484  at iter  1355
+cost  0.156316  at iter  1356
+cost  0.156287  at iter  1357
+cost  0.156386  at iter  1358
+cost  0.156454  at iter  1359
+cost  0.156442  at iter  1360
+cost  0.156397  at iter  1361
+cost  0.156345  at iter  1362
+cost  0.156346  at iter  1363
+cost  0.15636  at iter  1364
+cost  0.156267  at iter  1365
+cost  0.156259  at iter  1366
+cost  0.156258  at iter  1367
+cost  0.156311  at iter  1368
+cost  0.156207  at iter  1369
+cost  0.156209  at iter  1370
+cost  0.156177  at iter  1371
+cost  0.156186  at iter  1372
+cost  0.156221  at iter  1373
+cost  0.156282  at iter  1374
+cost  0.156138  at iter  1375
+cost  0.156157  at iter  1376
+cost  0.156164  at iter  1377
+cost  0.156128  at iter  1378
+cost  0.156092  at iter  1379
+cost  0.156077  at iter  1380
+cost  0.156152  at iter  1381
+cost  0.156104  at iter  1382
+cost  0.156104  at iter  1383
+cost  0.156088  at iter  1384
+cost  0.156119  at iter  1385
+cost  0.156092  at iter  1386
+cost  0.156076  at iter  1387
+cost  0.156083  at iter  1388
+cost  0.156043  at iter  1389
+Best model found so far at iter: 1390 with cost 0.156043
+cost  0.156034  at iter  1390
+Best model found so far at iter: 1391 with cost 0.156034
+cost  0.15607  at iter  1391
+cost  0.156234  at iter  1392
+cost  0.156115  at iter  1393
+cost  0.156039  at iter  1394
+cost  0.156089  at iter  1395
+cost  0.156032  at iter  1396
+Best model found so far at iter: 1397 with cost 0.156032
+cost  0.156048  at iter  1397
+cost  0.156072  at iter  1398
+cost  0.156057  at iter  1399
+cost  0.156058  at iter  1400
+cost  0.156094  at iter  1401
+cost  0.156015  at iter  1402
+Best model found so far at iter: 1403 with cost 0.156015
+cost  0.156057  at iter  1403
+cost  0.156046  at iter  1404
+cost  0.156042  at iter  1405
+cost  0.156052  at iter  1406
+cost  0.156072  at iter  1407
+cost  0.156066  at iter  1408
+cost  0.156052  at iter  1409
+cost  0.156009  at iter  1410
+Best model found so far at iter: 1411 with cost 0.156009
+cost  0.156074  at iter  1411
+cost  0.156069  at iter  1412
+cost  0.155988  at iter  1413
+Best model found so far at iter: 1414 with cost 0.155988
+cost  0.156067  at iter  1414
+cost  0.156092  at iter  1415
+cost  0.156022  at iter  1416
+cost  0.156092  at iter  1417
+cost  0.156055  at iter  1418
+cost  0.155997  at iter  1419
+cost  0.156005  at iter  1420
+cost  0.156003  at iter  1421
+cost  0.156033  at iter  1422
+cost  0.156029  at iter  1423
+cost  0.156001  at iter  1424
+cost  0.156007  at iter  1425
+cost  0.156033  at iter  1426
+cost  0.156064  at iter  1427
+cost  0.156033  at iter  1428
+cost  0.156001  at iter  1429
+cost  0.155997  at iter  1430
+cost  0.156052  at iter  1431
+cost  0.15601  at iter  1432
+cost  0.156062  at iter  1433
+cost  0.156034  at iter  1434
+cost  0.156014  at iter  1435
+cost  0.156018  at iter  1436
+cost  0.156041  at iter  1437
+cost  0.156007  at iter  1438
+cost  0.15601  at iter  1439
+cost  0.156014  at iter  1440
+cost  0.156028  at iter  1441
+cost  0.156037  at iter  1442
+cost  0.156049  at iter  1443
+cost  0.156042  at iter  1444
+cost  0.155995  at iter  1445
+cost  0.156011  at iter  1446
+cost  0.156004  at iter  1447
+cost  0.156007  at iter  1448
+cost  0.156015  at iter  1449
+cost  0.156101  at iter  1450
+cost  0.156034  at iter  1451
+cost  0.156039  at iter  1452
+cost  0.156017  at iter  1453
+cost  0.156003  at iter  1454
+cost  0.156034  at iter  1455
+cost  0.156033  at iter  1456
+cost  0.156035  at iter  1457
+cost  0.156003  at iter  1458
+cost  0.156041  at iter  1459
+cost  0.156024  at iter  1460
+cost  0.156016  at iter  1461
+cost  0.156048  at iter  1462
+cost  0.156025  at iter  1463
+cost  0.156027  at iter  1464
+cost  0.156057  at iter  1465
+cost  0.15604  at iter  1466
+cost  0.156024  at iter  1467
+cost  0.155987  at iter  1468
+Best model found so far at iter: 1469 with cost 0.155987
+cost  0.156031  at iter  1469
+cost  0.156  at iter  1470
+cost  0.155982  at iter  1471
+Best model found so far at iter: 1472 with cost 0.155982
+cost  0.155991  at iter  1472
+cost  0.155977  at iter  1473
+Best model found so far at iter: 1474 with cost 0.155977
+cost  0.155998  at iter  1474
+cost  0.155984  at iter  1475
+cost  0.155995  at iter  1476
+cost  0.155973  at iter  1477
+Best model found so far at iter: 1478 with cost 0.155973
+cost  0.155989  at iter  1478
+cost  0.156011  at iter  1479
+cost  0.156007  at iter  1480
+cost  0.156048  at iter  1481
+cost  0.156141  at iter  1482
+cost  0.155996  at iter  1483
+cost  0.156042  at iter  1484
+cost  0.155998  at iter  1485
+cost  0.156  at iter  1486
+cost  0.15598  at iter  1487
+cost  0.155981  at iter  1488
+cost  0.155978  at iter  1489
+cost  0.156017  at iter  1490
+cost  0.155988  at iter  1491
+cost  0.156017  at iter  1492
+cost  0.155992  at iter  1493
+cost  0.155983  at iter  1494
+cost  0.156115  at iter  1495
+cost  0.155996  at iter  1496
+cost  0.155972  at iter  1497
+Best model found so far at iter: 1498 with cost 0.155972
+cost  0.155978  at iter  1498
+cost  0.155982  at iter  1499
+cost  0.156012  at iter  1500
+cost  0.155978  at iter  1501
+cost  0.155955  at iter  1502
+Best model found so far at iter: 1503 with cost 0.155955
+cost  0.155973  at iter  1503
+cost  0.155991  at iter  1504
+cost  0.155962  at iter  1505
+cost  0.155961  at iter  1506
+cost  0.155963  at iter  1507
+cost  0.155972  at iter  1508
+cost  0.155956  at iter  1509
+cost  0.155972  at iter  1510
+cost  0.155953  at iter  1511
+Best model found so far at iter: 1512 with cost 0.155953
+cost  0.155971  at iter  1512
+cost  0.155986  at iter  1513
+cost  0.155963  at iter  1514
+cost  0.155966  at iter  1515
+cost  0.15598  at iter  1516
+cost  0.155928  at iter  1517
+Best model found so far at iter: 1518 with cost 0.155928
+cost  0.155962  at iter  1518
+cost  0.155971  at iter  1519
+cost  0.155946  at iter  1520
+cost  0.155955  at iter  1521
+cost  0.155957  at iter  1522
+cost  0.155949  at iter  1523
+cost  0.155963  at iter  1524
+cost  0.15601  at iter  1525
+cost  0.155958  at iter  1526
+cost  0.155991  at iter  1527
+cost  0.155929  at iter  1528
+cost  0.15602  at iter  1529
+cost  0.155952  at iter  1530
+cost  0.155945  at iter  1531
+cost  0.155927  at iter  1532
+Best model found so far at iter: 1533 with cost 0.155927
+cost  0.155936  at iter  1533
+cost  0.15596  at iter  1534
+cost  0.155924  at iter  1535
+Best model found so far at iter: 1536 with cost 0.155924
+cost  0.155942  at iter  1536
+cost  0.155958  at iter  1537
+cost  0.15594  at iter  1538
+cost  0.155954  at iter  1539
+cost  0.155957  at iter  1540
+cost  0.15595  at iter  1541
+cost  0.155969  at iter  1542
+cost  0.155936  at iter  1543
+cost  0.155931  at iter  1544
+cost  0.155947  at iter  1545
+cost  0.155963  at iter  1546
+cost  0.155946  at iter  1547
+cost  0.155952  at iter  1548
+cost  0.155944  at iter  1549
+cost  0.155984  at iter  1550
+cost  0.155956  at iter  1551
+cost  0.155959  at iter  1552
+cost  0.155961  at iter  1553
+cost  0.155933  at iter  1554
+cost  0.155934  at iter  1555
+cost  0.155956  at iter  1556
+cost  0.155941  at iter  1557
+cost  0.15593  at iter  1558
+cost  0.15593  at iter  1559
+cost  0.155977  at iter  1560
+cost  0.155926  at iter  1561
+cost  0.155941  at iter  1562
+cost  0.155981  at iter  1563
+cost  0.155957  at iter  1564
+cost  0.155964  at iter  1565
+cost  0.155935  at iter  1566
+cost  0.155933  at iter  1567
+cost  0.15597  at iter  1568
+cost  0.155971  at iter  1569
+cost  0.156001  at iter  1570
+cost  0.155961  at iter  1571
+cost  0.155952  at iter  1572
+cost  0.155941  at iter  1573
+cost  0.155975  at iter  1574
+cost  0.155939  at iter  1575
+cost  0.156  at iter  1576
+cost  0.155965  at iter  1577
+cost  0.155972  at iter  1578
+cost  0.155951  at iter  1579
+cost  0.155983  at iter  1580
+cost  0.155983  at iter  1581
+cost  0.155969  at iter  1582
+cost  0.155991  at iter  1583
+cost  0.15602  at iter  1584
+cost  0.155986  at iter  1585
+cost  0.155966  at iter  1586
+cost  0.155968  at iter  1587
+cost  0.155973  at iter  1588
+cost  0.155984  at iter  1589
+cost  0.155985  at iter  1590
+cost  0.155991  at iter  1591
+cost  0.15597  at iter  1592
+cost  0.155956  at iter  1593
+cost  0.155983  at iter  1594
+cost  0.155932  at iter  1595
+cost  0.155947  at iter  1596
+cost  0.155961  at iter  1597
+cost  0.155937  at iter  1598
+cost  0.155997  at iter  1599
+cost  0.155978  at iter  1600
+cost  0.155963  at iter  1601
+cost  0.156023  at iter  1602
+cost  0.155953  at iter  1603
+cost  0.155947  at iter  1604
+cost  0.155981  at iter  1605
+cost  0.155962  at iter  1606
+cost  0.155944  at iter  1607
+cost  0.15599  at iter  1608
+cost  0.155938  at iter  1609
+cost  0.155966  at iter  1610
+cost  0.155972  at iter  1611
+cost  0.15596  at iter  1612
+cost  0.155975  at iter  1613
+cost  0.155952  at iter  1614
+cost  0.155956  at iter  1615
+cost  0.155979  at iter  1616
+cost  0.155995  at iter  1617
+cost  0.155989  at iter  1618
+cost  0.155973  at iter  1619
+cost  0.155931  at iter  1620
+cost  0.155952  at iter  1621
+cost  0.156006  at iter  1622
+cost  0.155973  at iter  1623
+cost  0.155927  at iter  1624
+cost  0.15596  at iter  1625
+cost  0.15593  at iter  1626
+cost  0.155934  at iter  1627
+cost  0.155951  at iter  1628
+cost  0.15599  at iter  1629
+cost  0.155978  at iter  1630
+cost  0.155957  at iter  1631
+cost  0.156004  at iter  1632
+cost  0.156022  at iter  1633
+cost  0.155961  at iter  1634
+cost  0.155968  at iter  1635
+cost  0.156055  at iter  1636
+cost  0.156031  at iter  1637
+cost  0.15606  at iter  1638
+cost  0.156106  at iter  1639
+cost  0.156074  at iter  1640
+cost  0.156017  at iter  1641
+cost  0.156133  at iter  1642
+cost  0.156236  at iter  1643
+cost  0.15626  at iter  1644
+cost  0.156215  at iter  1645
+cost  0.156441  at iter  1646
+cost  0.15627  at iter  1647
+cost  0.156232  at iter  1648
+cost  0.156361  at iter  1649
+cost  0.156391  at iter  1650
+cost  0.156405  at iter  1651
+cost  0.156247  at iter  1652
+cost  0.15623  at iter  1653
+cost  0.156357  at iter  1654
+cost  0.156106  at iter  1655
+cost  0.156122  at iter  1656
+cost  0.156129  at iter  1657
+cost  0.156151  at iter  1658
+cost  0.155999  at iter  1659
+cost  0.156019  at iter  1660
+cost  0.156029  at iter  1661
+cost  0.156  at iter  1662
+cost  0.155969  at iter  1663
+cost  0.155956  at iter  1664
+cost  0.155955  at iter  1665
+cost  0.155975  at iter  1666
+cost  0.155957  at iter  1667
+cost  0.15593  at iter  1668
+cost  0.155962  at iter  1669
+cost  0.155957  at iter  1670
+cost  0.155966  at iter  1671
+cost  0.155941  at iter  1672
+cost  0.155943  at iter  1673
+cost  0.155968  at iter  1674
+cost  0.155989  at iter  1675
+cost  0.15597  at iter  1676
+cost  0.155955  at iter  1677
+cost  0.155941  at iter  1678
+cost  0.155962  at iter  1679
+cost  0.155962  at iter  1680
+cost  0.15595  at iter  1681
+cost  0.155956  at iter  1682
+cost  0.155982  at iter  1683
+cost  0.155981  at iter  1684
+cost  0.155979  at iter  1685
+cost  0.155949  at iter  1686
+cost  0.155986  at iter  1687
+cost  0.156036  at iter  1688
+cost  0.155966  at iter  1689
+cost  0.156014  at iter  1690
+cost  0.156037  at iter  1691
+cost  0.156013  at iter  1692
+cost  0.156071  at iter  1693
+cost  0.15601  at iter  1694
+cost  0.156116  at iter  1695
+cost  0.156054  at iter  1696
+cost  0.156037  at iter  1697
+cost  0.156066  at iter  1698
+cost  0.156071  at iter  1699
+cost  0.15601  at iter  1700
+cost  0.156035  at iter  1701
+cost  0.155971  at iter  1702
+cost  0.15606  at iter  1703
+cost  0.156093  at iter  1704
+cost  0.156088  at iter  1705
+cost  0.156017  at iter  1706
+cost  0.156068  at iter  1707
+cost  0.155972  at iter  1708
+cost  0.155962  at iter  1709
+cost  0.155956  at iter  1710
+cost  0.156071  at iter  1711
+cost  0.155938  at iter  1712
+cost  0.155981  at iter  1713
+cost  0.155936  at iter  1714
+cost  0.155972  at iter  1715
+cost  0.155935  at iter  1716
+cost  0.155929  at iter  1717
+cost  0.155939  at iter  1718
+cost  0.155952  at iter  1719
+cost  0.155947  at iter  1720
+cost  0.155957  at iter  1721
+cost  0.156006  at iter  1722
+cost  0.155976  at iter  1723
+cost  0.155937  at iter  1724
+cost  0.155977  at iter  1725
+cost  0.155986  at iter  1726
+cost  0.155921  at iter  1727
+Best model found so far at iter: 1728 with cost 0.155921
+cost  0.155922  at iter  1728
+cost  0.155887  at iter  1729
+Best model found so far at iter: 1730 with cost 0.155887
+cost  0.155939  at iter  1730
+cost  0.155907  at iter  1731
+cost  0.155941  at iter  1732
+cost  0.155917  at iter  1733
+cost  0.155914  at iter  1734
+cost  0.1559  at iter  1735
+cost  0.155888  at iter  1736
+cost  0.155936  at iter  1737
+cost  0.155928  at iter  1738
+cost  0.155884  at iter  1739
+Best model found so far at iter: 1740 with cost 0.155884
+cost  0.155935  at iter  1740
+cost  0.15594  at iter  1741
+cost  0.155948  at iter  1742
+cost  0.155887  at iter  1743
+cost  0.155917  at iter  1744
+cost  0.155931  at iter  1745
+cost  0.155912  at iter  1746
+cost  0.155923  at iter  1747
+cost  0.155902  at iter  1748
+cost  0.155924  at iter  1749
+cost  0.155888  at iter  1750
+cost  0.15592  at iter  1751
+cost  0.155902  at iter  1752
+cost  0.155925  at iter  1753
+cost  0.15587  at iter  1754
+Best model found so far at iter: 1755 with cost 0.155870
+cost  0.155904  at iter  1755
+cost  0.155909  at iter  1756
+cost  0.155906  at iter  1757
+cost  0.155893  at iter  1758
+cost  0.155869  at iter  1759
+Best model found so far at iter: 1760 with cost 0.155869
+cost  0.155882  at iter  1760
+cost  0.155917  at iter  1761
+cost  0.155877  at iter  1762
+cost  0.155891  at iter  1763
+cost  0.155894  at iter  1764
+cost  0.155882  at iter  1765
+cost  0.155908  at iter  1766
+cost  0.155897  at iter  1767
+cost  0.155941  at iter  1768
+cost  0.155875  at iter  1769
+cost  0.155914  at iter  1770
+cost  0.155879  at iter  1771
+cost  0.155897  at iter  1772
+cost  0.155908  at iter  1773
+cost  0.155893  at iter  1774
+cost  0.155896  at iter  1775
+cost  0.15589  at iter  1776
+cost  0.155907  at iter  1777
+cost  0.155905  at iter  1778
+cost  0.155876  at iter  1779
+cost  0.155925  at iter  1780
+cost  0.155906  at iter  1781
+cost  0.155904  at iter  1782
+cost  0.155934  at iter  1783
+cost  0.155933  at iter  1784
+cost  0.155902  at iter  1785
+cost  0.15593  at iter  1786
+cost  0.155919  at iter  1787
+cost  0.155885  at iter  1788
+cost  0.15595  at iter  1789
+cost  0.155917  at iter  1790
+cost  0.155962  at iter  1791
+cost  0.155956  at iter  1792
+cost  0.155953  at iter  1793
+cost  0.15599  at iter  1794
+cost  0.156046  at iter  1795
+cost  0.155946  at iter  1796
+cost  0.156005  at iter  1797
+cost  0.155928  at iter  1798
+cost  0.156022  at iter  1799
+cost  0.156062  at iter  1800
+cost  0.156051  at iter  1801
+cost  0.156159  at iter  1802
+cost  0.156133  at iter  1803
+cost  0.156159  at iter  1804
+cost  0.156035  at iter  1805
+cost  0.156116  at iter  1806
+cost  0.15614  at iter  1807
+cost  0.156148  at iter  1808
+cost  0.156094  at iter  1809
+cost  0.156101  at iter  1810
+cost  0.156195  at iter  1811
+cost  0.15616  at iter  1812
+cost  0.156089  at iter  1813
+cost  0.156167  at iter  1814
+cost  0.156077  at iter  1815
+cost  0.15621  at iter  1816
+cost  0.15601  at iter  1817
+cost  0.156138  at iter  1818
+cost  0.155981  at iter  1819
+cost  0.156049  at iter  1820
+cost  0.156065  at iter  1821
+cost  0.156119  at iter  1822
+cost  0.156146  at iter  1823
+cost  0.156191  at iter  1824
+cost  0.156099  at iter  1825
+cost  0.156053  at iter  1826
+cost  0.155995  at iter  1827
+cost  0.156017  at iter  1828
+cost  0.156001  at iter  1829
+cost  0.156066  at iter  1830
+cost  0.156049  at iter  1831
+cost  0.15597  at iter  1832
+cost  0.156032  at iter  1833
+cost  0.155931  at iter  1834
+cost  0.155929  at iter  1835
+cost  0.15594  at iter  1836
+cost  0.155899  at iter  1837
+cost  0.155896  at iter  1838
+cost  0.155897  at iter  1839
+cost  0.155883  at iter  1840
+cost  0.155897  at iter  1841
+cost  0.155918  at iter  1842
+cost  0.155905  at iter  1843
+cost  0.155853  at iter  1844
+Best model found so far at iter: 1845 with cost 0.155853
+cost  0.155874  at iter  1845
+cost  0.155911  at iter  1846
+cost  0.155868  at iter  1847
+cost  0.155883  at iter  1848
+cost  0.155906  at iter  1849
+cost  0.15589  at iter  1850
+cost  0.155872  at iter  1851
+cost  0.155868  at iter  1852
+cost  0.155861  at iter  1853
+cost  0.155908  at iter  1854
+cost  0.155885  at iter  1855
+cost  0.155921  at iter  1856
+cost  0.15586  at iter  1857
+cost  0.155891  at iter  1858
+cost  0.155891  at iter  1859
+cost  0.155884  at iter  1860
+cost  0.155915  at iter  1861
+cost  0.155862  at iter  1862
+cost  0.155908  at iter  1863
+cost  0.155888  at iter  1864
+cost  0.155855  at iter  1865
+cost  0.155892  at iter  1866
+cost  0.155913  at iter  1867
+cost  0.155867  at iter  1868
+cost  0.155903  at iter  1869
+cost  0.155887  at iter  1870
+cost  0.155891  at iter  1871
+cost  0.15591  at iter  1872
+cost  0.155897  at iter  1873
+cost  0.155866  at iter  1874
+cost  0.155906  at iter  1875
+cost  0.155895  at iter  1876
+cost  0.155969  at iter  1877
+cost  0.155938  at iter  1878
+cost  0.155903  at iter  1879
+cost  0.155895  at iter  1880
+cost  0.155918  at iter  1881
+cost  0.155965  at iter  1882
+cost  0.155968  at iter  1883
+cost  0.155881  at iter  1884
+cost  0.155863  at iter  1885
+cost  0.155936  at iter  1886
+cost  0.155956  at iter  1887
+cost  0.155945  at iter  1888
+cost  0.155959  at iter  1889
+cost  0.155963  at iter  1890
+cost  0.155964  at iter  1891
+cost  0.155961  at iter  1892
+cost  0.156049  at iter  1893
+cost  0.156086  at iter  1894
+cost  0.155961  at iter  1895
+cost  0.156148  at iter  1896
+cost  0.156101  at iter  1897
+cost  0.156033  at iter  1898
+cost  0.156067  at iter  1899
+cost  0.156053  at iter  1900
+cost  0.155909  at iter  1901
+cost  0.155922  at iter  1902
+cost  0.156075  at iter  1903
+cost  0.156179  at iter  1904
+cost  0.156148  at iter  1905
+cost  0.156234  at iter  1906
+cost  0.156043  at iter  1907
+cost  0.156166  at iter  1908
+cost  0.156122  at iter  1909
+cost  0.156145  at iter  1910
+cost  0.156099  at iter  1911
+cost  0.156103  at iter  1912
+cost  0.156076  at iter  1913
+cost  0.156086  at iter  1914
+cost  0.15609  at iter  1915
+cost  0.156142  at iter  1916
+cost  0.156058  at iter  1917
+cost  0.156055  at iter  1918
+cost  0.156144  at iter  1919
+cost  0.156139  at iter  1920
+cost  0.156166  at iter  1921
+cost  0.156059  at iter  1922
+cost  0.156062  at iter  1923
+cost  0.15619  at iter  1924
+cost  0.156266  at iter  1925
+cost  0.156275  at iter  1926
+cost  0.156256  at iter  1927
+cost  0.156146  at iter  1928
+cost  0.156259  at iter  1929
+cost  0.156222  at iter  1930
+cost  0.156006  at iter  1931
+cost  0.156078  at iter  1932
+cost  0.156122  at iter  1933
+cost  0.156089  at iter  1934
+cost  0.156089  at iter  1935
+cost  0.156166  at iter  1936
+cost  0.156078  at iter  1937
+cost  0.156085  at iter  1938
+cost  0.156066  at iter  1939
+cost  0.156162  at iter  1940
+cost  0.156019  at iter  1941
+cost  0.155915  at iter  1942
+cost  0.156021  at iter  1943
+cost  0.156088  at iter  1944
+cost  0.156081  at iter  1945
+cost  0.155948  at iter  1946
+cost  0.155965  at iter  1947
+cost  0.155874  at iter  1948
+cost  0.15589  at iter  1949
+cost  0.15595  at iter  1950
+cost  0.155906  at iter  1951
+cost  0.155867  at iter  1952
+cost  0.155934  at iter  1953
+cost  0.155824  at iter  1954
+Best model found so far at iter: 1955 with cost 0.155824
+cost  0.155869  at iter  1955
+cost  0.155864  at iter  1956
+cost  0.155873  at iter  1957
+cost  0.155842  at iter  1958
+cost  0.155853  at iter  1959
+cost  0.155859  at iter  1960
+cost  0.155883  at iter  1961
+cost  0.155848  at iter  1962
+cost  0.155899  at iter  1963
+cost  0.15585  at iter  1964
+cost  0.155844  at iter  1965
+cost  0.155831  at iter  1966
+cost  0.155834  at iter  1967
+cost  0.15584  at iter  1968
+cost  0.155861  at iter  1969
+cost  0.155837  at iter  1970
+cost  0.155817  at iter  1971
+Best model found so far at iter: 1972 with cost 0.155817
+cost  0.155854  at iter  1972
+cost  0.155831  at iter  1973
+cost  0.155839  at iter  1974
+cost  0.155866  at iter  1975
+cost  0.15583  at iter  1976
+cost  0.155867  at iter  1977
+cost  0.155872  at iter  1978
+cost  0.155878  at iter  1979
+cost  0.155871  at iter  1980
+cost  0.15588  at iter  1981
+cost  0.155821  at iter  1982
+cost  0.155887  at iter  1983
+cost  0.155848  at iter  1984
+cost  0.155879  at iter  1985
+cost  0.155866  at iter  1986
+cost  0.155897  at iter  1987
+cost  0.155847  at iter  1988
+cost  0.155866  at iter  1989
+cost  0.155829  at iter  1990
+cost  0.155866  at iter  1991
+cost  0.155873  at iter  1992
+cost  0.155864  at iter  1993
+cost  0.155833  at iter  1994
+cost  0.155827  at iter  1995
+cost  0.155813  at iter  1996
+Best model found so far at iter: 1997 with cost 0.155813
+cost  0.155804  at iter  1997
+Best model found so far at iter: 1998 with cost 0.155804
+cost  0.155814  at iter  1998
+cost  0.155831  at iter  1999
