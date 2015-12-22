@@ -10,7 +10,7 @@ data = data/np.max(data)
 data = data.astype("float32")
 int_dim = 100
 
-bat = batch.seq_batch(data,1000)
+bat = batch.seq_batch(data,100)
 
 #units = [data.shape[1],int(math.ceil(data.shape[1]*1.2))+5,int(max(math.ceil(data.shape[1]/4),int_dim+2)+3),
 #         int(max(math.ceil(data.shape[1]/10),int_dim+1)),int_dim]

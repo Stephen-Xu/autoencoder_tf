@@ -221,7 +221,7 @@ class autoencoder(object):
 # Compute the gradients for a list of variables.
         #test = opt.compute_gradients(cost,[self.layers[0].W])
         
-        tr = tf.train.AdamOptimizer(0.1).minimize(cost)
+        tr = tf.train.GradientDescentOptimizer(0.001).minimize(cost)
         tr_noise = tf.train.AdamOptimizer().minimize(noise_cost)
         
         self.session.run(tf.initialize_all_variables())
