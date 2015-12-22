@@ -137,12 +137,13 @@ class autoencoder(object):
                 temp_session = temp.init_network()
                 
                 print 'Pretraining layer %d: '%(i+1),'...'
+                prt = 'pre_trained_layer'+str(i+1)+'.ckpt'
                 if(i==0):
-                    ic,bc = temp.train(data,batch=None,display=False,verbose=False,noise=False,n_iters=n_iters) 
+                    ic,bc = temp.train(data,batch=None,model_name=prt,display=False,verbose=False,noise=False,n_iters=n_iters) 
                     old = temp_session.run(temp.enc_output(data))
                     params.extend([temp_session.run(temp.layers[0].W),temp_session.run(temp.layers[0].b),temp_session.run(temp.layers[1].W),temp_session.run(temp.layers[1].b)])
                 else:
-                    ic,bc = temp.train(old,batch=None,display=False,verbose=False,noise=False,n_iters=n_iters)
+                    ic,bc = temp.train(old,batch=None,model_name=prt,display=False,verbose=False,noise=False,n_iters=n_iters)
                     params.extend([temp_session.run(temp.layers[0].W),temp_session.run(temp.layers[0].b),temp_session.run(temp.layers[1].W),temp_session.run(temp.layers[1].b)])
                     old = temp_session.run(temp.enc_output(old))
                 print '...finshed initial cost: ',ic,' final: ',bc
@@ -168,7 +169,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,model_name='./model.ckpt',verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -225,14 +226,14 @@ class autoencoder(object):
         
         self.session.run(tf.initialize_all_variables())
         
-        writer = tf.python.training.summary_io.SummaryWriter("/home/ceru/Scrivania/graph_logs", self.session.graph_def)
+        #writer = tf.python.training.summary_io.SummaryWriter("/home/ceru/Scrivania/graph_logs", self.session.graph_def)
 
 
         #print session.run(self.layers[0].W)
         
         saver = tf.train.Saver()
         
-        saver.save(self.session,"./model.ckpt")
+        saver.save(self.session,model_name)
         
         for i in range(n_iters):
         
@@ -250,7 +251,7 @@ class autoencoder(object):
                 init_cost = c
             import numpy as np
             if(np.isnan(c)):
-                saver.restore(self.session, "./model.ckpt")
+                saver.restore(self.session, model_name)
                 break
             if(verbose):
                 print "cost ",c," at iter ",i+1
@@ -261,7 +262,7 @@ class autoencoder(object):
                     plt.clf()
                     plt.scatter(ridotti[:,0],ridotti[:,1])
                     plt.draw()
-                saver.save(self.session,"./model.ckpt")
+                saver.save(self.session,model_name)
                     #self.save_model(session=self.session)
                 if(verbose):
                     print "Best model found so far at iter: %d"%(i+1),"with cost %f"%c
@@ -269,7 +270,7 @@ class autoencoder(object):
        
         #if(saving):
             #self.load_model("model.dat",session=self.session)
-        saver.restore(self.session, "./model.ckpt")
+        saver.restore(self.session,model_name)
         return init_cost,best
         
     def get_hidden(self,data,session=None):
