@@ -169,7 +169,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,model_name='./model.ckpt',verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,gradient='gradient',learning_rate=0.1,model_name='./model.ckpt',verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -209,7 +209,8 @@ class autoencoder(object):
         #############################
        
         if(le):
-            cost = tf.reduce_mean(tf.sum())              #dovrebbe essere la somma non la media ma dovrebbe andare uguale
+            cost = tf.reduce_mean(tf.sum())
+            #dovrebbe essere la somma non la media ma dovrebbe andare uguale
         else:
             #cost = tf.reduce_mean(tf.sqrt(tf.pow(x-x_hat,2)))-reg_lambda*reg_norm  
             cost = tf.reduce_mean((tf.pow(x-x_hat,2)))
@@ -221,8 +222,24 @@ class autoencoder(object):
 # Compute the gradients for a list of variables.
         #test = opt.compute_gradients(cost,[self.layers[0].W])
         
-        tr = tf.train.AdamOptimizer(0.1).minimize(cost)
-        tr_noise = tf.train.AdamOptimizer().minimize(noise_cost)
+        
+        if(gradient=='gradient'):
+            tr = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
+        elif(gradient=='adam'):
+            tr = tf.train.AdamOptimizer(learning_rate).minimize(cost)
+        elif(gradident=='adagrad'):
+            tr = tf.train.AdagradOptimizer(learning_rate).minimize(cost)
+        elif(gradient=='momentum'):
+            tr = tf.train.MomentumOptimizer(learning_rate).minimize(cost)
+        elif(gradient=='ftrl'):
+            tr = tf.train.FtrlOptimizer(learning_rate).minimize(cost)
+        elif(gradient=='rms'):
+            tr = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
+        else:
+            print "Unknow method ",gradient," .Using Gradient Descent Optimizer"
+            tr = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
+        
+        tr_noise = tf.train.GradientDescentOptimizer(learning_rate).minimize(noise_cost)
         
         self.session.run(tf.initialize_all_variables())
         
