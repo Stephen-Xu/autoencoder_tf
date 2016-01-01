@@ -1,14 +1,36 @@
 import tensorflow as tf
 import numpy as np
 from autoencoder import autoencoder
+from optparse import OptionParser
+
+parser = OptionParser()
+parser.add_option("-u", "--hidden", dest="hidden",
+                  help="number of hidden units",default=10)
+parser.add_option("-a", "--activation",
+                  dest="activation", default='sigmoid',
+                  help="activation function")
+parser.add_option("-b","--batch",dest="batch",default=False,
+                  help="Using batch learning")
+parser.add_option("-n","--number_batch",dest="n_batch",default=5,
+                  help="Number of batches for learning")
+parser.add_option("-g","--gradient",dest="gradient",default='gradient',
+                  help="Optimization metodh")
+parser.add_option("-l","--learning_rate",dest="learn_rate",default=0.01,
+                  help="Learning rate")
+parser.add_option("-i","--iters",dest="iters",default=1000,
+                  help="Number of iterations")
+parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
+                  help="Filename for model file")
+
+(options, args) = parser.parse_args()
 
 
-units = [784,10]
-action = ['tanh']
+units = [784,int(options.hidden)]
+action = [options.activation]
 
-l_rate =  0.01
+l_rate =  options.learn_rate
 
-grad = "gradient"
+grad = options.gradient
 
 
 f = open("../datasets/train-images.idx3-ubyte","r")
@@ -21,7 +43,7 @@ arr = arr.astype(float)
 
 data = arr
 
-print data.shape
+print options
 
 auto = autoencoder(units,action)
 
@@ -29,19 +51,11 @@ auto.generate_encoder()
 auto.generate_decoder()
 
 
-auto.train(data,n_iters=2000,model_name='model_tahnh.ckpt',batch=None,display=False,noise=False,gradient=grad,learning_rate=l_rate)
-
-auto2 = autoencoder(units,['sofftplus'])
-
-auto2.generate_encoder()
-auto2.generate_decoder()
-
-auto2.train(data,n_iters=2000,model_name='model_splus.ckpt',batch=None,display=False,noise=False,gradient=grad,learning_rate=l_rate)
+if(not options.batch):
+    bat = None
+else:
+    from tools.data_manipulation.batch import seq_batch
+    bat = seq_batch(data,int(options.n_batch))
 
 
-auto3 = autoencoder(units,['sigmoid'])
-
-auto3.generate_encoder()
-auto3.generate_decoder()
-
-auto3.train(data,n_iters=2000,model_name='model_sigmo.ckpt',batch=None,display=False,noise=False,gradient=grad,learning_rate=l_rate)
+auto.train(data,n_iters=int(options.iters),model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
