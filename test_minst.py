@@ -21,6 +21,8 @@ parser.add_option("-i","--iters",dest="iters",default=1000,
                   help="Number of iterations")
 parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
                   help="Filename for model file")
+parser.add_option("-c","--class_label",dest="class_label",default="../datasets/class0",help="Class label to use")
+
 
 (options, args) = parser.parse_args()
 
@@ -32,16 +34,21 @@ l_rate =  options.learn_rate
 
 grad = options.gradient
 
+class_label = options.class_label
 
 f = open("../datasets/train-images.idx3-ubyte","r")
 arr = np.fromfile(f, '>u1', 60000 * 28 * 28).reshape((60000, 784))
 max_value = 0xFF
 
-arr = arr.astype(float)
-#arr -= max_value / 2.0
-#arr /= max_value
+lab = np.loadtxt(class_label)
 
-data = arr
+arr = arr.astype(float)
+arr -= max_value / 2.0
+arr /= max_value
+
+data = [arr for (arr,lab) in zip(arr,lab) if(lab==1)]
+
+
 
 print options
 
