@@ -21,7 +21,7 @@ parser.add_option("-i","--iters",dest="iters",default=1000,
                   help="Number of iterations")
 parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
                   help="Filename for model file")
-parser.add_option("-c","--class_label",dest="class_label",default="../datasets/class0",help="Class label to use")
+parser.add_option("-c","--class_label",dest="class_label",default="../datasets/mnist_labels/class0",help="Class label to use")
 
 
 (options, args) = parser.parse_args()
@@ -46,7 +46,7 @@ arr = arr.astype(float)
 arr -= max_value / 2.0
 arr /= max_value
 
-data = [arr for (arr,lab) in zip(arr,lab) if(lab==1)]
+data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==1)])
 
 
 
