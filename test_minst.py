@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 from autoencoder import autoencoder
 from optparse import OptionParser
+from tools import get_data_from_minst
 
 parser = OptionParser()
 parser.add_option("-u", "--hidden", dest="hidden",
@@ -36,15 +37,16 @@ grad = options.gradient
 
 class_label = options.class_label
 
-f = open("../datasets/train-images.idx3-ubyte","r")
+'''f = open("../datasets/train-images.idx3-ubyte","r")
 arr = np.fromfile(f, '>u1', 60000 * 28 * 28).reshape((60000, 784))
 max_value = 0xFF
 
-lab = np.loadtxt(class_label)
-
 arr = arr.astype(float)
 arr -= max_value / 2.0
-arr /= max_value
+arr /= max_value'''
+
+lab = np.loadtxt(class_label)
+arr = get_data_from_minst.get_data_from_minst()
 
 data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==1)])
 
