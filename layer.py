@@ -58,7 +58,7 @@ class layer(object):
             return tf.matmul(x,self.W)+self.b
         elif(self.activation == 'softplus'):
             return tf.nn.softplus(tf.matmul(x,self.W)+self.b)
-        elif(self.activation == 'tanh'):
+        elif(self.activation == 'tanh'): 
             return tf.tanh(tf.matmul(x,self.W)+self.b)
         else:
             print "No known activation function selected, using linear"

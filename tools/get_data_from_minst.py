@@ -7,6 +7,30 @@ def _read32(bytestream):
   dt = np.dtype(np.uint32).newbyteorder('>')
   return np.frombuffer(bytestream.read(4), dtype=dt)[0]
 
+def dense_to_one_hot(labels_dense, num_classes=10):
+  """Convert class labels from scalars to one-hot vectors."""
+  num_labels = labels_dense.shape[0]
+  index_offset = np.arange(num_labels) * num_classes
+  labels_one_hot = np.zeros((num_labels, num_classes))
+  labels_one_hot.flat[index_offset + labels_dense.ravel()] = 1
+  return labels_one_hot
+
+def extract_labels(filename, one_hot=False):
+  """Extract the labels into a 1D uint8 numpy array [index]."""
+  print('Extracting', filename)
+  with gzip.open(filename) as bytestream:
+    magic = _read32(bytestream)
+    if magic != 2049:
+      raise ValueError(
+          'Invalid magic number %d in MNIST label file: %s' %
+          (magic, filename))
+    num_items = _read32(bytestream)
+    buf = bytestream.read(num_items)
+    labels = np.frombuffer(buf, dtype=np.uint8)
+    if one_hot:
+      return dense_to_one_hot(labels)
+    return labels
+
 def get_data_from_minst():
 
     num_images = 60000
@@ -15,7 +39,7 @@ def get_data_from_minst():
     max_value = 0xFF
 
     filename = '../datasets/train-images-idx3-ubyte.gz'
-
+    filename_lab ='../datasets/train-labels-idx1-ubyte.gz'
 
     with gzip.open(filename) as bytestream:
         magic = _read32(bytestream)
@@ -33,5 +57,7 @@ def get_data_from_minst():
         data -= max_value / 2.0
         data /= max_value
     
-    return data
+    lab = extract_labels(filename_lab)
+    
+    return data,lab
 
