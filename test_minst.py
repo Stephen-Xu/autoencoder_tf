@@ -46,8 +46,8 @@ print options
 
 auto = autoencoder(units,action)
 
-auto.generate_encoder()
-auto.generate_decoder()
+auto.generate_encoder(euris=True)
+auto.generate_decoder(symmetric=False)
 
 
 if(not options.batch):
