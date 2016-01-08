@@ -35,12 +35,13 @@ data = data+np.min(data)
 data = data.astype("float32")
 
 
-units = [3,30,15,10,7,4,2]
-actions = ['sigmoid','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid']
+units = [3,30,60,30,15,10,7,4,2]
+actions = ['linear','linear','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid']
+act2 = ['linear','linear','linear','linear','linear','linear','linear','softplus']
 auto = autoencoder(units,actions)
 
 auto.generate_encoder(euris=True)
-auto.generate_decoder()
+auto.generate_decoder(act=act2,symmetric=False)
 
 auto.pre_train(data)
 
@@ -51,6 +52,6 @@ else:
     bat = rand_batch(data,int(options.n_batch))
 
 
-auto.train(data,n_iters=int(options.iters),batch=bat,display=True,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+auto.train(data,n_iters=int(options.iters),batch=bat,display=True,verbose=True,display_w=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
 
 

@@ -35,11 +35,14 @@ act = [options.act]
 
 auto = autoencoder(units,act)
 
-auto.generate_encoder()
+auto.generate_encoder(euris=False)
 auto.generate_decoder()
 
+print auto.units
 
 session = auto.init_network()
+
+
 
 auto.load_model(options.model,session=session)
 
@@ -51,3 +54,4 @@ display.display(data[int(options.index)],28,28)
 res = auto.get_output(np.asarray([data[int(options.index)]]),session=session)
 
 display.display(res,28,28)
+

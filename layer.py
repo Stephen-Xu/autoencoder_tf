@@ -14,7 +14,8 @@ class layer(object):
         
         
         self.n_in,self.n_out = units
-        self.b = tf.Variable(tf.zeros([units[1]]))
+        
+      
               
         if(activation is None):
             self.activation = 'sigmoid'
@@ -33,8 +34,7 @@ class layer(object):
         else:   
             self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
         
-       
-            
+        self.b = tf.Variable(tf.zeros([units[1]]))
             
         
         
@@ -64,17 +64,17 @@ class layer(object):
             
     def output(self,x):
         if(self.activation == 'sigmoid'):
-            return tf.nn.sigmoid(tf.matmul(x,self.W)+self.b)
+            return tf.nn.sigmoid(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'relu'):
-            return tf.nn.relu(tf.matmul(x,self.W)+self.b)
+            return tf.nn.relu(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'relu6'):
-            return tf.nn.relu6(tf.matmul(x,self.W)+self.b)
+            return tf.nn.relu6(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'linear'):
             return tf.matmul(x,self.W)+self.b
         elif(self.activation == 'softplus'):
-            return tf.nn.softplus(tf.matmul(x,self.W)+self.b)
+            return tf.nn.softplus(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'tanh'): 
-            return tf.tanh(tf.matmul(x,self.W)+self.b)
+            return tf.tanh(tf.matmul(x,self.W+self.b))
         else:
             print "No known activation function selected, using linear"
             return tf.matmul(x,self.W)+self.b

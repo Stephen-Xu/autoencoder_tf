@@ -17,6 +17,7 @@ class autoencoder(object):
         self.initialized = False
         self.session = None
         self.full_connected = False
+  
         
     def __enter__(self):
         return self
@@ -24,10 +25,11 @@ class autoencoder(object):
     def __exit__(self,exc_type, exc_value, traceback):
         pass
     
-    def generate_encoder(self,euris=False,mean_w=0.0,std_w=1.0):
+    def generate_encoder(self,euris=False,summary=False,mean_w=0.0,std_w=1.0):
          for i in range(self.enc_length):
             self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris))
-        
+         if(summary):
+            self.summary = True
 
         
     def generate_decoder(self,symmetric=True,act=None):
@@ -112,13 +114,15 @@ class autoencoder(object):
         else:
             init = tf.initialize_variables(list_var)
         
-    
+       
         sess = tf.Session()
     
         sess.run(init)
         
         self.initialized=True
         self.session = sess
+        
+        
         return sess
     
     
@@ -169,7 +173,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,gradient='gradient',learning_rate=0.1,model_name='./model.ckpt',verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,gradient='gradient',learning_rate=0.1,model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -179,6 +183,8 @@ class autoencoder(object):
         elif(self.session is None):
             self.session = session
         
+        
+       
         
         if(display):
             import matplotlib.pyplot as plt
@@ -227,7 +233,7 @@ class autoencoder(object):
             tr = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
         elif(gradient=='adam'):
             tr = tf.train.AdamOptimizer(learning_rate).minimize(cost)
-        elif(gradident=='adagrad'):
+        elif(gradient=='adagrad'):
             tr = tf.train.AdagradOptimizer(learning_rate).minimize(cost)
         elif(gradient=='momentum'):
             tr = tf.train.MomentumOptimizer(learning_rate).minimize(cost)
@@ -243,10 +249,7 @@ class autoencoder(object):
         
         self.session.run(tf.initialize_all_variables())
         
-        #writer = tf.python.training.summary_io.SummaryWriter("/home/ceru/Scrivania/graph_logs", self.session.graph_def)
-
-
-        #print session.run(self.layers[0].W)
+        
         
         saver = tf.train.Saver()
         
@@ -261,8 +264,14 @@ class autoencoder(object):
                     self.session.run(tr,feed_dict={x:batch[l]})
                     if(noise):
                         self.session.run(tr_noise,feed_dict={x:batch[l]})
-                       
+            
+           
+                        
+            
             #print self.session.run(test[0],feed_dict={x:data})
+          
+              
+            
             c=self.session.run(cost,feed_dict={x:data})
             if(i==0):
                 init_cost = c
@@ -272,6 +281,11 @@ class autoencoder(object):
                 break
             if(verbose):
                 print "cost ",c," at iter ",i+1
+            if(display_w):
+                for i in range(self.enc_length):
+                    print "Norm layer ",i,"weight: ",np.sqrt(np.sum(self.session.run(self.layers[i].W)**2)),"bias: ",np.sqrt(np.sum(self.session.run(self.layers[i].b)**2))
+                    print "Mean layer ",i,"weight: ",np.mean(self.session.run(self.layers[i].W)),"bias: ",np.mean(self.session.run(self.layers[i].b))
+                print "-------------------------"
             if(c<best):
                 if(display):
                     ridotti = self.session.run(y,feed_dict={x:data})
