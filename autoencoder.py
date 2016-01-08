@@ -24,9 +24,9 @@ class autoencoder(object):
     def __exit__(self,exc_type, exc_value, traceback):
         pass
     
-    def generate_encoder(self):
+    def generate_encoder(self,euris=False,mean_w=0.0,std_w=1.0):
          for i in range(self.enc_length):
-            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=0.0,std=2.0))
+            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris))
         
 
         
@@ -125,7 +125,7 @@ class autoencoder(object):
     def pre_train(self,data,n_iters=100,session=None):
         assert self.full_connected,"Pretraining can be done only with a full autoencoder (encoder+decoder). Use generate_decoder() first."
         
-        
+        card = data.shape[0]
         old = None
         params = []
         for i in range(self.enc_length):

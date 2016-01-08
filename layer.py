@@ -3,7 +3,7 @@ import tensorflow as tf
 class layer(object):
     
 
-    def __init__(self,units,activation=None,mean=None,std=None):
+    def __init__(self,units,activation=None,mean=None,std=None,eur=False):
         
       
         assert not(units is None),"You need to provide the number of units ([n_in,n_out])"
@@ -13,15 +13,28 @@ class layer(object):
             std = 1.0
         
         
-        self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
-        self.b = tf.Variable(tf.zeros([units[1]]))
         self.n_in,self.n_out = units
-        
+        self.b = tf.Variable(tf.zeros([units[1]]))
               
         if(activation is None):
             self.activation = 'sigmoid'
         else:
             self.activation = activation
+        
+        if(eur):
+            if(self.activation =='sigmoid'):
+                self.W = tf.Variable(tf.random_uniform(units,minval=(-4*(6.0/(self.n_in+self.n_out))**0.5),maxval=(4*(6.0/(self.n_in+self.n_out))**0.5)))
+            elif(self.activation == 'relu' or self.activation == 'relu6'):
+                self.W = tf.Variable(tf.random_uniform(units,minval=0,maxval=(6.0/(self.n_in+self.n_out))**0.5))
+            elif(self.activation == 'tanh'): 
+                self.W = tf.Variable(tf.random_uniform(units,minval=(-(6.0/(self.n_in+self.n_out))**0.5),maxval=((6.0/(self.n_in+self.n_out))**0.5)))
+            else:
+                self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
+        else:   
+            self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
+        
+       
+            
             
         
         
@@ -54,6 +67,8 @@ class layer(object):
             return tf.nn.sigmoid(tf.matmul(x,self.W)+self.b)
         elif(self.activation == 'relu'):
             return tf.nn.relu(tf.matmul(x,self.W)+self.b)
+        elif(self.activation == 'relu6'):
+            return tf.nn.relu6(tf.matmul(x,self.W)+self.b)
         elif(self.activation == 'linear'):
             return tf.matmul(x,self.W)+self.b
         elif(self.activation == 'softplus'):

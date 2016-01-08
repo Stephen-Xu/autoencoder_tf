@@ -1,17 +1,35 @@
 from autoencoder import autoencoder
 from tools.image import display
 from tools import get_data_from_minst
+from optparse import OptionParser
 import numpy as np
-import sys
+
+
+
+parser = OptionParser()
+parser.add_option("-l", "--label", dest="label",
+                  help="class label",default=0)
+parser.add_option("-m", "--model", dest="model",
+                  help="model file",default="")
+parser.add_option("-i", "--index", dest="index",
+                  help="test index",default=0)
+parser.add_option("-u", "--units", dest="units",
+                  help="hidden units",default=10)
+parser.add_option("-a","--activation",dest="act",
+                  help="activation function",default="sigmoid")
+
+(options, args) = parser.parse_args()
 
 
 arr,lab = get_data_from_minst.get_data_from_minst()
 
 
-data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==sys.argv[4])])
+data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.label))])
 
-units = [784,int(sys.argv[3])]
-act = [sys.argv[5]]
+
+
+units = [784,int(options.units)]
+act = [options.act]
 
 
 
@@ -23,19 +41,13 @@ auto.generate_decoder()
 
 session = auto.init_network()
 
-auto.load_model(sys.argv[1],session=session)
+auto.load_model(options.model,session=session)
 
 
-out = auto.get_output(data,session=session)
 
-print data.shape
-print len(data)
 
-ind = int(sys.argv[2])
+display.display(data[int(options.index)],28,28)
 
-for i in range(10):
-    display.display(data[i],28,28)
+res = auto.get_output(np.asarray([data[int(options.index)]]),session=session)
 
-#display.display(out[ind],28,28)
-#display.display(data[ind],28,28)
-
+display.display(res,28,28)
