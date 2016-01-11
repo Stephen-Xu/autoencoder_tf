@@ -35,9 +35,9 @@ data = data+np.min(data)
 data = data.astype("float32")
 
 
-units = [3,30,60,30,15,10,7,4,2]
-actions = ['linear','linear','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid']
-act2 = ['linear','linear','linear','linear','linear','linear','linear','softplus']
+units = [3,60,30,15,10,7,4,2]
+actions = ['linear','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid','sigmoid']
+act2 = ['linear','linear','linear','linear','linear','linear','sigmoid']
 auto = autoencoder(units,actions)
 
 auto.generate_encoder(euris=True)

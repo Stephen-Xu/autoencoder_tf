@@ -10,7 +10,7 @@ class layer(object):
         if(mean is None):
             mean=0.0
         if(std is None):
-            std = 1.0
+            std = 1.0/(float(units[0])**0.5)
         
         
         self.n_in,self.n_out = units
