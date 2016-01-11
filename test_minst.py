@@ -28,8 +28,8 @@ parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class 
 (options, args) = parser.parse_args()
 
 
-units = [784,int(options.hidden)]
-action = [options.activation]
+units = [784,392,196,98,int(options.hidden)]
+action = [options.activation for i in range(len(units)-1)]
 
 l_rate =  options.learn_rate
 
@@ -49,6 +49,7 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
+auto.pre_train(data)
 
 if(not options.batch):
     bat = None
