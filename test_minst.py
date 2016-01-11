@@ -38,7 +38,7 @@ grad = options.gradient
 
 arr,lab = get_data_from_minst.get_data_from_minst()
 
-data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.class_label))]).astype(float)
+data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.class_label))]).astype("float32")
 
 
 
