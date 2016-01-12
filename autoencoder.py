@@ -14,6 +14,7 @@ class autoencoder(object):
         self.enc_length = len(self.units)-1
         self.dec_enc_length = self.enc_length*2
         self.is_sym = False
+        self.use_euristic=False
         self.initialized = False
         self.session = None
         self.full_connected = False
@@ -25,12 +26,12 @@ class autoencoder(object):
     def __exit__(self,exc_type, exc_value, traceback):
         pass
     
-    def generate_encoder(self,euris=False,summary=False,mean_w=0.0,std_w=1.0):
+    def generate_encoder(self,euris=False,mean_w=0.0,std_w=1.0):
          for i in range(self.enc_length):
             self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris))
-         if(summary):
-            self.summary = True
-
+         if(euris):
+            self.use_euristic = True
+            
         
     def generate_decoder(self,symmetric=True,act=None):
         
@@ -135,8 +136,8 @@ class autoencoder(object):
         for i in range(self.enc_length):
             with autoencoder(self.units[i:i+2],[self.act_func[i]]) as temp:
 
-                temp.generate_encoder() 
-                temp.generate_decoder()
+                temp.generate_encoder(euris=self.use_euristic) 
+                temp.generate_decoder(symmetric=self.is_sym)
 
                 temp_session = temp.init_network()
                 

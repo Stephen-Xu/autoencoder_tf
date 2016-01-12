@@ -15,7 +15,7 @@ parser.add_option("-i", "--index", dest="index",
                   help="test index",default=0)
 parser.add_option("-u", "--units", dest="units",
                   help="hidden units",default=10)
-parser.add_option("-a","--activation",dest="act",
+parser.add_option("-a","--activation",dest="activation",
                   help="activation function",default="sigmoid")
 
 (options, args) = parser.parse_args()
@@ -27,16 +27,15 @@ arr,lab = get_data_from_minst.get_data_from_minst()
 data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.label))])
 
 
-
-units = [784,int(options.units)]
-act = [options.act]
-
+units = [784,392,196,98,int(options.units)]
+action = [options.activation for i in range(len(units)-1)]
 
 
-auto = autoencoder(units,act)
+auto = autoencoder(units,action)
 
-auto.generate_encoder(euris=False)
-auto.generate_decoder()
+auto.generate_encoder(euris=True)
+auto.generate_decoder(symmetric=False)
+
 
 print auto.units
 
