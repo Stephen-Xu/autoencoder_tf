@@ -28,7 +28,7 @@ parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class 
 (options, args) = parser.parse_args()
 
 
-units = [784,392,196,98,int(options.hidden)]
+units = [784,196,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
 
 l_rate =  options.learn_rate
