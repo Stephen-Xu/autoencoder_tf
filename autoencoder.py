@@ -1,4 +1,5 @@
 import layer
+import rbm
 import tensorflow as tf
 
 
@@ -127,7 +128,7 @@ class autoencoder(object):
         return sess
     
     
-    def pre_train(self,data,n_iters=100,session=None):
+    def pre_train(self,data,n_iters=100):
         assert self.full_connected,"Pretraining can be done only with a full autoencoder (encoder+decoder). Use generate_decoder() first."
         
         card = data.shape[0]
@@ -139,7 +140,8 @@ class autoencoder(object):
                 temp.generate_encoder(euris=self.use_euristic) 
                 temp.generate_decoder(symmetric=self.is_sym)
 
-                temp_session = temp.init_network()
+                temp_session = temp.init_network() 
+                
                 
                 print 'Pretraining layer %d: '%(i+1),'...'
                 prt = 'pre_trained_layer'+str(i+1)+'.ckpt'
@@ -169,8 +171,36 @@ class autoencoder(object):
             self.layers[i].assign(W_trained,b_trained)
    
             self.layers[-1-i].assign(W_trained_T,b_trained_T)
-            
+        
         self.session = self.init_network()
+        
+        return params
+    
+    
+    def pre_train_rbm(self,data,n_iters=100,session=None):
+        assert self.full_connected,"Pretraining can be done only with a full autoencoder (encoder+decoder). Use generate_decoder() first."
+        params=[]
+        b_dec = []
+        out = data
+        for i in range(self.enc_length):
+            print 'Pre-training with RBM layer ',i+1,'...'
+            with rbm.rbm(str(i),self.units[i],self.units[i+1],activation=self.act_func[i],euris=self.use_euristic) as temp:
+                r_s = temp.init_rbm()
+                for _ in range(n_iters):
+                    r_s.run(temp.cd1(out))
+                out = r_s.run(temp.propup(out))              
+                params.extend([r_s.run(temp.weights),r_s.run(temp.h_bias)])
+                b_dec.extend([r_s.run(temp.v_bias)])
+            print '...Done'
+        
+        for i in range(self.enc_length):
+            W_trained = tf.Variable(tf.add(tf.zeros(self.units[i:i+2]),params[i*2]))
+            b_trained = tf.Variable(tf.add(tf.zeros([self.units[i+1]]),params[i*2+1]))
+            b_trained_dec = tf.Variable(tf.add(tf.zeros([self.units[i]]),b_dec[i]))
+            self.layers[i].assign(W_trained,b_trained)
+            self.layers[-1-i].assign(W_trained,b_trained_dec,T=True)
+          
+        self.session = self.init_network()  
         
         return params
     
@@ -370,7 +400,7 @@ if __name__ == '__main__':
     test.generate_encoder()
     test.generate_decoder(act)
     
-    ts = test.init_network()
+    #ts = test.init_network()
     #ba = batch.knn_batch(data,5)
     #ba.extend(batch.knn_batch(data,8))
     #ba.extend(batch.knn_batch(data,15))
@@ -378,16 +408,18 @@ if __name__ == '__main__':
     ba = batch.rand_batch(data,n_batch)
     #ba = batch.seq_batch(data,n_batch)
     
-    #print ts.run(test.layers[0].W)
+    print ts.run(test.layers[0].W)
     
     #test.pre_train(data)
     
     #print ts.run(test.layers[0].W)
     
     
-    test.pre_train(data,n_iters=2000)
-    
-    test.train(data,batch=ba,display=True,n_iters=1000,noise=False,noise_level=0.25)
+    p = test.pre_train_rbm(data,n_iters=100)
+    print p[1]
+    print ts.run(test.layers[0].W)
+
+    #test.train(data,batch=ba,display=True,n_iters=1000,noise=False,noise_level=0.25)
     
     
     
