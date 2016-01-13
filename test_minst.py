@@ -49,13 +49,13 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
-auto.pre_train_rbm(data)
+auto.pre_train_rbm(data,n_iters=5)
 
 if(not options.batch):
     bat = None
 else:
-    from tools.data_manipulation.batch import seq_batch
-    bat = seq_batch(data,int(options.n_batch))
+    from tools.data_manipulation.batch import rand_batch
+    bat = rand_batch(data,int(options.n_batch))
 
 
 auto.train(data,n_iters=int(options.iters),model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
