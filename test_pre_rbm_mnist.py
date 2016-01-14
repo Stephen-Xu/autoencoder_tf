@@ -49,7 +49,12 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
-auto.pre_train_rbm(data,n_iters=20,learning_rate=0.00125)
+auto.init_network()
+
+pre_train = [auto.session.run(l.W) for l in auto.layers]
+
+
+auto.pre_train_rbm(data,n_iters=10,learning_rate=0.0000008)
 '''
 if(not options.batch):
     bat = None
@@ -60,4 +65,7 @@ else:
 
 auto.train(data,n_iters=int(options.iters),model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
 '''
-print [auto.session.run(l.W) for l in auto.layers]
+post_train =  [auto.session.run(l.W) for l in auto.layers]
+
+
+print [np.mean(a - b) for a, b in zip(pre_train, post_train)]

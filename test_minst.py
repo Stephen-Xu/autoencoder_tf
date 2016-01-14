@@ -23,6 +23,8 @@ parser.add_option("-i","--iters",dest="iters",default=1000,
 parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
                   help="Filename for model file")
 parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class label to use")
+parser.add_option("-p","--pre_train_learning_rate",dest="pre_learn_rate",default=0.001,
+                  help="Learning rate for RBM pre-training")
 
 
 (options, args) = parser.parse_args()
@@ -49,7 +51,7 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
-auto.pre_train_rbm(data,n_iters=20,learning_rate=0.00125)
+auto.pre_train_rbm(data,n_iters=20,learning_rate=int(options.pre_learn_rate))
 
 if(not options.batch):
     bat = None
