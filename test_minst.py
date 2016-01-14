@@ -51,7 +51,7 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
-auto.pre_train_rbm(data,n_iters=20,learning_rate=int(options.pre_learn_rate))
+auto.pre_train_rbm(data,n_iters=20,learning_rate=int(options.pre_learn_rate),adapt_learn=True)
 
 if(not options.batch):
     bat = None

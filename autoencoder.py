@@ -177,13 +177,15 @@ class autoencoder(object):
         return params
     
     
-    def pre_train_rbm(self,data,n_iters=100,learning_rate=0.001,session=None):
+    def pre_train_rbm(self,data,n_iters=100,learning_rate=0.001,adapt_learn=False,session=None):
         assert self.full_connected,"Pretraining can be done only with a full autoencoder (encoder+decoder). Use generate_decoder() first."
         params=[]
         b_dec = []
         out = data
         for i in range(self.enc_length):
             print 'Pre-training with RBM layer ',i+1,'...'
+            if(adapt_learn):
+                learning_rate = learning_rate/((self.units[i]+self.units[i+1])**0.5)
             with rbm.rbm(str(i),self.units[i],self.units[i+1],learning_rate=learning_rate,activation=self.act_func[i],euris=self.use_euristic) as temp:
                 r_s = temp.init_rbm()
                 for _ in range(n_iters):

@@ -54,7 +54,7 @@ auto.init_network()
 pre_train = [auto.session.run(l.W) for l in auto.layers]
 
 
-auto.pre_train_rbm(data,n_iters=10,learning_rate=0.0000008)
+auto.pre_train_rbm(data,n_iters=10,learning_rate=0.0000008,adapt_learn=True)
 '''
 if(not options.batch):
     bat = None
