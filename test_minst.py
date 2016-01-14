@@ -49,7 +49,7 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
-auto.pre_train_rbm(data,n_iters=5)
+auto.pre_train_rbm(data,n_iters=20,learning_rate=0.00125)
 
 if(not options.batch):
     bat = None

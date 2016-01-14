@@ -11,7 +11,7 @@ def sample_prob(probs):
             probs - tf.random_uniform(probs.get_shape())))
 
 class rbm(object):
-	def __init__(self, name, input_size, output_size,activation='sigmoid',euris=False):
+	def __init__(self, name, input_size, output_size,activation='sigmoid',euris=False,learning_rate=0.1):
 		with tf.name_scope("rbm_" + name):
 			if(euris):
 				if(activation=='sigmoid'):
@@ -28,6 +28,7 @@ class rbm(object):
 			self.h_bias = tf.Variable(tf.zeros([output_size]), name="h_bias")
 			self.activation = activation
 			self.init = False
+			self.learning_rate = learning_rate
 			
 			
 	
@@ -89,7 +90,7 @@ class rbm(object):
 		v_sample = self.sample_v_given_h(h_sample)
 		return  [h_sample, v_sample]
 	
-	def cd1(self, visibles, learning_rate=0.1):
+	def cd1(self, visibles):
 		" One step of contrastive divergence, with Rao-Blackwellization "
 		h_start = self.propup(visibles)
 		v_end = self.propdown(h_start)
@@ -97,11 +98,11 @@ class rbm(object):
 		w_positive_grad = tf.matmul(tf.transpose(visibles), h_start)
 		w_negative_grad = tf.matmul(tf.transpose(v_end), h_end)
 		
-		update_w = self.weights.assign_add(learning_rate * (w_positive_grad - w_negative_grad))
+		update_w = self.weights.assign_add(self.learning_rate * (w_positive_grad - w_negative_grad))
 		
-		update_vb = self.v_bias.assign_add(learning_rate * tf.reduce_mean(visibles - v_end, 0))
+		update_vb = self.v_bias.assign_add(self.learning_rate * tf.reduce_mean(visibles - v_end, 0))
 		
-		update_hb = self.h_bias.assign_add(learning_rate * tf.reduce_mean(h_start - h_end, 0))
+		update_hb = self.h_bias.assign_add(self.learning_rate * tf.reduce_mean(h_start - h_end, 0))
 		
 		return [update_w, update_vb, update_hb]
 		
@@ -123,11 +124,11 @@ class rbm(object):
 		
 if(__name__=='__main__'):
 	import numpy as np
-	#data = np.random.rand(200,5).astype("float32")
+	data = np.random.rand(5000,784).astype("float32")
 	
-	data = np.array([[1,1,1,0,0,0],[1,0,1,0,0,0],[1,1,1,0,0,0],[0,0,1,1,1,0], [0,0,1,1,0,0],[0,0,1,1,1,0]]).astype("float32")
+	#data = np.array([[1,1,1,0,0,0],[1,0,1,0,0,0],[1,1,1,0,0,0],[0,0,1,1,1,0], [0,0,1,1,0,0],[0,0,1,1,1,0]]).astype("float32")
 	
-	test = rbm('gigi',6,2)
+	test = rbm('gigi',784,196,learning_rate=0.00125)
 	
 	ts = tf.Session()
 	
@@ -136,7 +137,7 @@ if(__name__=='__main__'):
 	
 	print ts.run(test.propup(data))
 
-	for i in range(500):
+	for i in range(20):
 		ts.run(test.cd1(data))
 	
 	
