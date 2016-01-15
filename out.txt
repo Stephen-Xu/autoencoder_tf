@@ -41,3 +41,14 @@ I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of ma
 I tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:66] Creating bin of max chunk size 4.00GiB
 I tensorflow/core/common_runtime/direct_session.cc:58] Direct session inter op parallelism threads: 24
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:702] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980, pci bus id: 0000:81:00.0)
+('Extracting', '../datasets/train-labels-idx1-ubyte.gz')
+{'learn_rate': '0.0002', 'class_label': 0, 'gradient': 'adam', 'activation': 'softplus', 'n_batch': '1000', 'batch': '1', 'pre_learn_rate': '0.00001', 'iters': '10000', 'hidden': '10', 'model_name': './model_softplus_10_batch1000_class0.ckpt'}
+Pre-training with RBM layer  1 ...
+...Done
+Pre-training with RBM layer  2 ...
+...Done
+Traceback (most recent call last):
+  File "test_minst.py", line 63, in <module>
+    auto.train(data,n_iters=int(options.iters),record_weigth=True,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+TypeError: train() got an unexpected keyword argument 'record_weigth'
