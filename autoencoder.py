@@ -206,7 +206,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,gradient='gradient',learning_rate=0.1,model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,reg_weight=False,record_weight=False,reg_lambda=0.01,gradient='gradient',learning_rate=0.1,model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -227,7 +227,7 @@ class autoencoder(object):
         
     
         best = 20000000
-        reg_lambda = 0.015
+        reg_lambda_with_decay = tf.placeholder("float",None)
         
         x = tf.placeholder("float",[None,self.units[0]])
         x_noise = x+tf.truncated_normal([self.units[0]],mean=0.0,stddev=noise_level)
@@ -250,6 +250,15 @@ class autoencoder(object):
         if(le):
             cost = tf.reduce_mean(tf.sum())
             #dovrebbe essere la somma non la media ma dovrebbe andare uguale
+        elif(reg_weight):
+            for l in range(self.dec_enc_length):
+                if(l==0):
+                    c_w = reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)
+                else:
+                    c_w = c_w+reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)
+                
+            cost = tf.reduce_mean((tf.pow(x-x_hat,2)))+c_w
+        
         else:
             #cost = tf.reduce_mean(tf.sqrt(tf.pow(x-x_hat,2)))-reg_lambda*reg_norm  
             cost = tf.reduce_mean((tf.pow(x-x_hat,2)))
@@ -280,32 +289,48 @@ class autoencoder(object):
         
         tr_noise = tf.train.GradientDescentOptimizer(learning_rate).minimize(noise_cost)
         
+   
+      
         self.session.run(tf.initialize_all_variables())
-        
-        
+       
         
         saver = tf.train.Saver()
         
         saver.save(self.session,model_name)
         
+        recorded_weight = []
         for i in range(n_iters):
-        
+            list_w = []
+            if(record_weight):
+                for l in range(self.dec_enc_length):
+                    list_w.extend([self.session.run(tf.reduce_mean(self.layers[l].W))])
+                recorded_weight.append(list_w)
+            
             if(batch is None):
-                self.session.run(tr,feed_dict={x:data})
+                if(reg_weight):
+                    self.session.run(tr,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda/(i+1))})
+                else:
+                    self.session.run(tr,feed_dict={x:data})
             else:
                 for l in range(n_batch):
-                    self.session.run(tr,feed_dict={x:batch[l]})
-                    if(noise):
-                        self.session.run(tr_noise,feed_dict={x:batch[l]})
-            
+                    if(reg_weight):
+                        self.session.run(tr,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda/(i+1))})
+                        if(noise):
+                            self.session.run(tr_noise,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda/(i+1))})
+                    else:
+                        self.session.run(tr,feed_dict={x:batch[l]})
+                        if(noise):
+                            self.session.run(tr_noise,feed_dict={x:batch[l]})
            
                         
             
             #print self.session.run(test[0],feed_dict={x:data})
           
               
-            
-            c=self.session.run(cost,feed_dict={x:data})
+            if(reg_weight):
+                c=self.session.run(cost,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda/(i+1))})
+            else:
+                c=self.session.run(cost,feed_dict={x:data})
             if(i==0):
                 init_cost = c
             import numpy as np
@@ -335,6 +360,10 @@ class autoencoder(object):
         #if(saving):
             #self.load_model("model.dat",session=self.session)
         saver.restore(self.session,model_name)
+        if(record_weight):
+            import numpy as np
+            np.savetxt("weights.txt",np.vstack(recorded_weight),fmt='%1.8f')  
+        
         return init_cost,best
         
     def get_hidden(self,data,session=None):
