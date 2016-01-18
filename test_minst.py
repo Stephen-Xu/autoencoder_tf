@@ -51,7 +51,7 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=False)
 
-auto.pre_train_rbm(data,n_iters=20,learning_rate=float(options.pre_learn_rate),adapt_learn=True)
+auto.pre_train_rbm(data,n_iters=20,learning_rate=int(options.pre_learn_rate),adapt_learn=True)
 
 if(not options.batch):
     bat = None
@@ -60,4 +60,4 @@ else:
     bat = rand_batch(data,int(options.n_batch))
 
 
-auto.train(data,n_iters=int(options.iters),record_weight=True,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+auto.train(data,n_iters=int(options.iters),record_weigth=True,reg_weight=True,reg_lambda=1.0,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
