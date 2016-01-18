@@ -206,7 +206,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,reg_weight=False,record_weight=False,reg_lambda=0.01,gradient='gradient',learning_rate=0.1,model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,reg_weight=False,record_weight=False,reg_lambda=0.01,gradient='gradient',learning_rate=0.1,w_file="./weights.txt",model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -303,7 +303,7 @@ class autoencoder(object):
             list_w = []
             if(record_weight):
                 for l in range(self.dec_enc_length):
-                    list_w.extend([self.session.run(tf.reduce_mean(self.layers[l].W))])
+                    list_w.extend([self.session.run(tf.pow(tf.reduce_sum(tf.pow(self.layers[l].W,2)),0.5))])
                 recorded_weight.append(list_w)
             
             if(batch is None):
@@ -339,6 +339,8 @@ class autoencoder(object):
                 break
             if(verbose):
                 print "cost ",c," at iter ",i+1
+
+
             if(display_w):
                 for i in range(self.enc_length):
                     print "Norm layer ",i,"weight: ",np.sqrt(np.sum(self.session.run(self.layers[i].W)**2)),"bias: ",np.sqrt(np.sum(self.session.run(self.layers[i].b)**2))
@@ -362,7 +364,7 @@ class autoencoder(object):
         saver.restore(self.session,model_name)
         if(record_weight):
             import numpy as np
-            np.savetxt("weights.txt",np.vstack(recorded_weight),fmt='%1.8f')  
+            np.savetxt(w_file,np.vstack(recorded_weight),fmt='%1.8f')  
         
         return init_cost,best
         

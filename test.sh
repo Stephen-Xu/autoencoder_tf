@@ -1,11 +1,13 @@
-python test_minst.py -a 'softplus' -u 10 -b 1 -g adam -l 0.000125 -p 0.00001 -n 1000  -i 5000 -m ./model_softplus_10_batch1000_class0.ckpt
+python test_minst.py -a 'softplus' -u 20 -b 1 -s True -r True  -g adam -l 0.000125 -p 0.00001 -n 250  -i 5000 -w ./soft_sym_reg_weights.txt -m ./model_softplus_20_batch250_class0_sym_reg.ckpt
 
-python test_minst.py -a 'sigmoid' -u 10 -b 1 -g adam -l 0.000125 -p 0.001 -n 1000  -i 5000 -m ./model_sigmoid_10_batch1000_class0.ckpt
+python test_minst.py -a 'softplus' -u 20 -b 1 -s False -r True -g adam -l 0.000125 -p 0.00001 -n 250  -i 5000 -w ./soft_nosym_reg_weights.txt -m ./model_softplus_20_batch250_class0_nosym_reg.ckpt
 
-python test_minst.py -a 'softplus' -u 80 -b 1 -g adam -l 0.000125 -p 0.00001 -n 1000  -i 5000 -m ./model_softplus_80_batch1000_class0.ckpt
+python test_minst.py -a 'softplus' -u 20 -b 1 -s False -r False -g adam -l 0.000125 -p 0.00001 -n 250  -i 5000 -w ./soft_nosym_noreg_weights.txt -m ./model_softplus_20_batch250_class0_nosym_noreg.ckpt
 
-python test_minst.py -a 'sigmoid' -u 80 -b 1 -g adam -l 0.000125 -p 0.001 -n 1000 -i 5000 -m ./model_sigmoid_80_batch1000_class0.ckpt
+python test_minst.py -a 'sigmoid' -u 20 -b 1 -s True -r True -g adam -l 0.000125 -p 0.001 -n 250  -i 5000 -w ./sig_sym_reg_weights.txt -m ./model_sigmoid_20_batch250_class0_sym_reg.ckpt
 
+python test_minst.py -a 'sigmoid' -u 20 -b 1 -s False -r True -g adam -l 0.000125 -p 0.001 -n 250 -i 5000 -w ./sig_nosym_reg_weights.txt -m ./model_sigmoid_20_batch250_class0_nosym_reg.ckpt
 
+python test_minst.py -a 'sigmoid' -u 20 -b 1 -s False -r False -g adam -l 0.000125 -p 0.001 -n 250 -i 5000 -w ./sig_nosym_noreg_weights.txt -m ./model_sigmoid_20_batch250_class0_nosym_noreg.ckpt
 
 
