@@ -60,4 +60,4 @@ else:
     bat = rand_batch(data,int(options.n_batch))
 
 
-auto.train(data,n_iters=int(options.iters),record_weigth=True,reg_weight=True,reg_lambda=1.0,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+auto.train(data,n_iters=int(options.iters),record_weight=True,reg_weight=True,reg_lambda=1.0,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
