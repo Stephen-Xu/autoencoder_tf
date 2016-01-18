@@ -22,6 +22,8 @@ parser.add_option("-i","--iters",dest="iters",default=1000,
                   help="Number of iterations")
 parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
                   help="Filename for model file")
+parser.add_option("-s","--symm",dest="symm",default=False,help="Symmetric autoencoder")
+parser.add_option("-r","--reg_w",dest="reg_w",default=False,help="Cost function with regularized weights")
 parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class label to use")
 parser.add_option("-p","--pre_train_learning_rate",dest="pre_learn_rate",default=0.001,
                   help="Learning rate for RBM pre-training")
@@ -49,7 +51,7 @@ print options
 auto = autoencoder(units,action)
 
 auto.generate_encoder(euris=True)
-auto.generate_decoder(symmetric=False)
+auto.generate_decoder(symmetric=options.symm)
 
 auto.pre_train_rbm(data,n_iters=20,learning_rate=float(options.pre_learn_rate),adapt_learn=True)
 
@@ -60,4 +62,4 @@ else:
     bat = rand_batch(data,int(options.n_batch))
 
 
-auto.train(data,n_iters=int(options.iters),record_weight=True,reg_weight=True,reg_lambda=1.0,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+auto.train(data,n_iters=int(options.iters),record_weight=True,reg_weight=options.reg_w,reg_lambda=1.0,model_name=options.model_name,batch=bat,display=False,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
