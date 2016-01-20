@@ -1,5 +1,5 @@
 import numpy as np
-from tools.geometric.knn import knn
+#from tools.geometric.knn import knn TODO!!!!
 
 
 def seq_batch(data,n):
@@ -32,6 +32,7 @@ def rand_batch(data,n):
         batch.append(data[index[n*batch_size:(n*batch_size+last_batch-1)],:])
     return batch
 
+'''' TODO!!!
 def knn_batch(data,k):
     batch=[]
     
@@ -42,7 +43,7 @@ def knn_batch(data,k):
         batch.append(data[ind[i],:])
     
     return batch
-
+'''
 
 
     

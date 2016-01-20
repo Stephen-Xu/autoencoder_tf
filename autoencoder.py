@@ -253,9 +253,9 @@ class autoencoder(object):
         elif(reg_weight):
             for l in range(self.dec_enc_length):
                 if(l==0):
-                    c_w = reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)
+                    c_w = reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
                 else:
-                    c_w = c_w+reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)
+                    c_w = c_w+reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
                 
             cost = tf.reduce_mean((tf.pow(x-x_hat,2)))+c_w
         
@@ -308,15 +308,18 @@ class autoencoder(object):
             
             if(batch is None):
                 if(reg_weight):
-                    self.session.run(tr,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda/(i+1))})
+                    self.session.run(tr,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda)})
+                    #self.session.run(tr,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda/(i+1))})
                 else:
                     self.session.run(tr,feed_dict={x:data})
             else:
                 for l in range(n_batch):
                     if(reg_weight):
-                        self.session.run(tr,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda/(i+1))})
+                        self.session.run(tr,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda)})
+                        #self.session.run(tr,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda/(i+1))})
                         if(noise):
-                            self.session.run(tr_noise,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda/(i+1))})
+                            #self.session.run(tr_noise,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda/(i+1))})
+                            self.session.run(tr_noise,feed_dict={x:batch[l],reg_lambda_with_decay:(reg_lambda)})
                     else:
                         self.session.run(tr,feed_dict={x:batch[l]})
                         if(noise):
@@ -328,7 +331,8 @@ class autoencoder(object):
           
               
             if(reg_weight):
-                c=self.session.run(cost,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda/(i+1))})
+                c=self.session.run(cost,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda)})
+                #c=self.session.run(cost,feed_dict={x:data,reg_lambda_with_decay:(reg_lambda/(i+1))})
             else:
                 c=self.session.run(cost,feed_dict={x:data})
             if(i==0):

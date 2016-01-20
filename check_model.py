@@ -34,7 +34,7 @@ action = [options.activation for i in range(len(units)-1)]
 auto = autoencoder(units,action)
 
 auto.generate_encoder(euris=True)
-auto.generate_decoder(symmetric=False)
+auto.generate_decoder(symmetric=True)
 
 
 print auto.units

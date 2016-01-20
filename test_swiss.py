@@ -22,7 +22,9 @@ parser.add_option("-i","--iters",dest="iters",default=1000,
                   help="Number of iterations")
 parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
                   help="Filename for model file")
-parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class label to use")
+parser.add_option("-s","--symm",dest="symm",default=False,help="Symmetric autoencoder")
+parser.add_option("-r","--reg_w",dest="reg_w",default=False,help="Cost function with regularized weights")
+parser.add_option("-w","--w_file",dest="w_file",default="./weight.txt",help="File for storing norm weights")
 
 (options, args) = parser.parse_args()
 
@@ -41,12 +43,12 @@ act2 = ['linear','sigmoid','linear','tanh','relu6','linear','sigmoid']
 auto = autoencoder(units,actions)
 
 auto.generate_encoder(euris=True)
-auto.generate_decoder(act=act2,symmetric=False)
+auto.generate_decoder(act=act2,symmetric=options.symm)
 
 auto.init_network()
 pre_train = [auto.session.run(l.W) for l in auto.layers]
 
-auto.pre_train_rbm(data,n_iters=10,adapt_learn=True,learning_rate=0.000005)
+auto.pre_train_rbm(data,n_iters=20,adapt_learn=True,learning_rate=0.00001)
 
 post_train = [auto.session.run(l.W) for l in auto.layers]
 
@@ -72,6 +74,6 @@ else:
 
 #for c in range(len(l)):
 
-b,c  = auto.train(data,n_iters=int(options.iters),record_weight=True,reg_weight=True,reg_lambda=0.05,batch=bat,display=True,verbose=True,display_w=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+b,c  = auto.train(data,n_iters=int(options.iters),record_weight=True,w_file=options.w_file,reg_weight=options.reg_w,reg_lambda=0.05,model_name=options.model_name,batch=bat,display=True,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
 #   auto.train(data,n_iters=20,batch=bat,display=True,verbose=True,display_w=False,gradient=options.gradient,learning_rate=l[c])
 print b,c
