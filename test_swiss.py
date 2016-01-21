@@ -25,7 +25,10 @@ parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
 parser.add_option("-s","--symm",dest="symm",default=False,help="Symmetric autoencoder")
 parser.add_option("-r","--reg_w",dest="reg_w",default=False,help="Cost function with regularized weights")
 parser.add_option("-w","--w_file",dest="w_file",default="./weight.txt",help="File for storing norm weights")
-
+parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regularization weight (lambda)")
+parser.add_option("-e","--pre_train",dest="pre_train",default="rbm",help="Select different pre-train or none(default RBM)")
+parser.add_option("-p","--pre_train_learning_rate",dest="pre_learn_rate",default=0.00001,
+                  help="Learning rate for RBM pre-training")
 (options, args) = parser.parse_args()
 
 
@@ -37,23 +40,29 @@ data = data+np.min(data)
 data = data.astype("float32")
 
 
-units = [3,60,30,15,10,7,4,2]
-actions = ['linear','relu6','sigmoid','linear','sigmoid','tanh','linear']
-act2 = ['linear','sigmoid','linear','tanh','relu6','linear','sigmoid']
+units = [3,30,15,10,4,2]
+actions = ['linear','sigmoid','sigmoid','sigmoid','sigmoid']
+act2 = ['sigmoid','sigmoid','sigmoid','sigmoid','linear']
 auto = autoencoder(units,actions)
 
 auto.generate_encoder(euris=True)
 auto.generate_decoder(act=act2,symmetric=options.symm)
 
 auto.init_network()
-pre_train = [auto.session.run(l.W) for l in auto.layers]
+#pre_train = [auto.session.run(l.W) for l in auto.layers]
 
-auto.pre_train_rbm(data,n_iters=20,adapt_learn=True,learning_rate=0.00001)
 
-post_train = [auto.session.run(l.W) for l in auto.layers]
+if(options.pre_train == 'rbm'):
+    auto.pre_train_rbm(data,n_iters=10,adapt_learn=True,learning_rate=float(options.pre_learn_rate))
+elif(options.pre_train == 'standard'):
+    auto.pre_train(data)
 
-print [np.mean(a - b) for a, b in zip(pre_train, post_train)]
 
+
+#post_train = [auto.session.run(l.W) for l in auto.layers]
+
+#print [np.mean(a - b) for a, b in zip(pre_train, post_train)]
+'''
 out = []
 for i in range(auto.dec_enc_length):
     if i==0:
@@ -62,7 +71,7 @@ for i in range(auto.dec_enc_length):
     else:
         out = auto.session.run(auto.layers[i].output(out))
         print np.mean(out)
-
+'''
 if(not options.batch):
     bat = None
 else:
@@ -74,6 +83,6 @@ else:
 
 #for c in range(len(l)):
 
-b,c  = auto.train(data,n_iters=int(options.iters),record_weight=True,w_file=options.w_file,reg_weight=options.reg_w,reg_lambda=0.05,model_name=options.model_name,batch=bat,display=True,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
+b,c  = auto.train(data,n_iters=int(options.iters),verbose=False,record_weight=True,w_file=options.w_file,reg_weight=options.reg_w,reg_lambda=options.reg_lambda,model_name=options.model_name,batch=bat,display=True,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
 #   auto.train(data,n_iters=20,batch=bat,display=True,verbose=True,display_w=False,gradient=options.gradient,learning_rate=l[c])
-print b,c
+print 'init: ',b,' best: ',c

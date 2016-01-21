@@ -1,0 +1,15 @@
+python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_1 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
+python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_2 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
+python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_3 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
+python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_4 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
+python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_5 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
+python test_swiss.py -d 0.05 -r True -w swiss_w_standard_1 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
+python test_swiss.py -d 0.05 -r True -w swiss_w_standard_2 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
+python test_swiss.py -d 0.05 -r True -w swiss_w_standard_3 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
+python test_swiss.py -d 0.05 -r True -w swiss_w_standard_4 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
+python test_swiss.py -d 0.05 -r True -w swiss_w_standard_5 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
+python test_swiss.py -d 0.05 -r True -w swiss_w_none_1 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
+python test_swiss.py -d 0.05 -r True -w swiss_w_none_2 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
+python test_swiss.py -d 0.05 -r True -w swiss_w_none_3 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
+python test_swiss.py -d 0.05 -r True -w swiss_w_none_4 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
+python test_swiss.py -d 0.05 -r True -w swiss_w_none_5 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
