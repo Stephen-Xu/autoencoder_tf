@@ -27,7 +27,7 @@ arr,lab = get_data_from_minst.get_data_from_minst()
 data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.label))])
 
 
-units = [784,196,int(options.units)]
+units = [784,256,196,int(options.units)]
 action = [options.activation for i in range(len(units)-1)]
 
 
