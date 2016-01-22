@@ -253,9 +253,9 @@ class autoencoder(object):
         elif(reg_weight):
             for l in range(self.dec_enc_length):
                 if(l==0):
-                    c_w = reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out*self.layers[l].n_in)**0.5)
+                    c_w = reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
                 else:
-                    c_w = c_w+reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out*self.layers[l].n_in)**0.5)
+                    c_w = c_w+reg_lambda_with_decay*tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
                 
             cost = tf.reduce_mean((tf.pow(x-x_hat,2)))+c_w
         

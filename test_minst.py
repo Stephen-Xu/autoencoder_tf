@@ -33,7 +33,7 @@ parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regul
 (options, args) = parser.parse_args()
 
 
-units = [784,196,int(options.hidden)]
+units = [784,256,196,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
 
 l_rate =  options.learn_rate
@@ -54,7 +54,7 @@ auto = autoencoder(units,action)
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=options.symm)
 
-auto.pre_train_rbm(data,n_iters=10,learning_rate=float(options.pre_learn_rate),adapt_learn=True)
+#auto.pre_train_rbm(data,n_iters=10,learning_rate=float(options.pre_learn_rate),adapt_learn=True)
 
 if(not options.batch):
     bat = None
