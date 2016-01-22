@@ -1,2 +1,2 @@
-model_checkpoint_path: "deep_sigmoid"
-all_model_checkpoint_paths: "deep_sigmoid"
+model_checkpoint_path: "test_deep"
+all_model_checkpoint_paths: "test_deep"

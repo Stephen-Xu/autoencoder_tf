@@ -3,7 +3,7 @@ import tensorflow as tf
 class layer(object):
     
 
-    def __init__(self,units,activation=None,mean=None,std=None,eur=False):
+    def __init__(self,units,activation=None,mean=None,std=None,eur=False,dropout=False,keep_prob=0.5):
         
       
         assert not(units is None),"You need to provide the number of units ([n_in,n_out])"
@@ -14,7 +14,8 @@ class layer(object):
         
         
         self.n_in,self.n_out = units
-        
+        self.dropout = dropout
+        self.keep_prob = keep_prob
       
               
         if(activation is None):
@@ -64,20 +65,40 @@ class layer(object):
             
     def output(self,x):
         if(self.activation == 'sigmoid'):
-            return tf.nn.sigmoid(tf.matmul(x,self.W+self.b))
+            if(self.dropout):
+                return tf.nn.dropout(tf.nn.sigmoid(tf.matmul(x,self.W+self.b)), self.keep_prob)
+            else:
+                tf.nn.sigmoid(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'relu'):
-            return tf.nn.relu(tf.matmul(x,self.W+self.b))
+            if(self.dropout):
+                return tf.nn.dropout(tf.nn.relu(tf.matmul(x,self.W+self.b)), self.keep_prob)
+            else:
+                tf.nn.relu(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'relu6'):
-            return tf.nn.relu6(tf.matmul(x,self.W+self.b))
+            if(self.dropout):
+                return tf.nn.dropout(tf.nn.relu6(tf.matmul(x,self.W+self.b)), self.keep_prob)
+            else:
+                tf.nn.relu6(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'linear'):
-            return tf.matmul(x,self.W)+self.b
+            if(self.droput):
+                return tf.nn.dropout(tf.matmul(x,self.W)+self.b,self.keep_prob)
+            else:
+                return tf.matmul(x,self.W)+self.b
         elif(self.activation == 'softplus'):
-            return tf.nn.softplus(tf.matmul(x,self.W+self.b))
-        elif(self.activation == 'tanh'): 
-            return tf.tanh(tf.matmul(x,self.W+self.b))
+            if(self.droput):
+                return tf.nn.dropout(tf.nn.softplus(tf.matmul(x,self.W+self.b)),self.keep_prob)
+            else:
+                return tf.nn.softplus(tf.matmul(x,self.W+self.b))
+        elif(self.activation == 'tanh'):
+            if(self.droput):
+                return tf.nn.dropout(tf.tanh(tf.matmul(x,self.W+self.b)),self.keep_prob)
+            else:
+                return tf.tanh(tf.matmul(x,self.W+self.b))
         else:
             print "No known activation function selected, using linear"
             return tf.matmul(x,self.W)+self.b
             
-        
+    
+    def stop_dropout(self):
+        self.dropout = False
         

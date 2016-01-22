@@ -5,8 +5,9 @@ from optparse import OptionParser
 from tools import get_data_from_minst
 
 parser = OptionParser()
+parser = OptionParser()
 parser.add_option("-u", "--hidden", dest="hidden",
-                  help="number of units",default=[3,2])
+                  help="number of hidden units",default=10)
 parser.add_option("-a", "--activation",
                   dest="activation", default='sigmoid',
                   help="activation function")
@@ -25,10 +26,13 @@ parser.add_option("-m","--model_name",dest="model_name",default="./model.ckpt",
 parser.add_option("-s","--symm",dest="symm",default=False,help="Symmetric autoencoder")
 parser.add_option("-r","--reg_w",dest="reg_w",default=False,help="Cost function with regularized weights")
 parser.add_option("-w","--w_file",dest="w_file",default="./weight.txt",help="File for storing norm weights")
-parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regularization weight (lambda)")
-parser.add_option("-e","--pre_train",dest="pre_train",default="rbm",help="Select different pre-train or none(default RBM)")
-parser.add_option("-p","--pre_train_learning_rate",dest="pre_learn_rate",default=0.00001,
+parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class label to use")
+parser.add_option("-p","--pre_train_learning_rate",dest="pre_learn_rate",default=0.001,
                   help="Learning rate for RBM pre-training")
+parser.add_option("-e","--pre_train",dest="pre_train",default="rbm",help="Select different pre-train or none(default RBM)")
+parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regularization weight (lambda)")
+parser.add_option("-o","--drop_out",dest="drop_out",default=False,help="using dropout")
+parser.add_option("-k","--keep_prob",dest="keep_prob",default=0.5,help="probability for dropout")
 (options, args) = parser.parse_args()
 
 

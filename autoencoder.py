@@ -19,7 +19,8 @@ class autoencoder(object):
         self.initialized = False
         self.session = None
         self.full_connected = False
-  
+        self.use_droput = False
+        self.keep_prob_dropout = 0.5
         
     def __enter__(self):
         return self
@@ -27,12 +28,14 @@ class autoencoder(object):
     def __exit__(self,exc_type, exc_value, traceback):
         pass
     
-    def generate_encoder(self,euris=False,mean_w=0.0,std_w=1.0):
+    def generate_encoder(self,euris=False,dropout=False,keep_prob=0.5,mean_w=0.0,std_w=1.0):
          for i in range(self.enc_length):
-            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris))
+            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris,dropout=dropout,keep_prob=keep_prob))
          if(euris):
             self.use_euristic = True
-            
+         if(dropout):
+            self.use_droput = True
+            self.keep_prob_dropout = keep_prob
         
     def generate_decoder(self,symmetric=True,act=None):
         
@@ -41,10 +44,10 @@ class autoencoder(object):
             self.is_sym=True
             for i in reversed(range(self.enc_length)):
                 if (act is None):
-                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i])
+                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
                     self.act_func.append(self.act_func[i])
                 else:
-                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i])
+                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
                    self.act_func.append(act[i])
                 if(i==0):
                     temp_l.W = tf.transpose(self.layers[i].W)
@@ -56,10 +59,10 @@ class autoencoder(object):
         else: #####NON SERVE AD UNA CEPPA DI NIENTE!!
             for i in reversed(range(self.enc_length)):
                 if (act is None):
-                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i])
+                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
                     self.act_func.append(self.act_func[i])
                 else:
-                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i])
+                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
                    self.act_func.append(act[i])
                 if(i==0):
                     temp_l.assign_W(self.layers[i].W,T=True)
@@ -397,7 +400,10 @@ class autoencoder(object):
         return session.run(yo,feed_dict={xo:data})
 
 
+    def stop_dropout(self):
         
+        for l in range(self.dec_enc_length):
+            self.layers[l].stop_dropout()
         
   
 if __name__ == '__main__':

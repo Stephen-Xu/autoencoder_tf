@@ -28,12 +28,15 @@ parser.add_option("-w","--w_file",dest="w_file",default="./weight.txt",help="Fil
 parser.add_option("-c","--class_label",dest="class_label",default=0,help="Class label to use")
 parser.add_option("-p","--pre_train_learning_rate",dest="pre_learn_rate",default=0.001,
                   help="Learning rate for RBM pre-training")
+parser.add_option("-e","--pre_train",dest="pre_train",default="rbm",help="Select different pre-train or none(default RBM)")
 parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regularization weight (lambda)")
+parser.add_option("-o","--drop_out",dest="drop_out",default=False,help="using dropout")
+parser.add_option("-k","--keep_prob",dest="keep_prob",default=0.5,help="probability for dropout")
 
 (options, args) = parser.parse_args()
 
 
-units = [784,256,196,int(options.hidden)]
+units = [784,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
 
 l_rate =  options.learn_rate
@@ -51,9 +54,12 @@ print options
 
 auto = autoencoder(units,action)
 
-auto.generate_encoder(euris=True)
+auto.generate_encoder(euris=False,dropout=options.drop_out,keep_prob=float(options.keep_prob))
 auto.generate_decoder(symmetric=options.symm)
-
+if(options.pre_train == 'rbm'):
+    auto.pre_train_rbm(data,n_iters=10,adapt_learn=True,learning_rate=float(options.pre_learn_rate))
+elif(options.pre_train == 'standard'):
+    auto.pre_train(data)
 #auto.pre_train_rbm(data,n_iters=10,learning_rate=float(options.pre_learn_rate),adapt_learn=True)
 
 if(not options.batch):
