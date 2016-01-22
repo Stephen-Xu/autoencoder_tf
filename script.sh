@@ -1,15 +1,3 @@
-python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_1 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
-python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_2 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
-python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_3 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
-python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_4 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
-python test_swiss.py -d 0.05 -r True -w swiss_w_rbm_5 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e rbm
-python test_swiss.py -d 0.05 -r True -w swiss_w_standard_1 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
-python test_swiss.py -d 0.05 -r True -w swiss_w_standard_2 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
-python test_swiss.py -d 0.05 -r True -w swiss_w_standard_3 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
-python test_swiss.py -d 0.05 -r True -w swiss_w_standard_4 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
-python test_swiss.py -d 0.05 -r True -w swiss_w_standard_5 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e standard
-python test_swiss.py -d 0.05 -r True -w swiss_w_none_1 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
-python test_swiss.py -d 0.05 -r True -w swiss_w_none_2 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
-python test_swiss.py -d 0.05 -r True -w swiss_w_none_3 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
-python test_swiss.py -d 0.05 -r True -w swiss_w_none_4 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
-python test_swiss.py -d 0.05 -r True -w swiss_w_none_5 -i 200 -l 0.00125 -g adam -b 1 -n 20 -s True -e None
+python test_minst.py -u 10 -a 'sigmoid' -i 5000 -b 1 -n 1000 -g 'adam' -l 0.000125 -r False -d 0.1 -s True -e None -k 0.75 -o True -m hidden10 -w weight_10 
+python test_minst.py -u 20 -a 'sigmoid' -i 5000 -b 1 -n 1000 -g 'adam' -l 0.000125 -r False -d 0.1 -s True -e None -k 0.75 -o True -m hidden20 -w weight_20
+python test_minst.py -u 100 -a 'sigmoid' -i 5000 -b 1 -n 1000 -g 'adam' -l 0.000125 -r False -d 0.1 -s True -e None -k 0.75 -o True -m hidden100 -w weight_100 
