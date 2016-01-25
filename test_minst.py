@@ -32,7 +32,7 @@ parser.add_option("-e","--pre_train",dest="pre_train",default="rbm",help="Select
 parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regularization weight (lambda)")
 parser.add_option("-o","--drop_out",dest="drop_out",default=False,help="using dropout")
 parser.add_option("-k","--keep_prob",dest="keep_prob",default=0.5,help="probability for dropout")
-
+parser.add_option("-z","--euris",dest="euris",default=True,help="using euristic for weight initialization")
 (options, args) = parser.parse_args()
 
 
@@ -54,7 +54,7 @@ print options
 
 auto = autoencoder(units,action)
 
-auto.generate_encoder(euris=False,dropout=options.drop_out,keep_prob=float(options.keep_prob))
+auto.generate_encoder(euris=options.euris,dropout=options.drop_out,keep_prob=float(options.keep_prob))
 auto.generate_decoder(symmetric=options.symm)
 if(options.pre_train == 'rbm'):
     auto.pre_train_rbm(data,n_iters=10,adapt_learn=True,learning_rate=float(options.pre_learn_rate))
