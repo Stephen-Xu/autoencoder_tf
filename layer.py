@@ -80,17 +80,17 @@ class layer(object):
             else:
                 tf.nn.relu6(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'linear'):
-            if(self.droput):
+            if(self.dropout):
                 return tf.nn.dropout(tf.matmul(x,self.W)+self.b,self.keep_prob)
             else:
                 return tf.matmul(x,self.W)+self.b
         elif(self.activation == 'softplus'):
-            if(self.droput):
+            if(self.dropout):
                 return tf.nn.dropout(tf.nn.softplus(tf.matmul(x,self.W+self.b)),self.keep_prob)
             else:
                 return tf.nn.softplus(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'tanh'):
-            if(self.droput):
+            if(self.dropout):
                 return tf.nn.dropout(tf.tanh(tf.matmul(x,self.W+self.b)),self.keep_prob)
             else:
                 return tf.tanh(tf.matmul(x,self.W+self.b))
@@ -100,5 +100,10 @@ class layer(object):
             
     
     def stop_dropout(self):
-        self.dropout = False
+        self.keep_prob = 1.0
+        
+     
+    def set_dropout(self,keep_prob):
+        self.keep_prob = keep_prob
+        
         

@@ -1,2 +1,2 @@
-model_checkpoint_path: "test_deep_euris"
-all_model_checkpoint_paths: "test_deep_euris"
+model_checkpoint_path: "test_deep_euris_otto"
+all_model_checkpoint_paths: "test_deep_euris_otto"

@@ -17,6 +17,7 @@ parser.add_option("-u", "--units", dest="units",
                   help="hidden units",default=10)
 parser.add_option("-a","--activation",dest="activation",
                   help="activation function",default="sigmoid")
+parser.add_option("-s","--save",dest="save",default=False,help="Save on file first 50 images")
 
 (options, args) = parser.parse_args()
 
@@ -46,11 +47,19 @@ session = auto.init_network()
 
 auto.load_model(options.model,session=session)
 
-
+auto.stop_dropout()
 
 display.display(data[int(options.index)],28,28)
-
+    
 res = auto.get_output(np.asarray([data[int(options.index)]]),session=session)
 
 display.display(res,28,28)
+
+if(options.save):
+    for i in range(50):
+        display.save(data[i],28,28,folder='./imgs',name='in',index=i)
+    
+        res = auto.get_output(np.asarray([data[i]]),session=session)
+
+        display.save(res,28,28,folder='./imgs',name='out',index=i)
 

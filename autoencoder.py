@@ -134,6 +134,7 @@ class autoencoder(object):
     def pre_train(self,data,n_iters=100):
         assert self.full_connected,"Pretraining can be done only with a full autoencoder (encoder+decoder). Use generate_decoder() first."
         
+        
         card = data.shape[0]
         old = None
         params = []
@@ -176,7 +177,7 @@ class autoencoder(object):
             self.layers[-1-i].assign(W_trained_T,b_trained_T)
         
         self.session = self.init_network()
-        
+       
         return params
     
     
