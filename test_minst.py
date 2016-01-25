@@ -36,7 +36,7 @@ parser.add_option("-k","--keep_prob",dest="keep_prob",default=0.5,help="probabil
 (options, args) = parser.parse_args()
 
 
-units = [784,196,int(options.hidden)]
+units = [784,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
 
 l_rate =  options.learn_rate
