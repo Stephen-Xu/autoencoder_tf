@@ -1,0 +1,24 @@
+('Extracting', '../datasets/train-labels-idx1-ubyte.gz')
+{'learn_rate': '0.000125', 'class_label': 0, 'drop_out': 'True', 'euris': True, 'iters': '1000', 'pre_train': 'None', 'activation': 'sigmoid', 'n_batch': '500', 'batch': '1', 'symm': 'True', 'pre_learn_rate': 0.001, 'gradient': 'adam', 'reg_lambda': '0.0', 'hidden': '200', 'model_name': 'test200x15', 'reg_w': 'False', 'w_file': 'weight_200x15', 'keep_prob': '0.15'}
+Traceback (most recent call last):
+  File "test_minst.py", line 57, in <module>
+    auto.generate_encoder(euris=options.euris,dropout=options.drop_out,keep_prob=float(options.keep_prob))
+TypeError: generate_encoder() got an unexpected keyword argument 'dropout'
+('Extracting', '../datasets/train-labels-idx1-ubyte.gz')
+{'learn_rate': '0.000125', 'class_label': 0, 'drop_out': 'True', 'euris': True, 'iters': '1000', 'pre_train': 'None', 'activation': 'sigmoid', 'n_batch': '500', 'batch': '1', 'symm': 'True', 'pre_learn_rate': 0.001, 'gradient': 'adam', 'reg_lambda': '0.0', 'hidden': '100', 'model_name': 'test100x30', 'reg_w': 'False', 'w_file': 'weight_100x30', 'keep_prob': '0.30'}
+Traceback (most recent call last):
+  File "test_minst.py", line 57, in <module>
+    auto.generate_encoder(euris=options.euris,dropout=options.drop_out,keep_prob=float(options.keep_prob))
+TypeError: generate_encoder() got an unexpected keyword argument 'dropout'
+('Extracting', '../datasets/train-labels-idx1-ubyte.gz')
+{'learn_rate': '0.000125', 'class_label': 0, 'drop_out': 'True', 'euris': True, 'iters': '1000', 'pre_train': 'None', 'activation': 'sigmoid', 'n_batch': '500', 'batch': '1', 'symm': 'True', 'pre_learn_rate': 0.001, 'gradient': 'adam', 'reg_lambda': '0.0', 'hidden': '60', 'model_name': 'test60x50', 'reg_w': 'False', 'w_file': 'weight_60x50', 'keep_prob': '0.5'}
+Traceback (most recent call last):
+  File "test_minst.py", line 57, in <module>
+    auto.generate_encoder(euris=options.euris,dropout=options.drop_out,keep_prob=float(options.keep_prob))
+TypeError: generate_encoder() got an unexpected keyword argument 'dropout'
+('Extracting', '../datasets/train-labels-idx1-ubyte.gz')
+{'learn_rate': '0.000125', 'class_label': 0, 'drop_out': 'True', 'euris': True, 'iters': '1000', 'pre_train': 'None', 'activation': 'sigmoid', 'n_batch': '500', 'batch': '1', 'symm': 'True', 'pre_learn_rate': 0.001, 'gradient': 'adam', 'reg_lambda': '0.0', 'hidden': '30', 'model_name': 'test30x50', 'reg_w': 'False', 'w_file': 'weight_30x50', 'keep_prob': '0.5'}
+Traceback (most recent call last):
+  File "test_minst.py", line 57, in <module>
+    auto.generate_encoder(euris=options.euris,dropout=options.drop_out,keep_prob=float(options.keep_prob))
+TypeError: generate_encoder() got an unexpected keyword argument 'dropout'
