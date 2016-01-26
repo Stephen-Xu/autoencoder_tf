@@ -28,14 +28,12 @@ class autoencoder(object):
     def __exit__(self,exc_type, exc_value, traceback):
         pass
     
-    def generate_encoder(self,euris=False,dropout=False,keep_prob=0.5,mean_w=0.0,std_w=1.0):
+    def generate_encoder(self,euris=False,mean_w=0.0,std_w=1.0):
          for i in range(self.enc_length):
-            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris,dropout=dropout,keep_prob=keep_prob))
+            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris,))
          if(euris):
             self.use_euristic = True
-         if(dropout):
-            self.use_droput = True
-            self.keep_prob_dropout = keep_prob
+        
         
     def generate_decoder(self,symmetric=True,act=None):
         
@@ -44,10 +42,10 @@ class autoencoder(object):
             self.is_sym=True
             for i in reversed(range(self.enc_length)):
                 if (act is None):
-                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
+                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i],eur=self.use_euristic)
                     self.act_func.append(self.act_func[i])
                 else:
-                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
+                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i],eur=self.use_euristic)
                    self.act_func.append(act[i])
                 if(i==0):
                     temp_l.W = tf.transpose(self.layers[i].W)
@@ -59,10 +57,10 @@ class autoencoder(object):
         else: #####NON SERVE AD UNA CEPPA DI NIENTE!!
             for i in reversed(range(self.enc_length)):
                 if (act is None):
-                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
+                    temp_l = layer.layer([self.units[i+1],self.units[i]],activation=self.act_func[i],eur=self.use_euristic)
                     self.act_func.append(self.act_func[i])
                 else:
-                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i],eur=self.use_euristic,dropout=self.use_droput,keep_prob=self.keep_prob_dropout)
+                   temp_l = layer.layer([self.units[i+1],self.units[i]],activation=act[i],eur=self.use_euristic)
                    self.act_func.append(act[i])
                 if(i==0):
                     temp_l.assign_W(self.layers[i].W,T=True)
@@ -81,7 +79,10 @@ class autoencoder(object):
         if lev is None:
             lev = 0
         if(lev==self.enc_length-1):
-            return self.layers[lev].output(x)
+            if(self.use_droput):
+                return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
+            else:
+                return self.layers[lev].output(x)
         else:
             return self.enc_output(self.layers[lev].output(x),lev+1)
             
@@ -91,7 +92,10 @@ class autoencoder(object):
         if lev is None:
             lev = 0
         if(lev==self.dec_enc_length-1):
-            return self.layers[lev].output(x)
+            if(self.use_droput):
+                return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
+            else:
+                return self.layers[lev].output(x)
         else:
             return self.output(self.layers[lev].output(x),lev+1)   
         
@@ -210,7 +214,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,reg_weight=False,record_weight=False,reg_lambda=0.01,gradient='gradient',learning_rate=0.1,w_file="./weights.txt",model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,reg_weight=False,record_weight=False,reg_lambda=0.01,use_dropout=False,keep_prob=0.5,gradient='gradient',learning_rate=0.1,w_file="./weights.txt",model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -220,7 +224,8 @@ class autoencoder(object):
         elif(self.session is None):
             self.session = session
         
-        
+        self.use_droput=use_dropout
+        self.keep_prob_dropout=keep_prob
        
         
         if(display):
@@ -390,6 +395,10 @@ class autoencoder(object):
     
     
     def get_output(self,data,session=None):
+     
+        if(self.use_droput):
+            print 'Stopping dropout used in training'
+            self.use_droput=False
         if((session is None) and (self.session is None)):
             session = self.init_network()
         elif(self.session is None):
@@ -401,10 +410,6 @@ class autoencoder(object):
         return session.run(yo,feed_dict={xo:data})
 
 
-    def stop_dropout(self):
-        
-        for l in range(self.dec_enc_length):
-            self.layers[l].stop_dropout()
         
   
 if __name__ == '__main__':

@@ -20,3 +20,7 @@ def save(vect,w,h,index=0,name='foo',folder='./'):
     
     plt.savefig(folder+'/'+str(index)+'_'+name+'.png')
     
+    
+def plot_hist(vect,bins=50,normed=True):
+    plt.hist(vect, bins=bins, normed=normed)
+    plt.show()

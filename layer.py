@@ -3,7 +3,7 @@ import tensorflow as tf
 class layer(object):
     
 
-    def __init__(self,units,activation=None,mean=None,std=None,eur=False,dropout=False,keep_prob=0.5):
+    def __init__(self,units,activation=None,mean=None,std=None,eur=False):
         
       
         assert not(units is None),"You need to provide the number of units ([n_in,n_out])"
@@ -14,8 +14,7 @@ class layer(object):
         
         
         self.n_in,self.n_out = units
-        self.dropout = dropout
-        self.keep_prob = keep_prob
+      
       
               
         if(activation is None):
@@ -36,7 +35,7 @@ class layer(object):
             self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
         
         self.b = tf.Variable(tf.zeros([units[1]]))
-            
+        
         
         
             
@@ -65,45 +64,53 @@ class layer(object):
             
     def output(self,x):
         if(self.activation == 'sigmoid'):
-            if(self.dropout):
-                return tf.nn.dropout(tf.nn.sigmoid(tf.matmul(x,self.W+self.b)), self.keep_prob)
-            else:
-                tf.nn.sigmoid(tf.matmul(x,self.W+self.b))
+           
+            return tf.nn.sigmoid(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'relu'):
-            if(self.dropout):
-                return tf.nn.dropout(tf.nn.relu(tf.matmul(x,self.W+self.b)), self.keep_prob)
-            else:
-                tf.nn.relu(tf.matmul(x,self.W+self.b))
+           
+            return tf.nn.relu(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'relu6'):
-            if(self.dropout):
-                return tf.nn.dropout(tf.nn.relu6(tf.matmul(x,self.W+self.b)), self.keep_prob)
-            else:
-                tf.nn.relu6(tf.matmul(x,self.W+self.b))
+           
+            return tf.nn.relu6(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'linear'):
-            if(self.dropout):
-                return tf.nn.dropout(tf.matmul(x,self.W)+self.b,self.keep_prob)
-            else:
-                return tf.matmul(x,self.W)+self.b
+           
+            return tf.matmul(x,self.W)+self.b
         elif(self.activation == 'softplus'):
-            if(self.dropout):
-                return tf.nn.dropout(tf.nn.softplus(tf.matmul(x,self.W+self.b)),self.keep_prob)
-            else:
-                return tf.nn.softplus(tf.matmul(x,self.W+self.b))
+            
+            return tf.nn.softplus(tf.matmul(x,self.W+self.b))
         elif(self.activation == 'tanh'):
-            if(self.dropout):
-                return tf.nn.dropout(tf.tanh(tf.matmul(x,self.W+self.b)),self.keep_prob)
-            else:
-                return tf.tanh(tf.matmul(x,self.W+self.b))
+           
+            return tf.tanh(tf.matmul(x,self.W+self.b))
         else:
             print "No known activation function selected, using linear"
             return tf.matmul(x,self.W)+self.b
             
-    
-    def stop_dropout(self):
-        self.keep_prob = 1.0
+    def output_dropout(self,x,keep_prob=0.5):
+       
+        if(self.activation == 'sigmoid'):
+            return tf.nn.dropout(tf.nn.sigmoid(tf.matmul(x,self.W+self.b)), keep_prob)
+            
+        elif(self.activation == 'relu'):
+            return tf.nn.dropout(tf.nn.relu(tf.matmul(x,self.W+self.b)), keep_prob)
+           
+        elif(self.activation == 'relu6'):
         
-     
-    def set_dropout(self,keep_prob):
-        self.keep_prob = keep_prob
-        
-        
+            return tf.nn.dropout(tf.nn.relu6(tf.matmul(x,self.W+self.b)), keep_prob)
+            
+           
+        elif(self.activation == 'linear'):
+            
+            return tf.nn.dropout(tf.matmul(x,self.W)+self.b,keep_prob)
+           
+        elif(self.activation == 'softplus'):
+           
+            return tf.nn.dropout(tf.nn.softplus(tf.matmul(x,self.W+self.b)),keep_prob)
+      
+        elif(self.activation == 'tanh'):
+         
+            return tf.nn.dropout(tf.tanh(tf.matmul(x,self.W+self.b)),keep_prob)
+         
+        else:
+            print "No known activation function selected, using linear"
+        return tf.matmul(x,self.W)+self.b
+ 
