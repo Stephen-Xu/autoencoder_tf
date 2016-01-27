@@ -27,7 +27,7 @@ auto.generate_decoder(symmetric=True)
 
 session = auto.init_network()
 
-ic,bc = auto.train(data,n_iters=5000,record_weight=True,w_file=pie_weights,use_dropout=True,keep_prob=0.5,reg_weight=False,reg_lambda=0.0,model_name='./pie',batch=bat,display=False,noise=False,gradient='adam',learning_rate=0.0000125)
+ic,bc = auto.train(data,n_iters=5000,record_weight=True,w_file='./pie_weights',use_dropout=True,keep_prob=0.5,reg_weight=False,reg_lambda=0.0,model_name='./pie',batch=bat,display=False,noise=False,gradient='adam',learning_rate=0.0000125)
 
 
 print 'Init: ',ic,' Best:',bc
