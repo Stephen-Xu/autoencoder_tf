@@ -1,2 +1,2 @@
-model_checkpoint_path: "test200"
-all_model_checkpoint_paths: "test200"
+model_checkpoint_path: "test60_nohid"
+all_model_checkpoint_paths: "test60_nohid"

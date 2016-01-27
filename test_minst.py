@@ -38,7 +38,7 @@ parser.add_option("-z","--euris",dest="euris",default=True,help="using euristic 
 
 units = [784,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
-
+k = [float(options.keep_prob),1.0]
 l_rate =  options.learn_rate
 
 grad = options.gradient
@@ -69,4 +69,4 @@ else:
     bat = rand_batch(data,int(options.n_batch))
 
 
-auto.train(data,n_iters=int(options.iters),record_weight=True,w_file=options.w_file,use_dropout=options.drop_out,keep_prob=float(options.keep_prob),reg_weight=options.reg_w,reg_lambda=options.reg_lambda,model_name=options.model_name,batch=bat,display=False,noise=True,gradient=options.gradient,learning_rate=float(options.learn_rate))
+auto.train(data,n_iters=int(options.iters),record_weight=True,w_file=options.w_file,use_dropout=options.drop_out,keep_prob=k,reg_weight=options.reg_w,reg_lambda=options.reg_lambda,model_name=options.model_name,batch=bat,display=False,noise=True,gradient=options.gradient,learning_rate=float(options.learn_rate))

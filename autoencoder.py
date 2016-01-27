@@ -75,12 +75,16 @@ class autoencoder(object):
      
     def enc_output(self,x,lev=None):
         assert len(self.layers)!=0, 'Before training you must generate encoder and decoder'
-
+        
         if lev is None:
             lev = 0
         if(lev==self.enc_length-1):
             if(self.use_droput):
-                return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
+                if(not isinstance(self.keep_prob_dropout,list)):
+                    return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
+                else:
+                    #assert len(self.keep_prob_dropout==self.dec_enc_length-1), 'keep probabilites must be one for each layers'
+                    return self.layers[lev].output_dropout(x,keep_prob=float(self.keep_prob_dropout[lev]))
             else:
                 return self.layers[lev].output(x)
         else:
@@ -88,12 +92,18 @@ class autoencoder(object):
             
         
     def output(self,x,lev=None):
+        
         assert len(self.layers)!=0, 'Before training you must generate encoder and decoder'
         if lev is None:
             lev = 0
         if(lev==self.dec_enc_length-1):
             if(self.use_droput):
-                return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
+                if(not isinstance(self.keep_prob_dropout,list)):
+                    return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
+                else:
+                    #assert len(self.keep_prob_dropout==self.dec_enc_length-1), 'keep probabilites must be one for each layers'
+                    
+                    return self.layers[lev].output_dropout(x,keep_prob=float(self.keep_prob_dropout[lev]))
             else:
                 return self.layers[lev].output(x)
         else:
@@ -382,6 +392,9 @@ class autoencoder(object):
         return init_cost,best
         
     def get_hidden(self,data,session=None):
+         #if(self.use_droput):
+         #   print 'Stopping dropout used in training'
+          #  self.use_droput=False
         if((session is None) and (self.session is None)):
             session = self.init_network()
         elif(self.session is None):
@@ -396,9 +409,9 @@ class autoencoder(object):
     
     def get_output(self,data,session=None):
      
-        if(self.use_droput):
-            print 'Stopping dropout used in training'
-            self.use_droput=False
+        #if(self.use_droput):
+         #   print 'Stopping dropout used in training'
+          #  self.use_droput=False
         if((session is None) and (self.session is None)):
             session = self.init_network()
         elif(self.session is None):
@@ -409,8 +422,9 @@ class autoencoder(object):
         yo = self.output(xo)    
         return session.run(yo,feed_dict={xo:data})
 
-
-        
+    def set_dropout(self,keep_prob=0.5):
+        self.use_droput = True
+        self.keep_prob_dropout=keep_prob
   
 if __name__ == '__main__':
 
