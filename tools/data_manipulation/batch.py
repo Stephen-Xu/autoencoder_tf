@@ -1,5 +1,5 @@
 import numpy as np
-#from tools.geometric.knn import knn TODO!!!!
+from tools.geometric.knn import knn 
 
 
 def seq_batch(data,n):

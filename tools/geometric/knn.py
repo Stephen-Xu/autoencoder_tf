@@ -10,7 +10,7 @@ def knn(data,k=8,algorithm='auto',metric='euclidean'):
         nbrs = NearestNeighbors(n_neighbors=k,metric=metric).fit(data)
     else:
         nbrs = NearestNeighbors(n_neighbors=k,metric=metric,algorithm=algorithm)
-    dists,ind = nbrs.kneighbor(data)
+    dists,ind = nbrs.kneighbors(data)
     return dists[:,1:],ind[:,1:]
     
 '''from nearpy import Engine
