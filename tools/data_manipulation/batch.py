@@ -32,18 +32,18 @@ def rand_batch(data,n):
         batch.append(data[index[n*batch_size:(n*batch_size+last_batch-1)],:])
     return batch
 
-'''' TODO!!!
+
 def knn_batch(data,k):
     batch=[]
     
     
-    _,_,ind = knn(data,k)
+    _,ind = knn(data,k)
     
     for i in range(data.shape[0]):
         batch.append(data[ind[i],:])
     
     return batch
-'''
+
 
 
     

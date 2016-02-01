@@ -1,4 +1,19 @@
-from nearpy import Engine
+
+from  sklearn.neighbors import NearestNeighbors
+
+
+def knn(data,k=8,algorithm='auto',metric='euclidean'):
+    assert k<=len(data)-1, 'The number of neighbors must be smaller than the data cardinality (minus one)'
+    k = k+1 #first value is the point itself
+    n,dimension = data.shape
+    if(algorithm=='auto'):
+        nbrs = NearestNeighbors(n_neighbors=k,metric=metric).fit(data)
+    else:
+        nbrs = NearestNeighbors(n_neighbors=k,metric=metric,algorithm=algorithm)
+    dists,ind = nbrs.kneighbor(data)
+    return dists[:,1:],ind[:,1:]
+    
+'''from nearpy import Engine
 from nearpy.hashes import RandomBinaryProjections
 from nearpy.filters import NearestFilter
 
@@ -30,4 +45,9 @@ def knn(data,k):
         
   
     return N,dist,ind
+
+
+
+
+'''
 
