@@ -5,6 +5,7 @@ from optparse import OptionParser
 from tools import get_data_from_minst
 
 parser = OptionParser()
+parser.add_option("-t","--remove_mean",dest="rem_mean",default=True)
 parser.add_option("-u", "--hidden", dest="hidden",
                   help="number of hidden units",default=10)
 parser.add_option("-a", "--activation",
@@ -36,9 +37,11 @@ parser.add_option("-z","--euris",dest="euris",default=True,help="using euristic 
 (options, args) = parser.parse_args()
 
 
-units = [784,int(options.hidden)]
+units = [784,1000,500,250,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
-k = [float(options.keep_prob),1.0]
+action[-1]='linear'
+
+k = float(options.keep_prob)
 l_rate =  options.learn_rate
 
 grad = options.gradient
@@ -46,9 +49,15 @@ grad = options.gradient
 
 arr,lab = get_data_from_minst.get_data_from_minst()
 
-data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.class_label))]).astype("float32")
+if(options.class_label=='all'):
+    data = arr
+else:
+    data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.class_label))]).astype("float32")
 
+if(bool(options.rem_mean)):
+    m_d = np.cumsum(data,axis=0)[-1]/data.shape[0]
 
+    data = data-m_d
 
 print options
 
