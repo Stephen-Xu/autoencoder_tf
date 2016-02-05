@@ -61,3 +61,31 @@ def get_data_from_minst():
     
     return data,lab
 
+def get_test_from_mnist():
+    num_images = 10000
+    rows = 28
+    cols = 28
+    max_value = 0xFF
+
+    filename = '../datasets/t10k-images-idx3-ubyte.gz'
+    filename_lab ='../datasets/t10k-labels-idx1-ubyte.gz'
+
+    with gzip.open(filename) as bytestream:
+        magic = _read32(bytestream)
+        if magic != 2051:
+          raise ValueError(
+              'Invalid magic number %d in MNIST image file: %s' %
+              (magic, filename))
+        num_images = _read32(bytestream)
+        rows = _read32(bytestream)
+        cols = _read32(bytestream)
+        buf = bytestream.read(rows * cols * num_images)
+        data = np.frombuffer(buf, dtype=np.uint8)
+        data = data.reshape(num_images, rows* cols)
+        data = data.astype(float)
+        data -= max_value / 2.0
+        data /= max_value
+
+    lab = extract_labels(filename_lab)
+
+    return data,lab
