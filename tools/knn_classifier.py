@@ -18,10 +18,16 @@ class knn_classifier(object):
     def predict(self,val):
         return self.clf.predict(val)
          
-    def accuracy(self,val):
+    def accuracy(self,val,lab=None,index=None):
         z = self.predict(val)
-        
-        return np.sum(np.equal(self.y,z))/(float(len(self.y)))
+        if lab is None:
+		lab = self.y
+
+	if index is None:
+		label = lab
+	else:
+		label = [lab[i] for i in index]
+        return np.sum(np.equal(label,z))/(float(len(label)))
         
          
         
