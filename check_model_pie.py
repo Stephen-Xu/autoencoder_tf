@@ -8,12 +8,8 @@ import numpy as np
 
 
 parser = OptionParser()
-parser.add_option("-l", "--label", dest="label",
-                  help="class label",default=0)
 parser.add_option("-m", "--model", dest="model",
                   help="model file",default="")
-parser.add_option("-t", "--normed", dest="normed",
-                  help="if data is normalized",default=False)
 parser.add_option("-i", "--index", dest="index",
                   help="test index",default=0)
 parser.add_option("-u", "--units", dest="units",
@@ -24,24 +20,20 @@ parser.add_option("-s","--save",dest="save",default=0,help="Save on file first 5
 parser.add_option("-y","--classifier",dest="classifier",default=0,help="using nearest neighbor classifier")
 (options, args) = parser.parse_args()
 
+data = np.loadtxt("../datasets/multi_pie.dat")
+label = np.loadtxt("../datasets/multi_pie_label.dat")
 
-arr,lab = get_data_from_minst.get_data_from_minst()
-
-if(options.label=='all'):
-    data = arr
-else:
-    data = np.asarray([arr for (arr,lab) in zip(arr,lab) if(lab==int(options.label))])
+data = data+abs(np.min(data))
+data = data/np.max(data)
+data = data.astype("float32")
 
 hidden = int(options.units)
-'''units = [784,hidden]
-action = [options.activation for i in range(len(units)-1)]
-'''
+units = [5600,1100,200,hidden]
 
-units = [784,500,500,2000,hidden]
-action = [options.activation for i in range(len(units)-1)]
-action[-1]='linear'
+act = ['sigmoid','sigmoid','sigmoid']
 
-auto = autoencoder(units,action)
+
+auto = autoencoder(units,act)
 
 auto.generate_encoder(euris=True)
 auto.generate_decoder(symmetric=True)
@@ -55,13 +47,9 @@ session = auto.init_network()
 
 
 auto.load_model(options.model,session=session)
-#display.display(data[int(options.index)],28,28)
-    
-res = auto.get_output(np.asarray([data[int(options.index)]]),session=session)
-
-#if(options.normed):
- #   res = res + np.cumsum(data,axis=0)[-1]/data.shape[0]
-'''
+#display.display(data[int(options.index)],70,80)
+'''    
+#res = auto.get_output(np.asarray([data[int(options.index)]]),session=session)
 spar = 0
 dist_hid = np.zeros(hidden) 
 
@@ -74,10 +62,11 @@ print "mean sparseness of hidden: ", spar/500.0
 print "m: ",np.asarray(dist_hid)
 #display.plot_hist(np.transpose(dist_hid/500.0),bins=20,normed=False)
 #display.plot_vect(np.asarray(dist_hid)/500.0)
+    
+
+
+#display.display(res,70,80)
 '''
-
-
-#display.display(res,28,28)
 '''
 b=np.array([ 0.,  0.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,
         1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,
@@ -108,30 +97,42 @@ for j in range(8):
     display.display(c,28,28)
 m = np.mean(data[:500],axis=0)
 
-c = np.matmul((b+v),w)
-
-'''
+c = np.matmul((b+v),w)'''
 #display.display(c,28,28)
 #display.display(np.ndarray.flatten(np.array(m)),28,28)
 
 if(int(options.save)):
     for i in range(50):
-        display.save(data[i],28,28,folder='./imgs',name='in',index=i)
+        display.save(data[i],70,80,folder='./imgs_pie',name='in',index=i)
     
         res = auto.get_output(np.asarray([data[i]]),session=session)
-        #if(options.normed):
-         #   res = res + np.cumsum(data,axis=0)[-1]/data.shape[0]
-        display.save(res,28,28,folder='./imgs',name='out',index=i)
+
+        display.save(res,70,80,folder='./imgs_pie',name='out',index=i)
 
 if(int(options.classifier)):
-    h = auto.get_hidden(np.asarray(data),session=session)
-    k = knn_classifier.knn_classifier(data=h,label=lab,k=3)
+    train = np.loadtxt("../datasets/multi_pie_train.dat")
+    l_train = np.loadtxt("../datasets/multi_pie_l_train.dat")
+    test = np.loadtxt("../datasets/multi_pie_test.dat")
+    l_test = np.loadtxt("../datasets/multi_pie_l_test.dat")
+
+    train = train+abs(np.min(train))
+    train = train/np.max(train)
+    train = train.astype("float32")
+
+    test = test+abs(np.min(test))
+    test = test/np.max(test)
+    test = test.astype("float32")
+    
+    h = auto.get_hidden(np.asarray(train),session=session)
+    k = knn_classifier.knn_classifier(data=h,label=l_train,k=3)
+    #k =  knn_classifier.knn_classifier(data=train,label=l_train,k=3)
     k.learn()
 
-    test, labtest = get_data_from_minst.get_test_from_mnist()
+    
 
     t = auto.get_hidden(np.asarray(test),session=session)
     
-    print k.accuracy(t,labtest)
-
+    print k.accuracy(t,l_test)
+    print zip(k.predict(t),l_test)
+    #print k.accuracy(test,l_test)
 

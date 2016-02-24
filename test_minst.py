@@ -34,10 +34,11 @@ parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regul
 parser.add_option("-o","--drop_out",dest="drop_out",default=False,help="using dropout")
 parser.add_option("-k","--keep_prob",dest="keep_prob",default=0.5,help="probability for dropout")
 parser.add_option("-z","--euris",dest="euris",default=True,help="using euristic for weight initialization")
+
 (options, args) = parser.parse_args()
 
 
-units = [784,1000,500,250,int(options.hidden)]
+units = [784,500,500,2000,int(options.hidden)]
 action = [options.activation for i in range(len(units)-1)]
 action[-1]='linear'
 

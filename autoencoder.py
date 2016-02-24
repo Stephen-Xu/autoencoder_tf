@@ -281,6 +281,7 @@ class autoencoder(object):
         else:
             #cost = tf.reduce_mean(tf.sqrt(tf.pow(x-x_hat,2)))-reg_lambda*reg_norm  
             cost = tf.reduce_mean((tf.pow(x-x_hat,2)))
+    
         #noise_cost = tf.reduce_mean(tf.sqrt(tf.pow(x-x_noise_hat,2)))-reg_lambda*reg_norm_noise 
         noise_cost = tf.reduce_mean((tf.pow(x-x_noise_hat,2)))
     
@@ -372,7 +373,7 @@ class autoencoder(object):
             if(c<best):
                 if(display):
                     ridotti = self.session.run(y,feed_dict={x:data})
-                    ricostruiti = self.session.run(x_hat,feed_dict={x:data})
+                    #ricostruiti = self.session.run(x_hat,feed_dict={x:data})
                     plt.clf()
                     plt.scatter(ridotti[:,0],ridotti[:,1])
                     plt.draw()
@@ -425,6 +426,9 @@ class autoencoder(object):
     def set_dropout(self,keep_prob=0.5):
         self.use_droput = True
         self.keep_prob_dropout=keep_prob
+        
+    def stop_dropout(self):
+        self.use_droput = False
   
 if __name__ == '__main__':
 

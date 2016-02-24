@@ -5,7 +5,7 @@ from optparse import OptionParser
 from tools import get_data_from_minst
 
 parser = OptionParser()
-parser = OptionParser()
+parser.add_option("-t","--remove_mean",dest="rem_mean",default=True)
 parser.add_option("-u", "--hidden", dest="hidden",
                   help="number of hidden units",default=10)
 parser.add_option("-a", "--activation",
@@ -33,60 +33,42 @@ parser.add_option("-e","--pre_train",dest="pre_train",default="rbm",help="Select
 parser.add_option("-d","--reg_lambda",dest="reg_lambda",default=0.05,help="regularization weight (lambda)")
 parser.add_option("-o","--drop_out",dest="drop_out",default=False,help="using dropout")
 parser.add_option("-k","--keep_prob",dest="keep_prob",default=0.5,help="probability for dropout")
+parser.add_option("-z","--euris",dest="euris",default=True,help="using euristic for weight initialization")
+
 (options, args) = parser.parse_args()
 
 
-
-data = np.loadtxt('swiss.dat')
-
-data = data/np.max(data)
-data = data+np.min(data)
-data = data.astype("float32")
+units = [784,int(options.hidden)]
+action = [options.activation]
 
 
-units = [3,30,15,10,4,2]
-actions = ['linear','sigmoid','sigmoid','sigmoid','sigmoid']
-act2 = ['sigmoid','sigmoid','sigmoid','sigmoid','linear']
-auto = autoencoder(units,actions)
+k = float(options.keep_prob)
+l_rate =  options.learn_rate
 
-auto.generate_encoder(euris=True)
-auto.generate_decoder(act=act2,symmetric=options.symm)
-
-auto.init_network()
-#pre_train = [auto.session.run(l.W) for l in auto.layers]
+grad = options.gradient
 
 
-if(options.pre_train == 'rbm'):
-    auto.pre_train_rbm(data,n_iters=10,adapt_learn=True,learning_rate=float(options.pre_learn_rate))
-elif(options.pre_train == 'standard'):
-    auto.pre_train(data)
+arr,lab = get_data_from_minst.get_data_from_minst()
+
+
+data = arr
 
 
 
-#post_train = [auto.session.run(l.W) for l in auto.layers]
+print options
 
-#print [np.mean(a - b) for a, b in zip(pre_train, post_train)]
-'''
-out = []
-for i in range(auto.dec_enc_length):
-    if i==0:
-        out = auto.session.run(auto.layers[i].output(data))
-        print np.mean(out)
-    else:
-        out = auto.session.run(auto.layers[i].output(out))
-        print np.mean(out)
-'''
+auto = autoencoder(units,action)
+
+auto.generate_encoder(euris=options.euris)
+auto.generate_decoder(symmetric=options.symm)
+
+#auto.pre_train_rbm(data,n_iters=10,learning_rate=float(options.pre_learn_rate),adapt_learn=True)
+
 if(not options.batch):
     bat = None
 else:
-    from tools.data_manipulation.batch import knn_batch
-    bat = knn_batch(data,int(options.n_batch))
+    from tools.data_manipulation.batch import seq_batch
+    bat = seq_batch(data,int(options.n_batch))
 
 
-#l=[0.001,0.0001,0.00001,0.000001,0.0000001]
-
-#for c in range(len(l)):
-
-b,c  = auto.train(data,use_dropout=False,keep_prob=0.8,n_iters=int(options.iters),verbose=False,record_weight=True,w_file=options.w_file,reg_weight=options.reg_w,reg_lambda=options.reg_lambda,model_name=options.model_name,batch=bat,display=True,noise=False,gradient=options.gradient,learning_rate=float(options.learn_rate))
-#   auto.train(data,n_iters=20,batch=bat,display=True,verbose=True,display_w=False,gradient=options.gradient,learning_rate=l[c])
-print 'init: ',b,' best: ',c
+auto.train(data,n_iters=int(options.iters),record_weight=True,w_file=options.w_file,use_dropout=True,keep_prob=k,reg_weight=False,reg_lambda=0.0,model_name=options.model_name,batch=bat,display=False,noise=True,gradient=options.gradient,learning_rate=float(options.learn_rate))
