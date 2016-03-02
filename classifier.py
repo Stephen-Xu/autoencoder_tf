@@ -43,12 +43,14 @@ class classifier(object):
         pass
     
     
-    def generate_classifier(self,euris=False,mean_w=0.0,std_w=1.0):
+    def generate_classifier(self,euris=False,mean_w=0.0,std_w=1.0,dropout=False,keep_prob_dropout=0.5):
         for i in range(len(self.units)-1):
             self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris,))
         if(euris):
             self.use_euristic = True
             
+        self.use_dropout = dropout
+        self.keep_prob_dropout = keep_prob_dropout
     
     def init_network(self,list_var=None):
        
@@ -90,7 +92,7 @@ class classifier(object):
         
         temp = tf.constant(data,shape=data.shape,dtype="float32")
         patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-	patch = tf.expand_dims(patch,[0])
+        patch = tf.expand_dims(patch,[0])
     #######################################MODIFICARE!!!!!!!!!!!!!!!!!
 
         original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
@@ -201,11 +203,11 @@ class classifier(object):
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
             print "Cost at iter ",i," : ",c
-	    if(c<cost):
-            	print "***************Best model found so far at iter ",i
-            	saver.save(self.session,FLAGS.model)
-            	cost = c
-        actual_batch = self.session.run(get_batch)
+            if(c<cost):
+                print "***************Best model found so far at iter ",i
+                saver.save(self.session,FLAGS.model)
+                cost = c
+            actual_batch = self.session.run(get_batch)
         
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         

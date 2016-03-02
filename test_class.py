@@ -8,7 +8,7 @@ act = ['relu','relu']
 
 cl = classifier(units,act)
 
-cl.generate_classifier()
+cl.generate_classifier(dropout=True,keep_prob_droput=[1.0,0.5,1.0])
 
 session = cl.init_network()
 
