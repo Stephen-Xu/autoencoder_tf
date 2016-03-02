@@ -163,8 +163,7 @@ class classifier(object):
         #for i in range(FLAGS.iters):
         for i in range(6): 
             actual_batch = self.session.run(get_batch)
-            print actual_batch.shape
-            print self.session.run(conv_reduced).shape
+            print self.session.run(conv_reduced,feed_dict={x:actual_batch}).shape
             #_, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
             #print c
             
