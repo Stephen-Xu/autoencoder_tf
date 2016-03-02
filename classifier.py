@@ -86,13 +86,18 @@ class classifier(object):
         red_filters_number = red.shape[1]
         red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
 
+    #######################################MODIFICARE!!!!!!!!!!!!!!!!!
+        
+        temp = tf.constant(data,shape=data.shape,dtype="float32")
+        patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
 
+    #######################################MODIFICARE!!!!!!!!!!!!!!!!!
 
         original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
         reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
           
-        conv_reduced = tf.nn.conv2d(data,reduced_filters,[1,2,2,1],"VALID")
-        conv_original = tf.nn.conv2d(data,original_filters,[2,2,1,1],"VALID")   
+        conv_reduced = tf.nn.conv2d(patch,reduced_filters,[1,1,1,1],"VALID")
+        conv_original = tf.nn.conv2d(patch,original_filters,[1,1,1,1],"VALID")   
         
         out = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
     
