@@ -20,7 +20,7 @@ tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced fil
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',109,"""Shape of convolutional output""")
-tf.app.flags.DEFINE_float('learning_rate',0.0001,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_float('learning_rate',0.001,"""Learning rate for optimizer""")
 
 
 class classifier(object):
@@ -77,7 +77,7 @@ class classifier(object):
             self.session = session
             
         if(not model is None):
-            self.load_model(mode,session=self.session)
+            self.load_model(model,session=self.session)
             
         ori = np.loadtxt(FLAGS.original).astype("float32")
         ori_filters_number = ori.shape[1]
@@ -90,7 +90,7 @@ class classifier(object):
         
         temp = tf.constant(data,shape=data.shape,dtype="float32")
         patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-
+	patch = tf.expand_dims(patch,[0])
     #######################################MODIFICARE!!!!!!!!!!!!!!!!!
 
         original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
@@ -99,10 +99,10 @@ class classifier(object):
         conv_reduced = tf.nn.conv2d(patch,reduced_filters,[1,1,1,1],"VALID")
         conv_original = tf.nn.conv2d(patch,original_filters,[1,1,1,1],"VALID")   
         
-        out = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
+        out = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
     
         
-        return session.run(tf.reshape(out,[tf.shape(conv_original)])),session.run(conv_original)
+        return session.run(out),session.run(conv_original)
         
     
             
@@ -201,10 +201,10 @@ class classifier(object):
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
             print "Cost at iter ",i," : ",c
-        if(c<cost):
-            print "***************Best model found so far at iter ",i
-            saver.save(self.session,FLAGS.model)
-            cost = c
+	    if(c<cost):
+            	print "***************Best model found so far at iter ",i
+            	saver.save(self.session,FLAGS.model)
+            	cost = c
         actual_batch = self.session.run(get_batch)
         
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
