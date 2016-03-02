@@ -139,11 +139,11 @@ class classifier(object):
         reader = tf.WholeFileReader()
         key,value = reader.read(file_queue)
 
-        image = tf.image.decode_jpeg(value)
+        image = tf.image.decode_jpeg(value,channels=3)
         
 
         image = tf.image.convert_image_dtype(image,dtype=tf.float32)
-        #image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
+        image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
         image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
         #image.set_shape([FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
         image = tf.expand_dims(image,[0])
