@@ -101,7 +101,7 @@ class classifier(object):
         
     def train(self):#FLAAAGSSS!:
         
-        if((session is None) and (self.session is None)):
+        if(self.session is None):
             session = self.init_network()
         elif(self.session is None):
             self.session = session
