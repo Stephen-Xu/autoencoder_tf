@@ -143,6 +143,7 @@ class classifier(object):
 
         image = tf.image.convert_image_dtype(image,dtype=tf.float32)
         image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+        image.set_shape([FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
         image = tf.expand_dims(image,[0])
 
 
