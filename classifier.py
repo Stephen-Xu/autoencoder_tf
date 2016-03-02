@@ -170,9 +170,9 @@ class classifier(object):
         #final_cost = self.session.run(loss)
         
         
-        print "initial cost: ",initial_cost," Final cost: ",final_cost
+        #print "initial cost: ",initial_cost," Final cost: ",final_cost
                   
-        saver.save(self.session,FLAGS.model)
+        #saver.save(self.session,FLAGS.model)
         
         
        
