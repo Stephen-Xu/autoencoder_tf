@@ -68,7 +68,37 @@ class classifier(object):
         
         return sess
     
+    def test_model(self,data,session=None,model=None):
+        
+        if(self.session is None):
+            init = tf.initialize_alla_variables()
+            session = tf.Session()
+            session.run(init)
+            self.session = session
+            
+        if(not model is None):
+            self.load_model(mode,session=self.session)
+            
+        ori = np.loadtxt(FLAGS.original).astype("float32")
+        ori_filters_number = ori.shape[1]
+        ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
+        red = np.loadtxt(FLAGS.reduced).astype("float32")
+        red_filters_number = red.shape[1]
+        red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
+
+
+
+        original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
+        reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
+          
+        conv_reduced = tf.nn.conv2d(data,reduced_filters,[1,2,2,1],"VALID")
+        conv_original = tf.nn.conv2d(data,original_filters,[2,2,1,1],"VALID")   
+        
+        out = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
     
+        
+        return session.run(tf.reshape(out,[tf.shape(conv_original)])),session.run(conv_original)
+        
     
             
     def load_model(self,name,session=None,saver=None):
@@ -166,11 +196,11 @@ class classifier(object):
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
             print "Cost at iter ",i," : ",c
-	    if(c<cost):
-		print "Best model found so far at iter ",i
-                saver.save(self.session,FLAGS.model)
-		cost = c 
-            actual_batch = self.session.run(get_batch)
+        if(c<cost):
+            print "***************Best model found so far at iter ",i
+            saver.save(self.session,FLAGS.model)
+            cost = c
+        actual_batch = self.session.run(get_batch)
         
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
