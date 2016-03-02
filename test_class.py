@@ -1,7 +1,7 @@
 from classifier import classifier
 import numpy as np
 
-units = [109*109*24,109*109*48,109*109*96]   #################
+units = [24,48,96]   #################
 act = ['tanh','tanh']
 
 

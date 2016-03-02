@@ -142,13 +142,13 @@ class classifier(object):
         image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
 
         image = tf.image.convert_image_dtype(image,dtype=tf.float32)
+        image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
         image = tf.expand_dims(image,[0])
 
 
-       
         get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
         
-       
+            
         
         self.session.run(tf.initialize_all_variables())
        
