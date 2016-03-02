@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',5,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -165,7 +165,7 @@ class classifier(object):
         
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
-            print "Cost: ",c
+            print "Cost at iter ",i," : ",c
             actual_batch = self.session.run(get_batch)
         
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
