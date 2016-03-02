@@ -12,9 +12,9 @@ FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
-tf.app.flags.DEFINE_integer('height',224,"""Height of images""")
+tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
-tf.app.flags.DEFINE_string('path','~/autoencoder_tf/datasets/ILSVRC2012_VAL_SET/pre_images/',"""Data folder""")
+tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/pre_images/',"""Data folder""")
 tf.app.flags.DEFINE_string('original','./conv',"""File for original filters""")
 tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced filters""")
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
@@ -129,8 +129,8 @@ class classifier(object):
         
         conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,2,2,1],"VALID")
         conv_original = tf.nn.conv2d(x,original_filters,[1,2,2,1],"VALID")
-        hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,FLAG.out_conv_dim*2*red_filters_number]))
-        loss = tf.reduce_mean((tf.pow(tf.reshape(conv_original,[FLAGS.batch,FLAG.out_conv_dim*2*ori_filters_number])-hat_c,2)))
+        hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
+        loss = tf.reduce_mean((tf.pow(tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])-hat_c,2)))
         
         tr = tf.train.AdamOptimizer(learning_rate).minimize(cost)
         
