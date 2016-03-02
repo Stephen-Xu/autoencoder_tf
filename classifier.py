@@ -151,7 +151,7 @@ class classifier(object):
             
         
         self.session.run(tf.initialize_all_variables())
-       
+        tf.train.start_queue_runners(sess=self.session)       
         
         saver = tf.train.Saver()
         
