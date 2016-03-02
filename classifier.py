@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',5000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -20,7 +20,7 @@ tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced fil
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',109,"""Shape of convolutional output""")
-tf.app.flags.DEFINE_float('learning_rate',0.001,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_float('learning_rate',0.0001,"""Learning rate for optimizer""")
 
 
 class classifier(object):
@@ -162,10 +162,14 @@ class classifier(object):
         
         actual_batch = self.session.run(get_batch)
         initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
-        
+        cost = initial_cost
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
             print "Cost at iter ",i," : ",c
+	    if(c<cost):
+		print "Best model found so far at iter ",i
+                saver.save(self.session,FLAGS.model)
+		cost = c 
             actual_batch = self.session.run(get_batch)
         
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
@@ -173,7 +177,7 @@ class classifier(object):
         
         print "initial cost: ",initial_cost," Final cost: ",final_cost
                   
-        saver.save(self.session,FLAGS.model)
+        
         
         
        
