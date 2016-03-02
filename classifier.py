@@ -168,7 +168,7 @@ class classifier(object):
             print "Cost: ",c
             actual_batch = self.session.run(get_batch)
         
-        final_cost = self.session.run(loss)
+        final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
         
         print "initial cost: ",initial_cost," Final cost: ",final_cost
