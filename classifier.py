@@ -32,7 +32,7 @@ class classifier(object):
         self.use_euristic=False
         self.initialized = False
         self.session = None
-        self.use_droput = False
+        self.use_dropout = False
         self.keep_prob_dropout = 0.5
         
         
@@ -124,7 +124,7 @@ class classifier(object):
         if lev is None:
             lev = 0
         if(lev==len(self.act_func)-1):
-            if(self.use_droput):
+            if(self.use_dropout):
                 if(not isinstance(self.keep_prob_dropout,list)):
                     return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
                 else:
