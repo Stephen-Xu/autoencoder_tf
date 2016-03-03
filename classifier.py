@@ -9,9 +9,9 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',5000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',10000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('batch',1000,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
@@ -19,8 +19,8 @@ tf.app.flags.DEFINE_string('original','./conv',"""File for original filters""")
 tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced filters""")
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
-tf.app.flags.DEFINE_integer('out_conv_dim',109,"""Shape of convolutional output""")
-tf.app.flags.DEFINE_float('learning_rate',0.001,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_integer('out_conv_dim',1,"""Shape of convolutional output""")
+tf.app.flags.DEFINE_float('learning_rate',0.00125,"""Learning rate for optimizer""")
 
 
 class classifier(object):
