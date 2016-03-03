@@ -9,9 +9,9 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',10000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',1000,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('batch',500,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
@@ -135,7 +135,9 @@ class classifier(object):
         else:
             return self.output(self.layers[lev].output(x),lev+1)   
 
-    
+
+    def stop_dropout(self):
+        self.use_dropout=False
         
     def train(self):#FLAAAGSSS!:
         
