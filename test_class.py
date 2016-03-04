@@ -25,12 +25,14 @@ else:
 
 	cl.stop_dropout()
 
-	r,o  = cl.test_model(image,session=session,model='./converted.mdl')
+	cl.load_model('./converted.mdl')
+
+	r,o  = cl.test_model(image,session=session,model=None)
 
 	r = np.ndarray.flatten(r)
 	o = np.ndarray.flatten(o)
 	print zip(r,o)
-	print "dist:",np.mean((r-o)**2)
+	print "dist:",np.sum((r-o)**2)
 	print "red norm:",np.linalg.norm(r)
 	print "ori norm:",np.linalg.norm(o)
 
