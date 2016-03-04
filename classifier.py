@@ -170,7 +170,10 @@ class classifier(object):
         conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
         conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
         hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
-        loss = tf.reduce_mean(tf.pow(tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])-hat_c,2))
+        ori_c = tf.reshape(conv_original,[FLAGs.batch,ori_filters_number])
+        #loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
+        loss = -tf.reduce_mean(ori_c*tf.log(hat_c)+(1-ori_c)*tf.log(hat_c))
+        
         
         tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
         
