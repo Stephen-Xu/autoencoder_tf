@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',40000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',500,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -119,12 +119,12 @@ class classifier(object):
         
         
     def output(self,x,lev=None):
-        
         assert len(self.layers)!=0, 'You must generate the classifier in order to get an output!'
         if lev is None:
             lev = 0
         if(lev==len(self.act_func)-1):
             if(self.use_dropout):
+		
                 if(not isinstance(self.keep_prob_dropout,list)):
                     return self.layers[lev].output_dropout(x,keep_prob=self.keep_prob_dropout)
                 else:
