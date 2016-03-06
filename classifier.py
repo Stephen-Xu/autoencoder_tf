@@ -165,7 +165,7 @@ class classifier(object):
         reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
         
-        x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
+        x = tf.placeholder("float",[FLAGS.batch,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
         
         conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
         conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
@@ -174,6 +174,18 @@ class classifier(object):
         #loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
         #loss = -tf.reduce_mean(ori_c*tf.log(hat_c)+(1-ori_c)*tf.log(hat_c))
         loss = 0.5*tf.reduce_sum(tf.pow(ori_c-hat_c,2))
+        
+        
+        #################DELETE
+        
+        t = tf.placeholder("float",[1,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channel])
+        conv_reduced_t = tf.nn.conv2d(t,reduced_filters,[1,1,1,1],"VALID")
+        conv_original_t = tf.nn.conv2d(t,original_filters,[1,1,1,1],"VALID")
+        hat_c_t = self.output(tf.reshape(conv_reduced_t,[FLAGS.batch,red_filters_number]))
+        ori_c_t = tf.reshape(conv_original_t,[FLAGS.batch,ori_filters_number])
+        loss_t = 0.5*tf.reduce_sum(tf.pow(ori_c_t-hat_c_t,2))
+        
+        ################DELETE1!!!!!!1
         
         tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
         
@@ -193,7 +205,21 @@ class classifier(object):
 
         get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
         
-            
+        
+        #########################DELETEE
+        
+        from scipy import misc
+
+        im = misc.imread('./cat.jpg').astype("float32")
+
+        temp = tf.constant(im,shape=im.shape,dtype="float32")
+        patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+        patch = tf.expand_dims(patch,[0])    
+        
+        
+        
+        ########################DELETEE
+        
         
         self.session.run(tf.initialize_all_variables())
         tf.train.start_queue_runners(sess=self.session)       
@@ -222,13 +248,9 @@ class classifier(object):
     
         ########
         
-        from scipy import misc
-
-        im = misc.imread('./cat.jpg').astype("float32")
-
-        temp = tf.constant(im,shape=im.shape,dtype="float32")
-        patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-        patch = tf.expand_dims(patch,[0])
-        print self.session.run(loss,feed_dict={x:self.session.run(patch)})
+        
+        pa = self.session.run(patch)
+        print pa.shape
+        print self.session.run(loss_t,feed_dict={t:pa})
               
         
