@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',40000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',2,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',500,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -220,8 +220,16 @@ class classifier(object):
         print "initial cost: ",initial_cost," Final cost: ",final_cost
                   
         
-        
-        
-       
-        
+	############
+
+	from scipy import misc
+
+	im = misc.imread('./cat.jpg').astype("float32")
+
+	temp = tf.constant(im,shape=im.shape,dtype="float32")
+        patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+        patch = tf.expand_dims(patch,[0])	        
+       	
+	print self.session.run(loss,feed_dict={x:self.session.run(patch)})
+              
         
