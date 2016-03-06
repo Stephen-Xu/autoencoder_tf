@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',2,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',10000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',500,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -178,11 +178,11 @@ class classifier(object):
         
         #################DELETE
         
-        t = tf.placeholder("float",[1,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channel])
+        t = tf.placeholder("float",[1,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
         conv_reduced_t = tf.nn.conv2d(t,reduced_filters,[1,1,1,1],"VALID")
         conv_original_t = tf.nn.conv2d(t,original_filters,[1,1,1,1],"VALID")
-        hat_c_t = self.output(tf.reshape(conv_reduced_t,[FLAGS.batch,red_filters_number]))
-        ori_c_t = tf.reshape(conv_original_t,[FLAGS.batch,ori_filters_number])
+        hat_c_t = self.output(tf.reshape(conv_reduced_t,[1,red_filters_number]))
+        ori_c_t = tf.reshape(conv_original_t,[1,ori_filters_number])
         loss_t = 0.5*tf.reduce_sum(tf.pow(ori_c_t-hat_c_t,2))
         
         ################DELETE1!!!!!!1
@@ -227,9 +227,11 @@ class classifier(object):
         saver = tf.train.Saver()
         
        
-        
+  	from tools.image import display      
         actual_batch = self.session.run(get_batch)
-        initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
+        for i in range(len(actual_batch)):
+            display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba',index=i)
+	initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
         cost = initial_cost
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
@@ -239,7 +241,8 @@ class classifier(object):
                 saver.save(self.session,FLAGS.model)
                 cost = c
             actual_batch = self.session.run(get_batch)
-        
+            for i in range(len(actual_batch)):
+	            display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba2',index=i)
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
         
