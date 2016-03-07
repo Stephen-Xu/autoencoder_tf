@@ -9,9 +9,9 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',10000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',500,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('batch',300,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
@@ -210,7 +210,7 @@ class classifier(object):
         
         from scipy import misc
 
-        im = misc.imread('./cat.jpg').astype("float32")
+        im = misc.imread('./bat/0_ba.png').astype("float32")
 
         temp = tf.constant(im,shape=im.shape,dtype="float32")
         patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
@@ -227,11 +227,11 @@ class classifier(object):
         saver = tf.train.Saver()
         
        
-  	from tools.image import display      
+        from tools.image import display      
         actual_batch = self.session.run(get_batch)
-        for i in range(len(actual_batch)):
-            display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba',index=i)
-	initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
+      #  for i in range(len(actual_batch)):
+       #     display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba',index=i)
+        initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
         cost = initial_cost
         for i in range(FLAGS.iters):
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
@@ -241,9 +241,10 @@ class classifier(object):
                 saver.save(self.session,FLAGS.model)
                 cost = c
             actual_batch = self.session.run(get_batch)
-            for i in range(len(actual_batch)):
-	            display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba2',index=i)
+      #  for i in range(len(actual_batch)):
+       #     display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba2',index=i)
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
+        
         
         
         print "initial cost: ",initial_cost," Final cost: ",final_cost
@@ -254,6 +255,6 @@ class classifier(object):
         
         pa = self.session.run(patch)
         print pa.shape
-        print self.session.run(loss_t,feed_dict={t:pa})
-              
+        print "l: ",self.session.run(loss_t,feed_dict={t:pa})
+        print "b: ",self.session.run(loss_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
         
