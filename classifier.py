@@ -257,4 +257,5 @@ class classifier(object):
         print pa.shape
         print "l: ",self.session.run(loss_t,feed_dict={t:pa})
         print "b: ",self.session.run(loss_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
-        
+        print "red: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+        print "ori: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
