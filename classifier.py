@@ -259,3 +259,9 @@ class classifier(object):
         print "b: ",self.session.run(loss_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
         print "red: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
         print "ori: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+
+        actual_batch = self.session.run(get_batch)
+        
+        
+        print "red_new: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+        print "ori_new: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
