@@ -224,8 +224,8 @@ class classifier(object):
                   
 
         
-        print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}))
-        print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}))
+        print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
+        print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
         
         
         
