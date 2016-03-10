@@ -9,12 +9,12 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',2,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',300,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('batch',10,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
-tf.app.flags.DEFINE_string('path','/home/ceru/datasets/datasets/images/',"""Data folder""")
+tf.app.flags.DEFINE_string('path','/home/ceru/autoencoder_tf/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
 tf.app.flags.DEFINE_string('original','./conv',"""File for original filters""")
 tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced filters""")
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")

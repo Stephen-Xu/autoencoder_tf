@@ -1,10 +1,19 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def display(vect,w,h):
+def display(vect,w,h,c=0):
     
-    img = np.reshape(vect,(w,h))
-
+    
+    vect = vect+abs(np.min(vect))
+    
+    vect = vect/np.max(vect)*255
+    
+    vect = vect.astype(np.uint8)
+    
+    if(c==0):
+        img = np.reshape(vect,(w,h))
+    else:
+        img = np.reshape(vect,(w,h,c))
 
     imgplot = plt.imshow(img, interpolation="bicubic")
     
@@ -12,10 +21,17 @@ def display(vect,w,h):
     
     
     
-def save(vect,w,h,index=0,name='foo',folder='./'):
+def save(vect,w,h,c=0,index=0,name='foo',folder='./'):
     
+    vect = vect+abs(np.min(vect))
     
-    img = np.reshape(vect,(w,h))
+    vect = vect/np.max(vect)*255
+    
+    vect = vect.astype(np.uint8)
+    if(c==0):
+        img = np.reshape(vect,(w,h))
+    else:
+        img = np.reshape(vect,(w,h,c))
     plt.imshow(img, interpolation="bicubic")
     
     plt.savefig(folder+'/'+str(index)+'_'+name+'.png')
