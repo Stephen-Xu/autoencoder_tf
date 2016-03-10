@@ -168,7 +168,7 @@ class classifier(object):
         reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
         
-        x = tf.placeholder("float",[FLAGS.batch,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
+        x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
         
         conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
         conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
