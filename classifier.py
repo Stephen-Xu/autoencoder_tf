@@ -199,16 +199,19 @@ class classifier(object):
         saver = tf.train.Saver()
         saver.save(self.session,FLAGS.model)    
        
+        actual_batch = self.session.run(get_batch)
           
         initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
         cost = initial_cost
         for i in range(FLAGS.iters):
+            actual_batch = self.session.run(get_batch)
             _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
             print "Cost at iter ",i," : ",c
             if(c<cost):
                 print "***************Best model found so far at iter ",i
                 saver.save(self.session,FLAGS.model)
                 cost = c
+        actual_batch = self.session.run(get_batch)
         final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
         
