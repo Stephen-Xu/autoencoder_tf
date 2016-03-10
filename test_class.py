@@ -5,12 +5,12 @@ import sys
 from tools.image import display
 
 
-units = [24,72,120,120,96]   #################
-act = ['tanh','tanh','linear','linear']
+units = [24,120,96]   #################
+act = ['tanh','linear']
 
 cl = classifier(units,act)
 
-cl.generate_classifier(std_w=3.0,euris=True,dropout=True,keep_prob_dropout=[1.0,0.5,0.5,1.0,1.0])
+cl.generate_classifier(std_w=3.0,euris=True,dropout=False)
 session = cl.init_network()
 
 if(sys.argv[1]=='t'):
