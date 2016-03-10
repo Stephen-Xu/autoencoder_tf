@@ -140,128 +140,128 @@ class classifier(object):
         self.use_dropout=False
         
     def train(self):#FLAAAGSSS!:
-        
-        if(self.session is None):
-            session = self.init_network()
-        elif(self.session is None):
-            self.session = session
+        with tf.Graph().as_default():
+            if(self.session is None):
+                session = self.init_network()
+            elif(self.session is None):
+                self.session = session
         
        # self.use_droput=use_dropout
        # self.keep_prob_dropout=keep_prob
         
     
-        files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
+            files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
         
-        ori = np.loadtxt(FLAGS.original).astype("float32")
-        ori_filters_number = ori.shape[1]
-        ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
-        red = np.loadtxt(FLAGS.reduced).astype("float32")
-        red_filters_number = red.shape[1]
-        red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
+            ori = np.loadtxt(FLAGS.original).astype("float32")
+            ori_filters_number = ori.shape[1]
+            ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
+            red = np.loadtxt(FLAGS.reduced).astype("float32")
+            red_filters_number = red.shape[1]
+            red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
 
 
 
-        original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
-        reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
+            original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
+            reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
         
-        x = tf.placeholder("float",[FLAGS.batch,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
+            x = tf.placeholder("float",[FLAGS.batch,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
         
-        conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
-        conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
-        hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
-        ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
-        #loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
-        #loss = -tf.reduce_mean(ori_c*tf.log(hat_c)+(1-ori_c)*tf.log(hat_c))
-        loss = 0.5*tf.reduce_sum(tf.pow(ori_c-hat_c,2))
+            conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
+            conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
+            hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
+            ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
+            #loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
+            #loss = -tf.reduce_mean(ori_c*tf.log(hat_c)+(1-ori_c)*tf.log(hat_c))
+            loss = 0.5*tf.reduce_sum(tf.pow(ori_c-hat_c,2))
         
         
         #################DELETE
         
-        t = tf.placeholder("float",[1,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-        conv_reduced_t = tf.nn.conv2d(t,reduced_filters,[1,1,1,1],"VALID")
-        conv_original_t = tf.nn.conv2d(t,original_filters,[1,1,1,1],"VALID")
-        hat_c_t = self.output(tf.reshape(conv_reduced_t,[1,red_filters_number]))
-        ori_c_t = tf.reshape(conv_original_t,[1,ori_filters_number])
-        loss_t = 0.5*tf.reduce_sum(tf.pow(ori_c_t-hat_c_t,2))
-        
+            t = tf.placeholder("float",[1,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+            conv_reduced_t = tf.nn.conv2d(t,reduced_filters,[1,1,1,1],"VALID")
+            conv_original_t = tf.nn.conv2d(t,original_filters,[1,1,1,1],"VALID")
+            hat_c_t = self.output(tf.reshape(conv_reduced_t,[1,red_filters_number]))
+            ori_c_t = tf.reshape(conv_original_t,[1,ori_filters_number])
+            loss_t = 0.5*tf.reduce_sum(tf.pow(ori_c_t-hat_c_t,2))
+            
         ################DELETE1!!!!!!1
         
-        tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
+            tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
         
-        file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
-        reader = tf.WholeFileReader()
-        key,value = reader.read(file_queue)
+            file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
+            reader = tf.WholeFileReader()
+            key,value = reader.read(file_queue)
 
-        image = tf.image.decode_jpeg(value,channels=3)
+            image = tf.image.decode_jpeg(value,channels=3)
         
-
-        image = tf.image.convert_image_dtype(image,dtype=tf.float32)
-        image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
-        image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+    
+            image = tf.image.convert_image_dtype(image,dtype=tf.float32)
+            image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
+            image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
         #image.set_shape([FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-        image = tf.expand_dims(image,[0])
+            image = tf.expand_dims(image,[0])
 
 
-        get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
+            get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
         
         
         #########################DELETEE
         
-        from scipy import misc
+            from scipy import misc
 
-        im = misc.imread('./bat/0_ba.png').astype("float32")
+            im = misc.imread('./bat/0_ba.png').astype("float32")
 
-        temp = tf.constant(im,shape=im.shape,dtype="float32")
-        patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-        patch = tf.expand_dims(patch,[0])    
+            temp = tf.constant(im,shape=im.shape,dtype="float32")
+            patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+            patch = tf.expand_dims(patch,[0])    
         
         
         
         ########################DELETEE
         
         
-        self.session.run(tf.initialize_all_variables())
-        tf.train.start_queue_runners(sess=self.session)       
-        
-        saver = tf.train.Saver()
-        
+            self.session.run(tf.initialize_all_variables())
+            tf.train.start_queue_runners(sess=self.session)       
+            
+            saver = tf.train.Saver()
+            saver.save(self.session,FLAGS.model)    
        
-        from tools.image import display      
-        actual_batch = self.session.run(get_batch)
-      #  for i in range(len(actual_batch)):
-       #     display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba',index=i)
-        initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
-        cost = initial_cost
-        for i in range(FLAGS.iters):
-            _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
-            print "Cost at iter ",i," : ",c
-            if(c<cost):
-                print "***************Best model found so far at iter ",i
-                saver.save(self.session,FLAGS.model)
-                cost = c
+            from tools.image import display      
             actual_batch = self.session.run(get_batch)
       #  for i in range(len(actual_batch)):
+       #     display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba',index=i)
+            initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
+            cost = initial_cost
+            for i in range(FLAGS.iters):
+                _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
+                print "Cost at iter ",i," : ",c
+                if(c<cost):
+                    print "***************Best model found so far at iter ",i
+                    saver.save(self.session,FLAGS.model)
+                    cost = c
+                actual_batch = self.session.run(get_batch)
+      #  for i in range(len(actual_batch)):
        #     display.save(np.squeeze(actual_batch[i,:,:,:]),7,7,c=3,folder='./bat',name='ba2',index=i)
-        final_cost = self.session.run(loss,feed_dict={x:actual_batch})
+            final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
         
         
-        print "initial cost: ",initial_cost," Final cost: ",final_cost
+            print "initial cost: ",initial_cost," Final cost: ",final_cost
                   
     
         ########
         
         
-        pa = self.session.run(patch)
-        print pa.shape
-        print "l: ",self.session.run(loss_t,feed_dict={t:pa})
-        print "b: ",self.session.run(loss_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
-        print "red: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
-        print "ori: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+            pa = self.session.run(patch)
+            print pa.shape
+            print "l: ",self.session.run(loss_t,feed_dict={t:pa})
+            print "b: ",self.session.run(loss_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+            print "red: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+            print "ori: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
 
-        actual_batch = self.session.run(get_batch)
+            actual_batch = self.session.run(get_batch)
         
         
-        print "red_new: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
-        print "ori_new: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+            print "red_new: ",self.session.run(hat_c_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
+            print "ori_new: ",self.session.run(conv_original_t,feed_dict={t:np.expand_dims(actual_batch[1,:,:,:],0)})
