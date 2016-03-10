@@ -50,7 +50,7 @@ class classifier(object):
         if(not(graph is None)):
             self.graph = graph
         elif(self.graph is None):
-            self.graph = self.init_graph()
+            self.init_graph()
         
         
         
