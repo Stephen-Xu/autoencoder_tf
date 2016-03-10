@@ -222,10 +222,10 @@ class classifier(object):
         print "initial cost: ",initial_cost," Final cost: ",final_cost
                   
                   
-        g = np.expand_dims(actual_batch[0],axis=0)
+
         
-        print "ori: ",self.session.run(ori_c,feed_dict={x:g})
-        print "red: ",self.session.run(hat_c,feed_dict={x:g})
+        print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}))
+        print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}))
         
         
         
