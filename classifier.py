@@ -79,7 +79,7 @@ class classifier(object):
         
         
         return sess
-    
+    '''
     def test_model(self,data,session=None,model=None):
         
         if(self.session is None):
@@ -117,7 +117,7 @@ class classifier(object):
         return session.run(out),session.run(conv_original)
         
     
-            
+    '''        
     def load_model(self,name,session=None,saver=None):
             if(saver is None):
                 saver = tf.train.Saver()
