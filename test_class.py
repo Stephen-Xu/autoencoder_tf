@@ -10,8 +10,8 @@ act = ['tanh','linear']
 
 cl = classifier(units,act)
 
-cl.generate_classifier(std_w=3.0,euris=True,dropout=False)
-session = cl.init_network()
+#generate_classifier(std_w=3.0,euris=True,dropout=False)
+#session = cl.init_network()
 
 if(sys.argv[1]=='t'):
 

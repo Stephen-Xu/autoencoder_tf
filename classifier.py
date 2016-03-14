@@ -34,7 +34,7 @@ class classifier(object):
         self.session = None
         self.use_dropout = False
         self.keep_prob_dropout = 0.5
-        
+        self.generated = False
         
     def __enter__(self):
         return self
@@ -141,11 +141,18 @@ class classifier(object):
         
     def train(self,session=None):#FLAAAGSSS!:
         
-        if(not(session is None)):
-            self.session = session
-        elif(self.session is None):
-            self.session = self.init_network()
+        
+        with tf.Graph().as_default():
             
+        #######################
+            if(not(session is None)):
+                self.session = session
+            elif(self.session is None):
+                self.session = self.init_network()
+            
+            if(not(self.generated)):
+                self.generate_classifier()
+                self.generated = True    
         
         
         
@@ -153,80 +160,80 @@ class classifier(object):
        # self.keep_prob_dropout=keep_prob
         
     
-        files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
+            files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
         
-        ori = np.loadtxt(FLAGS.original).astype("float32")
-        ori_filters_number = ori.shape[1]
-        ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
-        red = np.loadtxt(FLAGS.reduced).astype("float32")
-        red_filters_number = red.shape[1]
-        red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
+            ori = np.loadtxt(FLAGS.original).astype("float32")
+            ori_filters_number = ori.shape[1]
+            ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
+            red = np.loadtxt(FLAGS.reduced).astype("float32")
+            red_filters_number = red.shape[1]
+            red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
 
 
 
-        original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
-        reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
+            original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
+            reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
         
-        x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
+            x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
         
-        conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
-        conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
-        hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
-        ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
-        loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
+            conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
+            conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
+            hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
+            ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
+            loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
         
-        tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
+            tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
         
-        file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
-        reader = tf.WholeFileReader()
-        key,value = reader.read(file_queue)
+            file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
+            reader = tf.WholeFileReader()
+            key,value = reader.read(file_queue)
 
-        image = tf.image.decode_jpeg(value,channels=3)
+            image = tf.image.decode_jpeg(value,channels=3)
         
     
-        image = tf.image.convert_image_dtype(image,dtype=tf.float32)
-        image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
-        image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+            image = tf.image.convert_image_dtype(image,dtype=tf.float32)
+            image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
+            image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
       
-        image = tf.expand_dims(image,[0])
+            image = tf.expand_dims(image,[0])
 
 
-        get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
+            get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
         
         
         
-        self.session.run(tf.initialize_all_variables())
-        tf.train.start_queue_runners(sess=self.session)       
+            self.session.run(tf.initialize_all_variables())
+            tf.train.start_queue_runners(sess=self.session)       
             
-        saver = tf.train.Saver()
-        saver.save(self.session,FLAGS.model)    
+            saver = tf.train.Saver()
+            saver.save(self.session,FLAGS.model)    
        
-        actual_batch = self.session.run(get_batch)
-          
-        initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
-        cost = initial_cost
-        for i in range(FLAGS.iters):
             actual_batch = self.session.run(get_batch)
-            _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
-            print "Cost at iter ",i," : ",c
-            if(c<cost):
-                print "***************Best model found so far at iter ",i
-                saver.save(self.session,FLAGS.model)
-                cost = c
-        actual_batch = self.session.run(get_batch)
-        final_cost = self.session.run(loss,feed_dict={x:actual_batch})
+          
+            initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
+            cost = initial_cost
+            for i in range(FLAGS.iters):
+                actual_batch = self.session.run(get_batch)
+                _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
+                print "Cost at iter ",i," : ",c
+                if(c<cost):
+                    print "***************Best model found so far at iter ",i
+                    saver.save(self.session,FLAGS.model)
+                    cost = c
+            actual_batch = self.session.run(get_batch)
+            final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
         
         
-        print "initial cost: ",initial_cost," Final cost: ",final_cost
+            print "initial cost: ",initial_cost," Final cost: ",final_cost
                   
                   
 
         
-        print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
-        print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
-        
+            print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
+            print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
+            
         
         
         
