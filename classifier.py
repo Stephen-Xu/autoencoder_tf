@@ -9,9 +9,9 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',50000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',500000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',500,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
@@ -113,7 +113,7 @@ class classifier(object):
                 saver = tf.train.Saver()
             if(session is None):
                 init = tf.initialize_all_variables()
-                session = tf.Session()
+                session = tf.Session(config=tf.ConfigProto(log_device_placement=True))
                 session.run(init) 
             saver.restore(session, name)
         
@@ -199,7 +199,7 @@ class classifier(object):
             image = tf.expand_dims(image,[0])
 
 
-            get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=7, capacity=200, enqueue_many=True)
+            get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=2016, capacity=200, enqueue_many=True)
         
         
         
@@ -234,6 +234,6 @@ class classifier(object):
             print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
             print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
             
-        
-        
+            print "ba: ",actual_batch.shape
+	    print "Drop? ",self.use_dropout        
         
