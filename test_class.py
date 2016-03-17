@@ -19,6 +19,11 @@ if(sys.argv[1]=='t'):
   	cl.train()
 
 else:
+   
+    cl.generate_classifier() 
+    session = cl.init_network()
+    
+   
     
     image = misc.imread('./cat.jpg').astype("float32")
     
@@ -32,12 +37,12 @@ else:
     
     print np.mean(session.run(cl.layers[0].W))
     
-    r,o,p  = cl.test_model(image,session=session)
+    r,o  = cl.test_model(image,session=session)
     
     r = np.ndarray.flatten(r)
     o = np.ndarray.flatten(o)
     #print zip(r,o)
-    print "dist:",0.5*np.sum((r-o)**2)
+    print "dist:",0.5*np.mean((r-o)**2)
     print "red norm:",np.linalg.norm(r)
     print "ori norm:",np.linalg.norm(o)
     
