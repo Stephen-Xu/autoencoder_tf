@@ -152,7 +152,8 @@ class classifier(object):
                 self.session = self.init_network()
             
             if(not(self.generated)):
-                self.generate_classifier()
+                #self.generate_classifier()
+                self.generate_classifier(dropout=True)
                 self.generated = True    
         
         

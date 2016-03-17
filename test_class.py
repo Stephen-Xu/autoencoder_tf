@@ -49,6 +49,7 @@ else:
     for i in range(len(cl.layers)):
         print "W",i+1,":",np.linalg.norm(session.run(cl.layers[i].W))
 
+    print session.run(cl.layers[0].W)
    # p = np.squeeze(p)
     #display.display(p,p.shape[0],p.shape[1],c=3)
     #print p.shape
