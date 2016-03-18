@@ -254,3 +254,7 @@ class classifier(object):
             print "red: ",np.mean(self.session.run(hat_1,feed_dict={x:patch}),0)
             print "bori: ",np.mean(self.session.run(ori_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
             print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
+            
+            print "patch: ",patch
+            print "batch: ",actual_batch[0]
+            
