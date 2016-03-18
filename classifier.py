@@ -183,6 +183,7 @@ class classifier(object):
             conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
             hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
             ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
+            ori_1 = tf.reshape(conv_original,[1,ori_filters_number])
             loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
         
             tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
@@ -248,6 +249,6 @@ class classifier(object):
             data_ = np.expand_dims(data,0)
             patch = data_[:,0:7,0:7,:]
             print patch.shape
-            print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:patch}),0)
+            print "ori: ",np.mean(self.session.run(ori_1,feed_dict={x:patch}),0)
             print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:patch}),0)
             
