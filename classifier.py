@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',500000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',5000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -177,8 +177,8 @@ class classifier(object):
             reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
         
-            x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
-        
+            #x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
+            x = tf.placeholder("float",[None,None,None,FLAGS.channels])###immagini
             conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
             conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
             hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
@@ -233,9 +233,20 @@ class classifier(object):
             print "Drop? ",self.use_dropout        
                   
 
-	    self.use_dropout=False        
+            self.use_dropout=False        
             print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
             print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
             
             print "ba: ",actual_batch.shape
             print "W: ", self.session.run(self.layers[0].W)
+
+            import scipy.io as sio
+
+            mat = sio.loadmat("./single_ex.mat")
+            data = mat['a']
+
+            data_ = np.expand_dims(data,0)
+            
+            print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:data_}),0)
+            print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:data_}),0)
+            
