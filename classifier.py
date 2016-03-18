@@ -247,6 +247,7 @@ class classifier(object):
 
             data_ = np.expand_dims(data,0)
             patch = data_[:,0:7,0:7,:]
+            print patch.shape
             print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:patch}),0)
             print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:patch}),0)
             
