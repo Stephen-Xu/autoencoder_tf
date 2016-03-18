@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',50000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',500000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -33,7 +33,7 @@ class classifier(object):
         self.initialized = False
         self.session = None
         self.use_dropout = False
-        self.keep_prob_dropout = 0.5
+        self.keep_prob_dropout = 0.15
         self.generated = False
         
     def __enter__(self):
@@ -153,7 +153,7 @@ class classifier(object):
             
             if(not(self.generated)):
                 #self.generate_classifier()
-                self.generate_classifier(dropout=True)
+                self.generate_classifier(euris=True,dropout=False)
                 self.generated = True    
         
         

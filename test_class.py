@@ -5,8 +5,8 @@ import sys
 from tools.image import display
 
 
-units = [24,120,200,96]   #################
-act = ['tanh','tanh','linear']
+units = [24,192,96]   #################
+act = ['tanh','linear']
 
 cl = classifier(units,act)
 
