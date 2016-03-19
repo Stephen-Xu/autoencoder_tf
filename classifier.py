@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',2000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',200,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -256,5 +256,5 @@ class classifier(object):
             print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
             
             print "patch: ",patch
-            print "batch: ",actual_batch[0]
+            print "batch: ",actual_batch[0]*255
             
