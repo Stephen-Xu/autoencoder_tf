@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',200,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',50000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -240,17 +240,19 @@ class classifier(object):
             print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
             print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
             
-            print "ba: ",actual_batch.shape
-            print "W: ", self.session.run(self.layers[0].W)
+            #print "ba: ",actual_batch.shape
+            #print "W: ", self.session.run(self.layers[0].W)
 
+
+'''
             import scipy.io as sio
 
             mat = sio.loadmat("./single_ex.mat")
             data = mat['a']
 
-            data_ = np.expand_dims(data,0)
+           # data_ = np.expand_dims(data,0)
             patch = data_[:,0:7,0:7,:]
-            print patch.shape
+           # print patch.shape
             print "ori: ",np.mean(self.session.run(ori_1,feed_dict={x:patch}),0)
             print "red: ",np.mean(self.session.run(hat_1,feed_dict={x:patch}),0)
             print "bori: ",np.mean(self.session.run(ori_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
@@ -258,4 +260,4 @@ class classifier(object):
             
             print "patch: ",patch
             print "batch: ",actual_batch[0]
-            
+'''            
