@@ -256,5 +256,5 @@ class classifier(object):
             print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
             
             print "patch: ",patch
-            print "batch: ",actual_batch[0]*255
+            print "batch: ",((actual_batch[0])*255)-127
             
