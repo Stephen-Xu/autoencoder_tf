@@ -20,7 +20,7 @@ tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced fil
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',1,"""Shape of convolutional output""")
-tf.app.flags.DEFINE_float('learning_rate',0.00125,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_float('learning_rate',0.0125,"""Learning rate for optimizer""")
 
 
 class classifier(object):
@@ -33,7 +33,7 @@ class classifier(object):
         self.initialized = False
         self.session = None
         self.use_dropout = False
-        self.keep_prob_dropout = 0.15
+        self.keep_prob_dropout = 0.5
         self.generated = False
         
     def __enter__(self):
@@ -153,7 +153,7 @@ class classifier(object):
             
             if(not(self.generated)):
                 #self.generate_classifier()
-                self.generate_classifier(euris=True,dropout=False)
+                self.generate_classifier(euris=True,dropout=True)
                 self.generated = True    
         
         
@@ -258,6 +258,6 @@ class classifier(object):
             print "bori: ",np.mean(self.session.run(ori_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
             print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
             
-            print "patch: ",patch
+            print "patch:",patch
             print "batch: ",actual_batch[0]
 '''            
