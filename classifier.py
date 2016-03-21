@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',50000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',100000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -20,8 +20,8 @@ tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced fil
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',1,"""Shape of convolutional output""")
-tf.app.flags.DEFINE_float('learning_rate',0.125,"""Learning rate for optimizer""")
-tf.app.flags.DEFINE_float('reg_weight',1.0,"""Regularization paramter""")
+tf.app.flags.DEFINE_float('learning_rate',0.00125,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_float('reg_weight',200.0,"""Regularization paramter""")
 
 
 class classifier(object):
@@ -153,9 +153,9 @@ class classifier(object):
                 self.session = self.init_network()
             
             if(not(self.generated)):
-                #self.generate_classifier()
+                self.generate_classifier()
                 #self.generate_classifier(euris=True,dropout=False,keep_prob_dropout=[0.5,1.0,1.0,0.5])
-                self.generate_classifier(euris=True,dropout=True)
+                self.generate_classifier(euris=True,dropout=False)
                 self.generated = True    
         
         
@@ -200,7 +200,8 @@ class classifier(object):
         
             reg_loss = loss+FLAGS.reg_weight*c_w
             tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
-        
+	    tr_l  = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(reg_loss)        
+
             file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
             reader = tf.WholeFileReader()
             key,value = reader.read(file_queue)
@@ -228,18 +229,18 @@ class classifier(object):
        
             actual_batch = self.session.run(get_batch)
           
-            initial_cost = self.session.run(reg_loss,feed_dict={x:actual_batch})
+            initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
             cost = initial_cost
             for i in range(FLAGS.iters):
                 actual_batch = self.session.run(get_batch)
-                _, c = self.session.run([tr,reg_loss],feed_dict={x:actual_batch})
+                _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
                 print "Cost at iter ",i," : ",c
                 if(c<cost):
                     print "***************Best model found so far at iter ",i
-                    saver.save(self.session,FLAGS.model)
+                    #saver.save(self.session,FLAGS.model)
                     cost = c
             actual_batch = self.session.run(get_batch)
-            final_cost = self.session.run(reg_loss,feed_dict={x:actual_batch})
+            final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
         
         

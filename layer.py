@@ -25,7 +25,7 @@ class layer(object):
         if(eur):
             if(self.activation =='sigmoid'):
                 self.W = tf.Variable(tf.random_uniform(units,minval=(-4*(6.0/(self.n_in+self.n_out))**0.5),maxval=(4*(6.0/(self.n_in+self.n_out))**0.5)))
-            elif(self.activation == 'relu' or self.activation == 'relu6' or self.activation == "leaky_relu"):
+            elif(self.activation == "leaky_relu6" or self.activation == 'relu' or self.activation == 'relu6' or self.activation == "leaky_relu"):
                 self.W = tf.Variable(tf.random_uniform(units,minval=0,maxval=(6.0/(self.n_in+self.n_out))**0.5))
             elif(self.activation == 'tanh'): 
                 self.W = tf.Variable(tf.random_uniform(units,minval=(-(6.0/(self.n_in+self.n_out))**0.5),maxval=((6.0/(self.n_in+self.n_out))**0.5)))
@@ -76,6 +76,10 @@ class layer(object):
 	
 	    return tf.maximum(0.1*tf.matmul(x,self.W+self.b),tf.matmul(x,self.W+self.b))
 
+	elif(self.activation == 'leaky_relu6'):
+
+	    return tf.maximum(0.1*tf.matmul(x,self.W+self.b),6)
+
         elif(self.activation == 'linear'):
            
             return tf.matmul(x,self.W)+self.b
@@ -105,7 +109,11 @@ class layer(object):
 
 	    return tf.nn.dropout(tf.maximum(0.1*tf.matmul(x,self.W+self.b),tf.matmul(x,self.W+self.b)),keep_prob)
            
-        elif(self.activation == 'linear'):
+        elif(self.activation == 'leaky_relu6'):
+
+	    return tf.nn.dropout(tf.maximum(0.1*tf.matmul(x,self.W+self.b),6),keep_prob)
+
+	elif(self.activation == 'linear'):
             
             return tf.nn.dropout(tf.matmul(x,self.W)+self.b,keep_prob)
            

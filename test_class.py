@@ -5,8 +5,8 @@ import sys
 from tools.image import display
 
 
-units = [24,5000,96]   #################
-act = ['leaky_relu','leaky_relu']
+units = [24,24,2500,96]   #################
+act = ['leaky_relu6','tanh','linear']
 
 cl = classifier(units,act)
 
