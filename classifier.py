@@ -21,6 +21,7 @@ tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',1,"""Shape of convolutional output""")
 tf.app.flags.DEFINE_float('learning_rate',0.125,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_float('reg_weight',1.0,"""Regularization paramter""")
 
 
 class classifier(object):
@@ -155,7 +156,7 @@ class classifier(object):
                 #self.generate_classifier()
                 #self.generate_classifier(euris=True,dropout=False,keep_prob_dropout=[0.5,1.0,1.0,0.5])
                 self.generate_classifier(euris=True,dropout=True)
-		self.generated = True    
+                self.generated = True    
         
         
         
@@ -188,9 +189,16 @@ class classifier(object):
             hat_1 = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
             loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
 
-	    for i in range(len(self.layers)):
-		
-            reg_loss = loss+FLAGS.reg_weight*
+            
+            for l in range(len(self.layers)):
+                if(l==0):
+                    c_w = tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
+                else:
+                    c_w = c_w+tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
+                
+               
+        
+            reg_loss = loss+FLAGS.reg_weight*c_w
             tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
         
             file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
@@ -220,18 +228,18 @@ class classifier(object):
        
             actual_batch = self.session.run(get_batch)
           
-            initial_cost = self.session.run(loss,feed_dict={x:actual_batch})
+            initial_cost = self.session.run(reg_loss,feed_dict={x:actual_batch})
             cost = initial_cost
             for i in range(FLAGS.iters):
                 actual_batch = self.session.run(get_batch)
-                _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
+                _, c = self.session.run([tr,reg_loss],feed_dict={x:actual_batch})
                 print "Cost at iter ",i," : ",c
                 if(c<cost):
                     print "***************Best model found so far at iter ",i
                     saver.save(self.session,FLAGS.model)
                     cost = c
             actual_batch = self.session.run(get_batch)
-            final_cost = self.session.run(loss,feed_dict={x:actual_batch})
+            final_cost = self.session.run(reg_loss,feed_dict={x:actual_batch})
         
         
         
