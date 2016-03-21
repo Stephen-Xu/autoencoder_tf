@@ -9,9 +9,9 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',100000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',50000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',25,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
@@ -20,7 +20,7 @@ tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced fil
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',1,"""Shape of convolutional output""")
-tf.app.flags.DEFINE_float('learning_rate',0.25,"""Learning rate for optimizer""")
+tf.app.flags.DEFINE_float('learning_rate',0.125,"""Learning rate for optimizer""")
 
 
 class classifier(object):
@@ -153,8 +153,9 @@ class classifier(object):
             
             if(not(self.generated)):
                 #self.generate_classifier()
+                #self.generate_classifier(euris=True,dropout=False,keep_prob_dropout=[0.5,1.0,1.0,0.5])
                 self.generate_classifier(euris=True,dropout=True)
-                self.generated = True    
+		self.generated = True    
         
         
         
@@ -186,7 +187,10 @@ class classifier(object):
             ori_1 = tf.reshape(conv_original,[1,ori_filters_number])
             hat_1 = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
             loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
-        
+
+	    for i in range(len(self.layers)):
+		
+            reg_loss = loss+FLAGS.reg_weight*
             tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
         
             file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
