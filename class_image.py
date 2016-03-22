@@ -26,9 +26,9 @@ data = mat['a']
 data_ = np.expand_dims(data,0).astype("float32")
 
 
-o,c = cl.get_convolution(data)
+o,c = cl.get_convolution(data_)
 
 
-print o
-print c
+print cl.session.run(o)
+print cl.session.run(c)
 
