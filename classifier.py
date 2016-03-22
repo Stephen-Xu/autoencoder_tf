@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',500000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',35000,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -154,7 +154,7 @@ class classifier(object):
             
             if(not(self.generated)):
                 self.generate_classifier()
-                #self.generate_classifier(euris=True,dropout=False,keep_prob_dropout=[0.5,1.0,1.0,0.5])
+                #self.generate_classifier(euris=True,dropout=True,keep_prob_dropout=[1.0,1.0,0.5])
                 self.generate_classifier(euris=True,dropout=False)
                 self.generated = True    
         
@@ -263,8 +263,8 @@ class classifier(object):
             mat = sio.loadmat("./single_ex.mat")
             data = mat['a']
 
-           # data_ = np.expand_dims(data,0)
-            patch = data_[:,0:7,0:7,:]
+            data_ = np.expand_dims(data,0)
+            patch = data[:,0:7,0:7,:]
            # print patch.shape
             print "ori: ",np.mean(self.session.run(ori_1,feed_dict={x:patch}),0)
             print "red: ",np.mean(self.session.run(hat_1,feed_dict={x:patch}),0)
