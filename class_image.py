@@ -1,7 +1,7 @@
 import tensorflow as tf
 from classifier import classifier
 import numpy as np
-from scipy import misc
+from scipy.io import sio
 import sys
 
 
