@@ -26,20 +26,11 @@ data = mat['a']
 data_ = np.expand_dims(data,0)
 
 
-o,r = get_conv(data_)
+conv_ori = cl.c_ori
+conv_red = cl.c_red
+
+original = session.run(conv_red,feed_dict={x:data_})
 
 
-
-
-l_o = np.squeeze(o)
-
-l_o = np.reshape(l_o,[109*109,24])
-
-c = cl.session.run(cl.output(l_o))
-
-c_o = np.reshape(c,[109,109,96])
-
-c_o = np.expand_dims(c_o,0)
-
-print np.mean(pow(c_o-r,2))
+print original
 

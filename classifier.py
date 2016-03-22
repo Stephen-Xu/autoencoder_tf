@@ -36,6 +36,8 @@ class classifier(object):
         self.use_dropout = False
         self.keep_prob_dropout = 0.5
         self.generated = False
+        self.c_ori = None
+        self.c_red = None
         
     def __enter__(self):
         return self
@@ -189,6 +191,9 @@ class classifier(object):
             hat_1 = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
             loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
 
+            self.c_ori = conv_original
+            self.c_red = conv_reduced
+            
             
             for l in range(len(self.layers)):
                 if(l==0):
@@ -200,7 +205,7 @@ class classifier(object):
         
             reg_loss = loss+FLAGS.reg_weight*c_w
             tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
-	    tr_l  = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(reg_loss)        
+            tr_l  = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(reg_loss)        
 
             file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
             reader = tf.WholeFileReader()
