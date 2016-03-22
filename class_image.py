@@ -23,7 +23,7 @@ cl.load_model('./converted.mdl',session=session)
 mat = sio.loadmat("./single_ex.mat")
 data = mat['a']
 
-data_ = np.expand_dims(data,0)
+data_ = np.expand_dims(data,0).astype("float32")
 
 
 o,c = cl.get_convolution(data)
