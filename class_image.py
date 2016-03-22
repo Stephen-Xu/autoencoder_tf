@@ -43,8 +43,10 @@ ori2 = np.reshape(ori,[1*218*218,96])
 
 print np.mean((pow(fin_out-ori2,2)**0.5))
 
+recon = np.reshape(fin_out,[1,218,218,96])
 
-dic = {original:ori,reduced:out}
+
+dic = {'original':ori,'reduced':recon}
 
 sio.savemat("test.mat",dic)
 
