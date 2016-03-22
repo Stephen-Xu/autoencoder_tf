@@ -36,10 +36,7 @@ class classifier(object):
         self.use_dropout = False
         self.keep_prob_dropout = 0.5
         self.generated = False
-        self.c_ori = None
-        self.c_red = None
-        self.input = None
-        
+    
     def __enter__(self):
         return self
     
@@ -141,6 +138,26 @@ class classifier(object):
             return self.output(self.layers[lev].output(x),lev+1)   
 
 
+
+    def get_convolution(self,x):
+        
+        ori = np.loadtxt(FLAGS.original).astype("float32")
+        ori_filters_number = ori.shape[1]
+        ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
+        red = np.loadtxt(FLAGS.reduced).astype("float32")
+        red_filters_number = red.shape[1]
+        red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
+
+
+
+        original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
+        reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
+        
+        conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
+        conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")        
+        
+        return conv_reduced,conv_original
+
     def stop_dropout(self):
         self.use_dropout=False
         
@@ -169,32 +186,20 @@ class classifier(object):
     
             files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
         
-            ori = np.loadtxt(FLAGS.original).astype("float32")
-            ori_filters_number = ori.shape[1]
-            ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
-            red = np.loadtxt(FLAGS.reduced).astype("float32")
-            red_filters_number = red.shape[1]
-            red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
-
-
-
-            original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
-            reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
         
             x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
             #x = tf.placeholder("float",[None,None,None,FLAGS.channels])###immagini
-            conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
-            conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")
+           
+           
+            conv_reduced, conv_original = self.get_convolution(x)           
             hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
             ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
             ori_1 = tf.reshape(conv_original,[1,ori_filters_number])
             hat_1 = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
             loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
 
-            self.c_ori = conv_original
-            self.c_red = conv_reduced
-            self.input = x
+         
             
             
             for l in range(len(self.layers)):

@@ -25,12 +25,10 @@ data = mat['a']
 
 data_ = np.expand_dims(data,0)
 
-x = cl.input
-conv_ori = cl.c_ori
-conv_red = cl.c_red
 
-original = session.run(conv_red,feed_dict={x:data_})
+o,c = cl.get_convolution(data)
 
 
-print original
+print o
+print c
 
