@@ -30,12 +30,12 @@ c,o = cl.get_convolution(data_)
 
 
 
-out = cl.session.run(o)
+out = cl.session.run(c)
 
-out = np.reshape(out,[218*218,24]).astype("float32")
+out2 = np.reshape(out,[1*218*218,24]).astype("float32")
 
 
-fin_out = cl.session.run(cl.output(out))
+fin_out = cl.session.run(cl.output(out2))
 
 print fin_out.shape, fin_out
 
