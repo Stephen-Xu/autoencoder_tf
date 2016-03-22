@@ -41,9 +41,4 @@ ori2 = np.reshape(ori,[1*218*218,96])
 
 #print fin_out.shape, fin_out
 
-print np.mean((pow(fin_out-ori2,2)**0.5)
-
-
-#print cl.session.run(o)
-
-
+print np.mean((pow(fin_out-ori2,2)**0.5))
