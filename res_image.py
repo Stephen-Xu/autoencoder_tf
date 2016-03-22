@@ -29,9 +29,9 @@ def get_conv(data):
         
         l_session.run(tf.initialize_all_variables())
         
-        o = l_session.run(conv_reduced,feed_dict={x:data})
+        r = l_session.run(conv_reduced,feed_dict={x:data})
         
-        r = l_session.run(conv_original,feed_dict={x:data})
+        o = l_session.run(conv_original,feed_dict={x:data})
         
     
     return o,r
@@ -67,11 +67,11 @@ print o.shape,np.mean(o)
 print r.shape,np.mean(r)
 
 
-l_o = np.squeeze(o)
+l_r = np.squeeze(r)
 
-l_o = np.reshape(l_o,[109*109,24])
+l_r = np.reshape(l_r,[109*109,24])
 
-c = cl.session.run(cl.output(l_o))
+c = cl.session.run(cl.output(l_r))
 
 print c.shape
 
@@ -79,13 +79,15 @@ c_o = np.reshape(c,[109,109,96])
 
 c_o = np.expand_dims(c_o,0)
 
-print np.mean(pow(c_o-r,2))
+print np.mean(pow(c_o-o,2))
 print c_o.shape,np.mean(c_o)
-print c_o[0,0:2,0:2,0]
-print r[0,0:2,0:2,0]
+print c_o
+print r
+
+'''
 
 for i in range(len(cl.layers)):
     w = cl.session.run(cl.layers[i].W)
     print "W ",i,":",np.mean(w),",",np.std(w)
     
-    
+   ''' 
