@@ -38,6 +38,7 @@ class classifier(object):
         self.generated = False
         self.c_ori = None
         self.c_red = None
+        self.input = None
         
     def __enter__(self):
         return self
@@ -193,6 +194,7 @@ class classifier(object):
 
             self.c_ori = conv_original
             self.c_red = conv_reduced
+            self.input = x
             
             
             for l in range(len(self.layers)):
