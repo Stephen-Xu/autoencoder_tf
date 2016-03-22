@@ -28,7 +28,7 @@ data_ = np.expand_dims(data,0).astype("float32")
 
 c,o = cl.get_convolution(data_)
 
-
+ori = cl.session.run(o)
 
 out = cl.session.run(c)
 
@@ -37,7 +37,12 @@ out2 = np.reshape(out,[1*218*218,24]).astype("float32")
 
 fin_out = cl.session.run(cl.output(out2))
 
-print fin_out.shape, fin_out
+ori2 = np.reshape(ori,[1*218*218,96])
+
+#print fin_out.shape, fin_out
+
+print np.mean((pow(fin_out-ori2,2)**0.5)
+
 
 #print cl.session.run(o)
 
