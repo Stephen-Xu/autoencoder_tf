@@ -26,9 +26,19 @@ data = mat['a']
 data_ = np.expand_dims(data,0).astype("float32")
 
 
-o,c = cl.get_convolution(data_)
+c,o = cl.get_convolution(data_)
 
 
-print cl.session.run(o)
-print cl.session.run(c)
+
+out = cl.session.run(o)
+
+out = np.reshape(out,[218*218,24]).astype("float32")
+
+
+fin_out = cl.session.run(cl.output(out))
+
+print fin_out.shape, fin_out
+
+#print cl.session.run(o)
+
 
