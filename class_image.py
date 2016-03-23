@@ -25,28 +25,35 @@ data = mat['a']
 
 data_ = np.expand_dims(data,0).astype("float32")
 
+data_ = data_[:,:7,:7,:3]
 
+print data_
 c,o = cl.get_convolution(data_)
 
 ori = cl.session.run(o)
 
 out = cl.session.run(c)
 
-out2 = np.reshape(out,[1*218*218,24]).astype("float32")
+print out.shape
+print ori.shape
+
+out2 = np.reshape(out,[1*1*1,24]).astype("float32")
 
 
 fin_out = cl.session.run(cl.output(out2))
 
-ori2 = np.reshape(ori,[1*218*218,96])
+ori2 = np.reshape(ori,[1*1*1,96])
 
 #print fin_out.shape, fin_out
 
 print np.mean((pow(fin_out-ori2,2)**0.5))
 
-recon = np.reshape(fin_out,[1,218,218,96])
+recon = np.reshape(fin_out,[1,1,1,96])
 
 
 dic = {'original':ori,'reduced':recon}
 
 sio.savemat("test.mat",dic)
 
+print fin_out
+print ori2
