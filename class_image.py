@@ -18,42 +18,51 @@ session = cl.init_network()
      
 cl.stop_dropout()
     
-cl.load_model('./converted.mdl',session=session)
+cl.load_model('./converted_normed.mdl',session=session)
 
-mat = sio.loadmat("./single_ex.mat")
-data = mat['a']
+mat = sio.loadmat("./subset.mat")
+data = mat['subset'].astype("float32")
 
-data_ = np.expand_dims(data,0).astype("float32")
+res_reduced = np.zeros([50,218,218,96])
+res_original = np.zeros([50,218,218,96])
+#data_ = np.expand_dims(data,0).astype("float32")
 
-data_ = data_[:,:7,:7,:3]
+#data_ = data_[:,:7,:7,:3]
 
-print data_
-c,o = cl.get_convolution(data_)
+#print data_
 
-ori = cl.session.run(o)
+for i in range(50):
 
-out = cl.session.run(c)
+	x = np.expand_dims(data[i,:,:,:],0)
+	c,o,_,_ = cl.get_convolution(x)
 
-print out.shape
-print ori.shape
+	ori = cl.session.run(o)
 
-out2 = np.reshape(out,[1*1*1,24]).astype("float32")
+	out = cl.session.run(c)
+
+#print out.shape
+#print ori.shape
+
+	out2 = np.reshape(out,[1*218*218,24]).astype("float32")
 
 
-fin_out = cl.session.run(cl.output(out2))
+	fin_out = cl.session.run(cl.output(out2))
 
-ori2 = np.reshape(ori,[1*1*1,96])
+	#ori2 = np.reshape(ori,[1*218*218,96])
 
 #print fin_out.shape, fin_out
 
-print np.mean((pow(fin_out-ori2,2)**0.5))
+	#print np.mean((pow(fin_out-ori2,2)**0.5))
 
-recon = np.reshape(fin_out,[1,1,1,96])
+	recon = np.reshape(fin_out,[1,218,218,96])
+
+	res_reduced[i,:,:,:] = recon
+	res_original[i,:,:,:] = ori
 
 
-dic = {'original':ori,'reduced':recon}
+dic = {'original':res_original,'reduced':res_reduced}
 
-sio.savemat("test.mat",dic)
+sio.savemat("first_test.mat",dic,do_compression=True)
 
-print fin_out
-print ori2
+#print fin_out
+#print ori2

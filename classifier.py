@@ -3,18 +3,19 @@ import layer
 from os import listdir
 from os.path import isfile, join
 import numpy as np
-
+import scipy.io as sio
 
 #FLAAAAAAAAAAAGS
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',35000,"""Number of iterations.""")
-tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
-tf.app.flags.DEFINE_integer('batch',50,"""Size of batches.""")
+tf.app.flags.DEFINE_integer('iters',15000,"""Number of iterations.""")
+tf.app.flags.DEFINE_string('model','./converted_normed.mdl',"""File for saving model.""")
+tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
-tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/images/',"""Data folder""")
+tf.app.flags.DEFINE_string('mean_image','./mean_image.mat',"""Mean image for VGG-NET""")
+tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/pre_images/',"""Data folder""")
 tf.app.flags.DEFINE_string('original','./conv',"""File for original filters""")
 tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced filters""")
 tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
@@ -156,7 +157,7 @@ class classifier(object):
         conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
         conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")        
         
-        return conv_reduced,conv_original
+        return conv_reduced,conv_original,ori_filters_number,red_filters_number
 
     def stop_dropout(self):
         self.use_dropout=False
@@ -192,7 +193,7 @@ class classifier(object):
             #x = tf.placeholder("float",[None,None,None,FLAGS.channels])###immagini
            
            
-            conv_reduced, conv_original = self.get_convolution(x)           
+            conv_reduced, conv_original,ori_filters_number,red_filters_number = self.get_convolution(x)           
             hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
             ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
             ori_1 = tf.reshape(conv_original,[1,ori_filters_number])
@@ -220,14 +221,21 @@ class classifier(object):
 
             image = tf.image.decode_jpeg(value,channels=3)
         
-    
+    	    import scipy.io as sio	
             #image = tf.image.convert_image_dtype(image,dtype=tf.float32)
             image = tf.to_float(image)
+            a_image = sio.loadmat(FLAGS.mean_image)
+	    m_image = a_image['mean_image'].astype("float32")
+	    #m_image = np.expand_dims(m_image,0)
             image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
+            image = image-m_image
             image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
       
             image = tf.expand_dims(image,[0])
 
+
+	   
+	    
 
             get_batch = tf.train.batch([image], batch_size=FLAGS.batch, num_threads=2016, capacity=200, enqueue_many=True)
         
@@ -245,6 +253,7 @@ class classifier(object):
             cost = initial_cost
             for i in range(FLAGS.iters):
                 actual_batch = self.session.run(get_batch)
+		#print "*************************NEG: ",(actual_batch<0).sum()
                 _, c = self.session.run([tr,loss],feed_dict={x:actual_batch})
                 print "Cost at iter ",i," : ",c
                 if(c<cost):
@@ -269,20 +278,22 @@ class classifier(object):
             #print "W: ", self.session.run(self.layers[0].W)
 
 
-
+	'''	
             import scipy.io as sio
 
             mat = sio.loadmat("./single_ex.mat")
             data = mat['a']
 
             data_ = np.expand_dims(data,0)
-            patch = data[:,0:7,0:7,:]
+            patch = data_[:,0:7,0:7,:]
            # print patch.shape
-            print "ori: ",np.mean(self.session.run(ori_1,feed_dict={x:patch}),0)
-            print "red: ",np.mean(self.session.run(hat_1,feed_dict={x:patch}),0)
-            print "bori: ",np.mean(self.session.run(ori_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
-            print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
+           # print "ori: ",np.mean(self.session.run(ori_1,feed_dict={x:patch}),0)
+           # print "red: ",np.mean(self.session.run(hat_1,feed_dict={x:patch}),0)
+           # print "bori: ",np.mean(self.session.run(ori_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
+           # print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
             
-            #print "patch:",patch
-            #print "batch: ",actual_batch[0]
-           
+            print "patch:",patch
+            print "batch: ",actual_batch[0]
+            #print "NEG: ",(patch<0).sum()
+	'''
+	    
