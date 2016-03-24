@@ -140,7 +140,10 @@ class classifier(object):
 
 
 
-    def get_convolution(self,x):
+    def get_convolution(self,x,padding=None):
+        
+        if(padding is None):
+            padding = [1,1,1,1]
         
         ori = np.loadtxt(FLAGS.original).astype("float32")
         ori_filters_number = ori.shape[1]
@@ -154,8 +157,8 @@ class classifier(object):
         original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
         reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
         
-        conv_reduced = tf.nn.conv2d(x,reduced_filters,[1,1,1,1],"VALID")
-        conv_original = tf.nn.conv2d(x,original_filters,[1,1,1,1],"VALID")        
+        conv_reduced = tf.nn.conv2d(x,reduced_filters,padding,"VALID")
+        conv_original = tf.nn.conv2d(x,original_filters,padding,"VALID")        
         
         return conv_reduced,conv_original,ori_filters_number,red_filters_number
 

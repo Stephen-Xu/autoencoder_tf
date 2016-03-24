@@ -34,7 +34,7 @@ res_original = np.zeros([50,218,218,96])
 for i in range(50):
 
 	x = np.expand_dims(data[i,:,:,:],0)
-	c,o,_,_ = cl.get_convolution(x)
+	c,o,_,_ = cl.get_convolution(x,padding=[1,2,2,1])
 
 	ori = cl.session.run(o)
 
@@ -43,7 +43,7 @@ for i in range(50):
 #print out.shape
 #print ori.shape
 
-	out2 = np.reshape(out,[1*218*218,24]).astype("float32")
+	out2 = np.reshape(out,[1*109*109,24]).astype("float32")
 
 
 	fin_out = cl.session.run(cl.output(out2))
@@ -54,7 +54,7 @@ for i in range(50):
 
 	#print np.mean((pow(fin_out-ori2,2)**0.5))
 
-	recon = np.reshape(fin_out,[1,218,218,96])
+	recon = np.reshape(fin_out,[1,109,109,96])
 
 	res_reduced[i,:,:,:] = recon
 	res_original[i,:,:,:] = ori
