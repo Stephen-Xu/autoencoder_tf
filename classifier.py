@@ -200,6 +200,12 @@ class classifier(object):
            
            
             conv_reduced, conv_original,ori_filters_number,red_filters_number = self.get_convolution(x)           
+            
+            print conv_reduced.shape
+            print conv_original.shape
+            print ori_filters_number
+            print red_filters_number
+            
             hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
             ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
             ori_1 = tf.reshape(conv_original,[1,ori_filters_number])
