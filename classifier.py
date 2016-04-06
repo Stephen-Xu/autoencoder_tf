@@ -3,22 +3,21 @@ import layer
 from os import listdir
 from os.path import isfile, join
 import numpy as np
-import scipy.io as sio
+
 
 #FLAAAAAAAAAAAGS
 
 FLAGS = tf.app.flags.FLAGS
 
 tf.app.flags.DEFINE_integer('iters',15000,"""Number of iterations.""")
-tf.app.flags.DEFINE_string('model','./converted_normed.mdl',"""File for saving model.""")
+tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
 tf.app.flags.DEFINE_integer('width',224,"""Width of images""")
-tf.app.flags.DEFINE_string('mean_image','./mean_image.mat',"""Mean image for VGG-NET""")
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/pre_images/',"""Data folder""")
-tf.app.flags.DEFINE_string('original','./conv',"""File for original filters""")
-tf.app.flags.DEFINE_string('reduced','./red_feat_lin_24',"""File for reduced filters""")
-tf.app.flags.DEFINE_integer('conv_width',7,"""Convolutional width""")
+tf.app.flags.DEFINE_string('original','./conv64',"""File for original filters""")
+tf.app.flags.DEFINE_string('reduced','./red_7',"""File for reduced filters""")
+tf.app.flags.DEFINE_integer('conv_width',3,"""Convolutional width""")
 tf.app.flags.DEFINE_integer('channels',3,"""Number of images channel""")
 tf.app.flags.DEFINE_integer('out_conv_dim',1,"""Shape of convolutional output""")
 tf.app.flags.DEFINE_float('learning_rate',0.00125,"""Learning rate for optimizer""")
@@ -224,17 +223,17 @@ class classifier(object):
 
             image = tf.image.decode_jpeg(value,channels=3)
         
-    	    import scipy.io as sio	
+    	    #import scipy.io as sio	
             #image = tf.image.convert_image_dtype(image,dtype=tf.float32)
             image = tf.to_float(image)
-            a_image = sio.loadmat(FLAGS.mean_image)
-	    m_image = a_image['mean_image'].astype("float32")
+            #a_image = sio.loadmat(FLAGS.mean_image)
+	    #m_image = a_image['mean_image'].astype("float32")
 	    #m_image = np.expand_dims(m_image,0)
             image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
-            image = image-m_image
+            #image = image-m_image
             image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
       
-            image = tf.expand_dims(image,[0])
+            #image = tf.expand_dims(image,[0])
 
 
 	   
@@ -280,8 +279,7 @@ class classifier(object):
             #print "ba: ",actual_batch.shape
             #print "W: ", self.session.run(self.layers[0].W)
 
-
-	'''	
+	'''
             import scipy.io as sio
 
             mat = sio.loadmat("./single_ex.mat")
@@ -298,5 +296,5 @@ class classifier(object):
             print "patch:",patch
             print "batch: ",actual_batch[0]
             #print "NEG: ",(patch<0).sum()
-	'''
-	    
+	
+	'''    
