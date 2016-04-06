@@ -83,10 +83,11 @@ class classifier(object):
             self.load_model(model,session=self.session)
             
         #ori = np.loadtxt(FLAGS.original).astype("float32")
-        ori = np.loadtxt("conv64").astype("float32")
+        ori = np.loadtxt("./conv64").astype("float32")
         ori_filters_number = ori.shape[1]
         ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
-        red = np.loadtxt(FLAGS.reduced).astype("float32")
+        #red = np.loadtxt(FLAGS.reduced).astype("float32")
+        red = np.loadtxt("./red_7").astype("float32")
         red_filters_number = red.shape[1]
         red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
 
@@ -145,10 +146,12 @@ class classifier(object):
         if(padding is None):
             padding = [1,1,1,1]
         
-        ori = np.loadtxt(FLAGS.original).astype("float32")
+        #ori = np.loadtxt(FLAGS.original).astype("float32")
+        ori = np.loadtxt("./conv64").astype("float32")
         ori_filters_number = ori.shape[1]
         ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
-        red = np.loadtxt(FLAGS.reduced).astype("float32")
+        #red = np.loadtxt(FLAGS.reduced).astype("float32")
+        red = np.loadtxt("./red_7").astype("float32")
         red_filters_number = red.shape[1]
         red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
 
