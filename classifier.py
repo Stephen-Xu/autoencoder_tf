@@ -9,7 +9,7 @@ import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('iters',15000,"""Number of iterations.""")
+tf.app.flags.DEFINE_integer('iters',150,"""Number of iterations.""")
 tf.app.flags.DEFINE_string('model','./converted.mdl',"""File for saving model.""")
 tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
 tf.app.flags.DEFINE_integer('heigth',224,"""Height of images""")
@@ -136,7 +136,11 @@ class classifier(object):
     def train(self,session=None):#FLAAAGSSS!:
         
         
-        with tf.Graph().as_default():
+        g = tf.Graph()
+        
+        g.as_graph_def()
+        
+        with g.as_default():
             
         #######################
             if(not(session is None)):
