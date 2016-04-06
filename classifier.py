@@ -73,42 +73,7 @@ class classifier(object):
     
     def test_model(self,data,session=None,model=None):
         
-        if(self.session is None):
-            init = tf.initialize_alla_variables()
-            session = tf.Session()
-            session.run(init)
-            self.session = session
-            
-        if(not model is None):
-            self.load_model(model,session=self.session)
-            
-        #ori = np.loadtxt(FLAGS.original).astype("float32")
-        ori = np.loadtxt("./conv64").astype("float32")
-        ori_filters_number = ori.shape[1]
-        ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
-        #red = np.loadtxt(FLAGS.reduced).astype("float32")
-        red = np.loadtxt("./red_7").astype("float32")
-        red_filters_number = red.shape[1]
-        red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filters_number])
-
-    #######################################MODIFICARE!!!!!!!!!!!!!!!!!
-        
-        temp = tf.constant(data,shape=data.shape,dtype="float32")
-        patch =  tf.random_crop(temp,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-        patch = tf.expand_dims(patch,[0])
-    #######################################MODIFICARE!!!!!!!!!!!!!!!!!
-
-        original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
-        reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
-          
-        conv_reduced = tf.nn.conv2d(patch,reduced_filters,[1,1,1,1],"VALID")
-        conv_original = tf.nn.conv2d(patch,original_filters,[1,1,1,1],"VALID")   
-        
-        out = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
-    
-        
-        return session.run(out),session.run(conv_original)
-        
+       pass
     
             
     def load_model(self,name,session=None,saver=None):
@@ -201,31 +166,29 @@ class classifier(object):
            
             conv_reduced, conv_original,ori_filters_number,red_filters_number = self.get_convolution(x)           
             
-            print conv_reduced.shape
-            print conv_original.shape
-            print ori_filters_number
-            print red_filters_number
+       
             
             hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
             ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
-            ori_1 = tf.reshape(conv_original,[1,ori_filters_number])
-            hat_1 = self.output(tf.reshape(conv_reduced,[1,red_filters_number]))
             loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
 
          
             
-            
+            ''' #regularized loss
             for l in range(len(self.layers)):
                 if(l==0):
                     c_w = tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
                 else:
                     c_w = c_w+tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
-                
-               
+                               
         
             reg_loss = loss+FLAGS.reg_weight*c_w
+          
+            tr_l  = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(reg_loss)
+            
+            '''
+            
             tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
-            tr_l  = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(reg_loss)        
 
             file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
             reader = tf.WholeFileReader()
@@ -233,17 +196,11 @@ class classifier(object):
 
             image = tf.image.decode_jpeg(value,channels=3)
         
-    	    #import scipy.io as sio	
             #image = tf.image.convert_image_dtype(image,dtype=tf.float32)
             image = tf.to_float(image)
-            #a_image = sio.loadmat(FLAGS.mean_image)
-	    #m_image = a_image['mean_image'].astype("float32")
-	    #m_image = np.expand_dims(m_image,0)
             image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
-            #image = image-m_image
             image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
       
-            #image = tf.expand_dims(image,[0])
 
 
 	   
