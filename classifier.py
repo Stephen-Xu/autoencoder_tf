@@ -200,7 +200,7 @@ class classifier(object):
             image = tf.to_float(image)
             image.set_shape([FLAGS.heigth,FLAGS.width,FLAGS.channels])
             image = tf.random_crop(image,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
-      
+            image = tf.expand_dims(image,0)
 
 
 	   
