@@ -82,7 +82,8 @@ class classifier(object):
         if(not model is None):
             self.load_model(model,session=self.session)
             
-        ori = np.loadtxt(FLAGS.original).astype("float32")
+        #ori = np.loadtxt(FLAGS.original).astype("float32")
+        ori = np.loadtxt("conv64").astype("float32")
         ori_filters_number = ori.shape[1]
         ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
         red = np.loadtxt(FLAGS.reduced).astype("float32")
