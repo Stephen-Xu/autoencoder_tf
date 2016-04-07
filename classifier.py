@@ -140,7 +140,7 @@ class classifier(object):
         
         g.as_graph_def()
         
-        with g.as_default():
+        with g.as_default() and g.name_scope("recon") as scope:
             
         #######################
             if(not(session is None)):
