@@ -24,17 +24,17 @@ class layer(object):
         
         if(eur):
             if(self.activation =='sigmoid'):
-                self.W = tf.Variable(tf.random_uniform(units,minval=(-4*(6.0/(self.n_in+self.n_out))**0.5),maxval=(4*(6.0/(self.n_in+self.n_out))**0.5)))
+                self.W = tf.Variable(tf.random_uniform(units,minval=(-4*(6.0/(self.n_in+self.n_out))**0.5),maxval=(4*(6.0/(self.n_in+self.n_out))**0.5)),name="W")
             elif(self.activation == "leaky_relu6" or self.activation == 'relu' or self.activation == 'relu6' or self.activation == "leaky_relu"):
-                self.W = tf.Variable(tf.random_uniform(units,minval=0,maxval=(6.0/(self.n_in+self.n_out))**0.5))
+                self.W = tf.Variable(tf.random_uniform(units,minval=0,maxval=(6.0/(self.n_in+self.n_out))**0.5),name="W")
             elif(self.activation == 'tanh'): 
-                self.W = tf.Variable(tf.random_uniform(units,minval=(-(6.0/(self.n_in+self.n_out))**0.5),maxval=((6.0/(self.n_in+self.n_out))**0.5)))
+                self.W = tf.Variable(tf.random_uniform(units,minval=(-(6.0/(self.n_in+self.n_out))**0.5),maxval=((6.0/(self.n_in+self.n_out))**0.5)),name="W")
             else:
-                self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
+                self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std),name="W")
         else:   
-            self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std))
+            self.W = tf.Variable(tf.truncated_normal(units,mean=mean,stddev=std),name="W")
         
-        self.b = tf.Variable(tf.zeros([units[1]]))
+        self.b = tf.Variable(tf.zeros([units[1]]),name="b")
         
         
         
