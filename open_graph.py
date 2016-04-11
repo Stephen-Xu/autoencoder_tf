@@ -8,8 +8,6 @@ graph_def = tf.GraphDef()
 
 graph_def.ParseFromString(fileContent)
 
-
-tf.import_graph_def(graph_def, input_map={ "images": images })
 print "graph loaded from disk"
 
 graph = tf.get_default_graph()
