@@ -12,11 +12,14 @@ print "graph loaded from disk"
 
 graph = tf.get_default_graph()
 
-with tf.Session() as sess:
-  init = tf.initialize_all_variables()
-  sess.run(init)
+sess = tf.Session()
+
+
+
+init = tf.initialize_all_variables()
+sess.run(init)
   
   
-  layer = graph.get_tensor_by_name("import/recon/layer0/W:0")
+layer = graph.get_tensor_by_name("import/recon/layer0/W:0")
   
-  print sess.run(layer)
+print sess.run(layer)
