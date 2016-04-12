@@ -224,7 +224,7 @@ class classifier(object):
                 g_save = g.as_graph_def()
         
                 with tf.gfile.GFile("out_graph","wb") as f:
-                    f.write(g_save.SeralizeToString())
+                    f.write(g_save.SerializeToString())
         
                 print "Initial cost: ",initial_cost," Final cost: ",final_cost," Best: ",c
                       
