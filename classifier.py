@@ -177,22 +177,6 @@ class classifier(object):
                 ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
                 loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
 
-         
-            
-            ''' #regularized loss
-            for l in range(len(self.layers)):
-                if(l==0):
-                    c_w = tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
-                else:
-                    c_w = c_w+tf.pow(tf.reduce_sum(tf.pow((self.layers[l].W),2)),0.5)/((self.layers[l].n_out+self.layers[l].n_in)**0.5)
-                               
-        
-            reg_loss = loss+FLAGS.reg_weight*c_w
-          
-            tr_l  = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(reg_loss)
-            
-            '''
-            
                 tr = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(loss)
 
                 file_queue = tf.train.string_input_producer(files, shuffle=True, capacity=len(files))
@@ -254,22 +238,3 @@ class classifier(object):
             #print "ba: ",actual_batch.shape
             #print "W: ", self.session.run(self.layers[0].W)
 
-	'''
-            import scipy.io as sio
-
-            mat = sio.loadmat("./single_ex.mat")
-            data = mat['a']
-
-            data_ = np.expand_dims(data,0)
-            patch = data_[:,0:7,0:7,:]
-           # print patch.shape
-           # print "ori: ",np.mean(self.session.run(ori_1,feed_dict={x:patch}),0)
-           # print "red: ",np.mean(self.session.run(hat_1,feed_dict={x:patch}),0)
-           # print "bori: ",np.mean(self.session.run(ori_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
-           # print "bred: ",np.mean(self.session.run(hat_1,feed_dict={x:np.expand_dims(actual_batch[0],0)}),0)
-            
-            print "patch:",patch
-            print "batch: ",actual_batch[0]
-            #print "NEG: ",(patch<0).sum()
-	
-	'''    
