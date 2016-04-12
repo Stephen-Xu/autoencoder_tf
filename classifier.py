@@ -46,8 +46,7 @@ class classifier(object):
     
     def generate_classifier(self,euris=False,mean_w=0.0,std_w=1.0,dropout=False,keep_prob_dropout=0.5):
         for i in range(len(self.units)-1):
-        	 with tf.variable_scope("layer"+str(i)):
-		    self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris))
+            self.layers.append(layer.layer([self.units[i],self.units[i+1]],activation=self.act_func[i],mean=mean_w,std=std_w,eur=euris))
         if(euris):
             self.use_euristic = True
             
@@ -139,24 +138,21 @@ class classifier(object):
         
         g = tf.Graph()
         
+        g.as_graph_def()
         
-        with g.as_default():
-
-            files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
+        with g.as_default() and g.name_scope("recon") as scope:
             
         #######################
             if(not(session is None)):
                 self.session = session
             elif(self.session is None):
                 self.session = self.init_network()
-	
-	    with g.name_scope("recon") as scope:
-
-	            if(not(self.generated)):
-        	        self.generate_classifier()
-                	#self.generate_classifier(euris=True,dropout=True,keep_prob_dropout=[1.0,1.0,0.5])
-	                self.generate_classifier(euris=True,dropout=False)
-        	        self.generated = True    
+            
+            if(not(self.generated)):
+                self.generate_classifier()
+                #self.generate_classifier(euris=True,dropout=True,keep_prob_dropout=[1.0,1.0,0.5])
+                self.generate_classifier(euris=True,dropout=False)
+                self.generated = True    
         
         
         
@@ -164,19 +160,21 @@ class classifier(object):
        # self.keep_prob_dropout=keep_prob
         
     
+            files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
         
         
-	            x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
+        
+            x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])###immagini
             #x = tf.placeholder("float",[None,None,None,FLAGS.channels])###immagini
            
            
-        	    conv_reduced, conv_original,ori_filters_number,red_filters_number = self.get_convolution(x)           
+            conv_reduced, conv_original,ori_filters_number,red_filters_number = self.get_convolution(x)           
             
        
             
-	            hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
-        	    ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
-	            loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
+            hat_c = self.output(tf.reshape(conv_reduced,[FLAGS.batch,red_filters_number]))
+            ori_c = tf.reshape(conv_original,[FLAGS.batch,ori_filters_number])
+            loss = tf.reduce_mean(tf.pow(ori_c-hat_c,2))
 
          
             
@@ -238,10 +236,7 @@ class classifier(object):
             actual_batch = self.session.run(get_batch)
             final_cost = self.session.run(loss,feed_dict={x:actual_batch})
         
-            g_save = g.as_graph_def()
-
-	    with tf.gfile.GFile("out_graph","wb") as f:
-		f.write(g_save.SerializeToString())
+        
         
             print "Initial cost: ",initial_cost," Final cost: ",final_cost," Best: ",c
                   
