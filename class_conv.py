@@ -27,8 +27,10 @@ original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
 reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
 reconstruction_filters = tf.Variable(tf.random_normal([red_filters_number,ori_filters_number]),name="W",dtype="float32")
 
+reconstruction_filters = tf.expand_dims(tf.expand_dims(reconstruction_filters,0),0)
 
 x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
+
 
 
 conv_original = tf.nn.conv2d(x,original_filters,padding,"VALID")
@@ -70,7 +72,7 @@ for i in range(FLAGS.iters):
     _, c = session.run([tr,loss],feed_dict={x:actual_batch})
     print "Cost at iter ",i," : ",c
     if(c<cost):
-        np.save("rec_conv",session.run(W))
+        np.save("rec_conv",session.run(tf.squeeze(W)))
 
 actual_batch = session.run(get_batch)
 final_cost = session.run(loss,feed_dict={x:actual_batch})
