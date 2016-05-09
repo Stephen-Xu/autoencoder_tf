@@ -4,6 +4,8 @@ import numpy as np
 
 session = tf.Session()
 
+FLAGS = tf.app.flags.FLAGS
+
 tf.app.flags.DEFINE_string('path','/home/ceru/datasets/ILSVRC2012_VAL_SET/pre_images/',"""Data folder""")
 tf.app.flags.DEFINE_integer('conv_height',3,"""Height of kernel filters""")
 tf.app.flags.DEFINE_integer('conv_width',3,"""Width of kernel filters""")
@@ -12,7 +14,7 @@ tf.app.flags.DEFINE_integer('iters',1000,"""Iterations number""")
 tf.app.flags.DEFINE_float('learning_rate',0.00125,"""Learning rate for optimizer""")
 tf.app.flags.DEFINE_integer('batch',100,"""Size of batches.""")
 
-
+padding = [1,1,1,1]
 ori = np.loadtxt("./conv64").astype("float32")
 ori_filters_number = ori.shape[1]
 ori = np.reshape(ori,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,ori_filters_number])
@@ -23,7 +25,7 @@ red = np.reshape(red,[FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels,red_filte
 
 original_filters = tf.constant(ori,shape=ori.shape,dtype="float32")
 reduced_filters = tf.constant(red,shape=red.shape,dtype="float32")
-reconstruction_filters = tf.Variable(W,tf.random_normal([red.shape,ori.shape]),dtype="float32")
+reconstruction_filters = tf.Variable(tf.random_normal([red_filters_number,ori_filters_number]),name="W",dtype="float32")
 
 
 x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channels])
@@ -31,7 +33,7 @@ x = tf.placeholder("float",[None,FLAGS.conv_width,FLAGS.conv_width,FLAGS.channel
 
 conv_original = tf.nn.conv2d(x,original_filters,padding,"VALID")
 conv_reduced = tf.nn.conv2d(x,reduced_filters,padding,"VALID")
-conv_reconstruction = tf.nn.conv2d(conv_reduced,reconstruciotn_filters,padding,"VALID")
+conv_reconstruction = tf.nn.conv2d(conv_reduced,reconstruction_filters,padding,"VALID")
 
 
 files = [FLAGS.path+f for f in listdir(FLAGS.path) if isfile(join(FLAGS.path, f))]
