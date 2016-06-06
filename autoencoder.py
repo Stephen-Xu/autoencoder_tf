@@ -224,7 +224,7 @@ class autoencoder(object):
         
         return params
     
-    def train(self,data,batch,reg_weight=False,record_weight=False,reg_lambda=0.01,use_dropout=False,keep_prob=0.5,gradient='gradient',learning_rate=0.1,w_file="./weights.txt",model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
+    def train(self,data,batch,saving=True,reg_weight=False,record_weight=False,reg_lambda=0.01,use_dropout=False,keep_prob=0.5,gradient='gradient',learning_rate=0.1,w_file="./weights.txt",model_name='./model.ckpt',display_w=False,verbose=True,le=False,tau=1.0,session=None,n_iters=1000,display=False,noise=False,noise_level=1.0):
         
         if(not(batch is None)):
             n_batch = len(batch)
@@ -377,7 +377,8 @@ class autoencoder(object):
                     plt.clf()
                     plt.scatter(ridotti[:,0],ridotti[:,1])
                     plt.draw()
-                saver.save(self.session,model_name)
+		if(saving):
+	                saver.save(self.session,model_name)
                     #self.save_model(session=self.session)
                 if(verbose):
                     print "Best model found so far at iter: %d"%(i+1),"with cost %f"%c

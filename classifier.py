@@ -234,7 +234,7 @@ class classifier(object):
                 self.use_dropout=False        
                 print "ori: ",np.mean(self.session.run(ori_c,feed_dict={x:actual_batch}),0)
                 print "red: ",np.mean(self.session.run(hat_c,feed_dict={x:actual_batch}),0)
-            
+   		print "W: ",self.session.run(self.layers[0].W)         
             #print "ba: ",actual_batch.shape
             #print "W: ", self.session.run(self.layers[0].W)
 

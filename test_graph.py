@@ -1,6 +1,6 @@
 from classifier import classifier
 import numpy as np
-
+import tensorflow as tf
 
 
 '''
@@ -13,8 +13,10 @@ cl.generate_classifier()
 session = cl.init_network()
 '''
 
-with open("converted.mdl", mode='rb') as f:
+with open("converted.mdl.meta", mode='rb') as f:
   fileContent = f.read()
+
+print fileContent
 
 graph_def = tf.GraphDef()
 

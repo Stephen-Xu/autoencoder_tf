@@ -23,8 +23,17 @@ cl.load_model('./converted_normed.mdl',session=session)
 mat = sio.loadmat("./subset.mat")
 data = mat['subset'].astype("float32")
 
-res_reduced = np.zeros([50,218,218,96])
-res_original = np.zeros([50,218,218,96])
+mat2 = sio.loadmat("./bias")
+bias = mat2['bias']
+
+bias_m = np.ones([109,109,96])
+
+for i in range(96):
+	bias_m[:,:,i] = np.tile(bias[i],[109,109])
+
+
+res_reduced = np.zeros([50,109,109,96])
+res_original = np.zeros([50,109,109,96])
 #data_ = np.expand_dims(data,0).astype("float32")
 
 #data_ = data_[:,:7,:7,:3]
@@ -56,8 +65,8 @@ for i in range(50):
 
 	recon = np.reshape(fin_out,[1,109,109,96])
 
-	res_reduced[i,:,:,:] = recon
-	res_original[i,:,:,:] = ori
+	res_reduced[i,:,:,:] = np.add(recon,bias_m)
+	res_original[i,:,:,:] = np.add(ori,bias_m)
 
 
 dic = {'original':res_original,'reduced':res_reduced}
